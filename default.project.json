@@ -30,26 +30,6 @@
       }
     },
 
-    "StarterPlayer": {
-      "StarterPlayerScripts": {
-        "Client": {
-          "Core": {
-            "$path": "src/client/Core"
-          }
-        }
-      }
-    },
-
-    "StarterPlayer": {
-      "StarterPlayerScripts": {
-        "Client": {
-          "UI": {
-            "$path": "src/client/UI"
-          }
-        }
-      }
-    },
-
     "Workspace": {
       "$properties": {
         "FilteringEnabled": true
