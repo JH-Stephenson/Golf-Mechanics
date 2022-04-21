@@ -16,7 +16,7 @@
     },
 
     "ServerStorage": {
-      "Server": {
+      "Storage": {
         "$path": "src/storage"
       }
     },
