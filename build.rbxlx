@@ -1,0 +1,196 @@
+<roblox version="4">
+  <Item class="Lighting" referent="0">
+    <Properties>
+      <string name="Name">Lighting</string>
+      <Color3 name="Ambient">
+        <R>0</R>
+        <G>0</G>
+        <B>0</B>
+      </Color3>
+      <float name="Brightness">2</float>
+      <bool name="GlobalShadows">true</bool>
+      <bool name="Outlines">false</bool>
+      <token name="Technology">1</token>
+    </Properties>
+  </Item>
+  <Item class="ReplicatedStorage" referent="1">
+    <Properties>
+      <string name="Name">ReplicatedStorage</string>
+    </Properties>
+    <Item class="Folder" referent="2">
+      <Properties>
+        <string name="Name">Common</string>
+      </Properties>
+      <Item class="Folder" referent="3">
+        <Properties>
+          <string name="Name">Classes</string>
+        </Properties>
+      </Item>
+      <Item class="Folder" referent="4">
+        <Properties>
+          <string name="Name">Components</string>
+        </Properties>
+        <Item class="Folder" referent="5">
+          <Properties>
+            <string name="Name">GUI</string>
+          </Properties>
+        </Item>
+        <Item class="Folder" referent="6">
+          <Properties>
+            <string name="Name">Objects</string>
+          </Properties>
+        </Item>
+        <Item class="Folder" referent="7">
+          <Properties>
+            <string name="Name">Particles</string>
+          </Properties>
+        </Item>
+        <Item class="Folder" referent="8">
+          <Properties>
+            <string name="Name">Sounds</string>
+          </Properties>
+        </Item>
+      </Item>
+      <Item class="Folder" referent="9">
+        <Properties>
+          <string name="Name">Events</string>
+        </Properties>
+      </Item>
+      <Item class="Folder" referent="10">
+        <Properties>
+          <string name="Name">Functions</string>
+        </Properties>
+      </Item>
+      <Item class="ModuleScript" referent="11">
+        <Properties>
+          <string name="Name">Hello</string>
+          <string name="Source">return function()
+	print("Hello, world!")
+end</string>
+        </Properties>
+      </Item>
+      <Item class="Folder" referent="12">
+        <Properties>
+          <string name="Name">Modules</string>
+        </Properties>
+      </Item>
+    </Item>
+  </Item>
+  <Item class="ServerScriptService" referent="13">
+    <Properties>
+      <string name="Name">ServerScriptService</string>
+    </Properties>
+    <Item class="Folder" referent="14">
+      <Properties>
+        <string name="Name">Server</string>
+      </Properties>
+      <Item class="Folder" referent="15">
+        <Properties>
+          <string name="Name">Core</string>
+        </Properties>
+        <Item class="Folder" referent="16">
+          <Properties>
+            <string name="Name">Modules</string>
+          </Properties>
+        </Item>
+        <Item class="Script" referent="17">
+          <Properties>
+            <string name="Name">Scripts</string>
+            <string name="Source">print("Hello world, from server!")</string>
+          </Properties>
+        </Item>
+      </Item>
+    </Item>
+  </Item>
+  <Item class="ServerStorage" referent="18">
+    <Properties>
+      <string name="Name">ServerStorage</string>
+    </Properties>
+    <Item class="Folder" referent="19">
+      <Properties>
+        <string name="Name">Server</string>
+      </Properties>
+      <Item class="Folder" referent="20">
+        <Properties>
+          <string name="Name">Classes</string>
+        </Properties>
+      </Item>
+      <Item class="Folder" referent="21">
+        <Properties>
+          <string name="Name">Events</string>
+        </Properties>
+      </Item>
+      <Item class="Folder" referent="22">
+        <Properties>
+          <string name="Name">Functions</string>
+        </Properties>
+      </Item>
+      <Item class="Folder" referent="23">
+        <Properties>
+          <string name="Name">Misc</string>
+        </Properties>
+      </Item>
+      <Item class="Folder" referent="24">
+        <Properties>
+          <string name="Name">Modules</string>
+        </Properties>
+      </Item>
+    </Item>
+  </Item>
+  <Item class="SoundService" referent="25">
+    <Properties>
+      <string name="Name">SoundService</string>
+      <bool name="RespectFilteringEnabled">true</bool>
+    </Properties>
+  </Item>
+  <Item class="StarterPlayer" referent="26">
+    <Properties>
+      <string name="Name">StarterPlayer</string>
+    </Properties>
+    <Item class="StarterPlayerScripts" referent="27">
+      <Properties>
+        <string name="Name">StarterPlayerScripts</string>
+      </Properties>
+      <Item class="Folder" referent="28">
+        <Properties>
+          <string name="Name">Client</string>
+        </Properties>
+        <Item class="LocalScript" referent="29">
+          <Properties>
+            <string name="Name">Core</string>
+            <string name="Source">print("Hello world, from client!")</string>
+          </Properties>
+        </Item>
+        <Item class="Folder" referent="30">
+          <Properties>
+            <string name="Name">UI</string>
+          </Properties>
+        </Item>
+      </Item>
+    </Item>
+  </Item>
+  <Item class="Workspace" referent="31">
+    <Properties>
+      <string name="Name">Workspace</string>
+      <bool name="FilteringEnabled">true</bool>
+    </Properties>
+    <Item class="Part" referent="32">
+      <Properties>
+        <string name="Name">Baseplate</string>
+        <bool name="Anchored">true</bool>
+        <Color3uint8 name="Color3uint8">6446690</Color3uint8>
+        <bool name="Locked">true</bool>
+        <Vector3 name="Position">
+          <X>0</X>
+          <Y>-10</Y>
+          <Z>0</Z>
+        </Vector3>
+        <Vector3 name="size">
+          <X>512</X>
+          <Y>20</Y>
+          <Z>512</Z>
+        </Vector3>
+      </Properties>
+    </Item>
+  </Item>
+</roblox>
