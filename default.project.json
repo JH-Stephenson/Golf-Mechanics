@@ -5,7 +5,8 @@
 
     "ReplicatedStorage": {
       "Common": {
-        "$path": "src/shared"
+        "$path": "src/shared",
+        "$ignoreUnknownInstances": true
       }
     },
 
@@ -25,6 +26,26 @@
       "StarterPlayerScripts": {
         "Client": {
           "$path": "src/client"
+        }
+      }
+    },
+
+    "StarterPlayer": {
+      "StarterPlayerScripts": {
+        "Client": {
+          "Core": {
+            "$path": "src/client/Core"
+          }
+        }
+      }
+    },
+
+    "StarterPlayer": {
+      "StarterPlayerScripts": {
+        "Client": {
+          "UI": {
+            "$path": "src/client/UI"
+          }
         }
       }
     },
