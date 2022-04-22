@@ -3,16 +3,16 @@
   "tree": {
     "$className": "DataModel",
 
-    "ReplicatedStorage": {
-      "Common": {
-        "$path": "src/shared",
+    "ServerScriptService": {
+      "Server": {
+        "$path": "src/server",
         "$ignoreUnknownInstances": true
       }
     },
 
-    "ServerScriptService": {
-      "Server": {
-        "$path": "src/server",
+    "ReplicatedStorage": {
+      "Common": {
+        "$path": "src/shared",
         "$ignoreUnknownInstances": true
       }
     },
