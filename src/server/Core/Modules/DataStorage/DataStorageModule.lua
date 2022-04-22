@@ -18,7 +18,7 @@ function DataStorageModule.SetupPlayer(Player)
     local CheckPlayersData = CurrentDataStore:GetAsync(Player.UserId)
 
     local PlayerJoinedTable = CurrentPlayerData[Player.UserId] or {};
-    PlayerData[Player.UserId] = PlayerJoinedTable
+    CurrentPlayerData[Player.UserId] = PlayerJoinedTable
 
     if CheckPlayersData == nil then
         print(Player.UserId.."'s not visited this game before!")
