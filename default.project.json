@@ -12,20 +12,23 @@
 
     "ServerScriptService": {
       "Server": {
-        "$path": "src/server"
+        "$path": "src/server",
+        "$ignoreUnknownInstances": true
       }
     },
 
     "ServerStorage": {
       "Storage": {
-        "$path": "src/storage"
+        "$path": "src/storage",
+        "$ignoreUnknownInstances": true
       }
     },
 
     "StarterPlayer": {
       "StarterPlayerScripts": {
         "Client": {
-          "$path": "src/client"
+          "$path": "src/client",
+          "$ignoreUnknownInstances": true
         }
       }
     },
@@ -72,7 +75,8 @@
     },
     "SoundService": {
       "$properties": {
-        "RespectFilteringEnabled": true
+        "RespectFilteringEnabled": true,
+        "$ignoreUnknownInstances": true
       }
     }
   }
