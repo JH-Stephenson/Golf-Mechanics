@@ -12,11 +12,19 @@ local ToolActivatedEvent = ReplicatedStorage.Common.Events.ToolActivatedEvent
 
 --RunTime
 ToolActivatedEvent.OnServerEvent:Connect(function(Player, ToolName)
-    if ToolName == ("Tee") then
-        local GolfTee = GolfTeeModule.CreateGolfTee(Player, game.Workspace:FindFirstChild(Player.UserId.."'s Golf Tee"))
-    end
-
-    if ToolName == ("Golf Ball") then
-        local GolfBall = GolfBallModule.CreateGolfBall(Player, game.Workspace:FindFirstChild(Player.UserId.."'s Golf Ball"), game.Workspace:FindFirstChild(Player.UserId.."'s Golf Tee"))
+    task.spawn(function()
+        local Success, ErrorData = pcall(function()
+            if ToolName == ("Tee") then
+                local GolfTee = GolfTeeModule.CreateGolfTee(Player, game.Workspace:FindFirstChild(Player.UserId.."'s Golf Tee"))
+            end
+        
+            if ToolName == ("Golf Ball") then
+                local GolfBall = GolfBallModule.CreateGolfBall(Player, game.Workspace:FindFirstChild(Player.UserId.."'s Golf Ball"), game.Workspace:FindFirstChild(Player.UserId.."'s Golf Tee"))
+            end
+        end)
+        
+        if not Success then
+            print(ErrorData)
+        end
     end
 end)
