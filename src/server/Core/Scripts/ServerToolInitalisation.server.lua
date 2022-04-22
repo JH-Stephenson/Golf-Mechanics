@@ -26,5 +26,5 @@ ToolActivatedEvent.OnServerEvent:Connect(function(Player, ToolName)
         if not Success then
             print(ErrorData)
         end
-    end
+    end)
 end)
