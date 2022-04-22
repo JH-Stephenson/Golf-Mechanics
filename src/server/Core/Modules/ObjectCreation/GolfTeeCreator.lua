@@ -4,13 +4,14 @@ function GolfTeeCreator.CreateGolfTee(Player, GolfTee)
     task.spawn(function()
         local Success, ErrorData = pcall(function()
             if not GolfTee then
-                local RaycastingModule = require(game.ServerScriptService.Server.Modules.Raycasting.RaycastingModule)
+                local RaycastingModule = require(game.ServerScriptService.Server.Core.Modules.Raycasting.RaycastingModule)
                 local RaycastingResult = RaycastingModule.FindPlayersGround(Player)
         
                 if RaycastingResult then
-                    local HumanoidRootPart = Player.Character:FindFirstChild("HumanoidRootPart")
+                    local WorkspaceCharacter = Player.Character
+                    local HumanoidRootPart = WorkspaceCharacter:FindFirstChild("HumanoidRootPart")
         
-                    local CreatedGolfTee = Instance.new("Part")
+                    local CreatedGolfTee = game.ReplicatedStorage.Common.Components.Objects.TeeObject:Clone()
                     CreatedGolfTee.Name = (Player.UserId.."'s Golf Tee")
                     CreatedGolfTee.Parent = game.ReplicatedStorage.Common.Components.Objects
                     CreatedGolfTee.Size = Vector3.new(0.3, 0.7, 0.3)
@@ -20,8 +21,12 @@ function GolfTeeCreator.CreateGolfTee(Player, GolfTee)
                     CreatedGolfTee.Position = CreatedGolfTee.Position + Vector3.new(0, (CreatedGolfTee.Size.Y / 2), 0)
         
                     CreatedGolfTee.CanCollide = true
+                    CreatedGolfTee.Anchored = true
                     CreatedGolfTee.Parent = game.Workspace
-        
+
+                    local TeeTool = WorkspaceCharacter:FindFirstChild("Tee")
+                    TeeTool:Destroy()
+
                     return CreatedGolfTee
                 else
                     print("Raycasted Ground could not identify the ground.")
