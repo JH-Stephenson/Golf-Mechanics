@@ -11,6 +11,7 @@ PlayersService.PlayerAdded:Connect(function(Player)
     task.spawn(function()
         local Success, ErrorData = pcall(function()
             print(Player.UserId.." has joined the game.")
+            DataStoreModule.SetupPlayer(Player)
         end)
 
         if not Success then 
