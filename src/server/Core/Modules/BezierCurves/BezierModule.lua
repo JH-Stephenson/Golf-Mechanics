@@ -70,5 +70,4 @@ function BezierModule.CubicBezier(Player, GolfTee, StartPart, MidPart1, MidPart2
     end)
 end
 
-
 return BezierModule
