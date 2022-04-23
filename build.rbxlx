@@ -712,6 +712,7 @@ SharedInitialisationModule.ClientModuleInitialisation()]]></ProtectedString>
 
 --Services
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
 
 --Variables
@@ -726,21 +727,41 @@ local GolfDriverServer = ReplicatedStorage.Common.Events.Tools.GolfDriver.GolfDr
 local PowerBarUI = game.Players.LocalPlayer.PlayerGui:WaitForChild("GolfPowerBar")
 local PowerSlider = PowerBarUI.OuterFrame.InnerFrame.PowerSlider
 
---VariableRegister
-GolfDriverClient.OnClientEvent:Connect(function()
-    UserInputRegister = true
-end)
-
 --RunTime
 UserInputService.InputBegan:Connect(function(GameInput, GameProcessedEvent)
     if GameInput.UserInputType == Enum.UserInputType.MouseButton1 or Enum.UserInputType.Touch or Enum.UserInputType.Gamepad1 then
-        print("Input Started")
+        if PowerBarUI.Enabled == true then
+            UserInputRegister = true
+            task.spawn(function()
+                local Success, ErrorData = pcall(function()
+                    while UserInputRegister == true do
+                        --START TO EDIT UI HERE
+                        print("hi")
+                        task.wait()
+                    end
+                end)
+
+                if not Success then
+                    print(ErrorData)
+                end
+            end)
+        end
     end
 end)
 
 UserInputService.InputEnded:Connect(function(GameInput, GameProcessedEvent)
     if GameInput.UserInputType == Enum.UserInputType.MouseButton1 or Enum.UserInputType.Touch or Enum.UserInputType.Gamepad1 then
-        print("Input Ended")
+        if PowerBarUI.Enabled == true then
+            task.spawn(function()
+                local Success, ErrorData = pcall(function()
+                    UserInputRegister = false
+                end)
+
+                if not Success then
+                    print(ErrorData)
+                end
+            end)
+        end
     end
 end)]]></ProtectedString>
 							<int64 name="SourceAssetId">-1</int64>
@@ -1095,13 +1116,13 @@ end)]]></ProtectedString>
 						<Y>4.92488003</Y>
 						<Z>-5.08899975</Z>
 						<R00>1</R00>
-						<R01>2.20877326e-13</R01>
-						<R02>-5.68434189e-14</R02>
+						<R01>-2.35088126e-13</R01>
+						<R02>5.68434189e-14</R02>
 						<R10>2.35088126e-13</R10>
-						<R11>0.999992371</R11>
-						<R12>-8.29895353e-15</R12>
+						<R11>1</R11>
+						<R12>9.46475378e-15</R12>
 						<R20>-5.68434189e-14</R20>
-						<R21>-9.46468263e-15</R21>
+						<R21>-9.46475462e-15</R21>
 						<R22>1</R22>
 					</CoordinateFrame>
 					<bool name="CanCollide">false</bool>
@@ -1343,13 +1364,13 @@ end)]]></ProtectedString>
 						<Y>4.52547312</Y>
 						<Z>-5.09010506</Z>
 						<R00>1</R00>
-						<R01>9.30732158e-10</R01>
-						<R02>6.98665459e-10</R02>
+						<R01>9.30269084e-10</R01>
+						<R02>6.98779146e-10</R02>
 						<R10>-9.30269084e-10</R10>
-						<R11>0.999992371</R11>
-						<R12>7.64226876e-11</R12>
+						<R11>1</R11>
+						<R12>7.64416169e-11</R12>
 						<R20>-6.98779146e-10</R20>
-						<R21>-7.64410341e-11</R21>
+						<R21>-7.64416169e-11</R21>
 						<R22>1</R22>
 					</CoordinateFrame>
 					<bool name="CanCollide">false</bool>
@@ -1496,13 +1517,13 @@ end)]]></ProtectedString>
 						<Y>2.77792811</Y>
 						<Z>-5.09010601</Z>
 						<R00>1</R00>
-						<R01>9.30489963e-10</R01>
-						<R02>6.98725855e-10</R02>
+						<R01>9.30026889e-10</R01>
+						<R02>6.98839542e-10</R02>
 						<R10>-9.30026889e-10</R10>
-						<R11>0.999992371</R11>
-						<R12>7.64325131e-11</R12>
+						<R11>1</R11>
+						<R12>7.64514424e-11</R12>
 						<R20>-6.98839542e-10</R20>
-						<R21>-7.64508595e-11</R21>
+						<R21>-7.64514424e-11</R21>
 						<R22>1</R22>
 					</CoordinateFrame>
 					<bool name="CanCollide">false</bool>
@@ -2698,23 +2719,23 @@ end)]]></ProtectedString>
 			<BinaryString name="Tags"></BinaryString>
 			<UniqueId name="UniqueId">691863620fe85698027556c20001bf1f</UniqueId>
 		</Properties>
-		<Item class="Folder" referent="2">
+		<Item class="Folder" referent="RBXBD01C61E97A649BD87088F00F12FA86E">
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<string name="Name">Common</string>
 				<int64 name="SourceAssetId">-1</int64>
 				<BinaryString name="Tags"></BinaryString>
-				<UniqueId name="UniqueId">691863620fe85698027556c20001bf83</UniqueId>
+				<UniqueId name="UniqueId">27629d78d4d03b440275aa230002722c</UniqueId>
 			</Properties>
-			<Item class="Folder" referent="RBXA466FEEA4DE8481590365418E1B5243E">
+			<Item class="Folder" referent="RBX22E4AE6E94084277996F61F5E76822DE">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<string name="Name">Modules</string>
 					<int64 name="SourceAssetId">-1</int64>
 					<BinaryString name="Tags"></BinaryString>
-					<UniqueId name="UniqueId">691863620fe85698027556c2000271b5</UniqueId>
+					<UniqueId name="UniqueId">27629d78d4d03b440275aa230002722d</UniqueId>
 				</Properties>
-				<Item class="ModuleScript" referent="RBX1621C7A6F5794EF28997CD4B2DD5DD7E">
+				<Item class="ModuleScript" referent="RBX40FA397FBA804CCF856BFAEE52296110">
 					<Properties>
 						<BinaryString name="AttributesSerialize"></BinaryString>
 						<Content name="LinkedSource"><null></null></Content>
@@ -2733,99 +2754,99 @@ end
 return SharedInitialisation]]></ProtectedString>
 						<int64 name="SourceAssetId">-1</int64>
 						<BinaryString name="Tags"></BinaryString>
-						<UniqueId name="UniqueId">691863620fe85698027556c200027597</UniqueId>
+						<UniqueId name="UniqueId">27629d78d4d03b440275aa2300027238</UniqueId>
 					</Properties>
 				</Item>
 			</Item>
-			<Item class="Folder" referent="RBX96A9E4C72A3F4D77BC0AD6EE64DB810D">
+			<Item class="Folder" referent="RBXE96207E07590465FA13AE563DCBCD737">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<string name="Name">Events</string>
 					<int64 name="SourceAssetId">-1</int64>
 					<BinaryString name="Tags"></BinaryString>
-					<UniqueId name="UniqueId">691863620fe85698027556c200027411</UniqueId>
+					<UniqueId name="UniqueId">27629d78d4d03b440275aa230002722e</UniqueId>
 				</Properties>
-				<Item class="Folder" referent="RBX9AC6C72DE8334E6AA2E087FDCF6F07DE">
+				<Item class="Folder" referent="RBX37AC4C59AA354040B2EB9B69265D0156">
 					<Properties>
 						<BinaryString name="AttributesSerialize"></BinaryString>
 						<string name="Name">Tools</string>
 						<int64 name="SourceAssetId">-1</int64>
 						<BinaryString name="Tags"></BinaryString>
-						<UniqueId name="UniqueId">691863620fe85698027556c2000e7c3c</UniqueId>
+						<UniqueId name="UniqueId">27629d78d4d03b440275aa230002722f</UniqueId>
 					</Properties>
-					<Item class="Folder" referent="RBXA1570491611D4BCE9C945D71B1292822">
+					<Item class="Folder" referent="RBX48DB396120EB4FA797362869647100BA">
 						<Properties>
 							<BinaryString name="AttributesSerialize"></BinaryString>
 							<string name="Name">GolfDriver</string>
 							<int64 name="SourceAssetId">-1</int64>
 							<BinaryString name="Tags"></BinaryString>
-							<UniqueId name="UniqueId">691863620fe85698027556c2000e7c3d</UniqueId>
+							<UniqueId name="UniqueId">27629d78d4d03b440275aa2300027230</UniqueId>
 						</Properties>
-						<Item class="RemoteEvent" referent="RBX351F1DC1DAEB4EE59CC54494469C1EA3">
+						<Item class="RemoteEvent" referent="RBXF2D87DEB6BAC4C0EAC2AC386BF677FE3">
 							<Properties>
 								<BinaryString name="AttributesSerialize"></BinaryString>
 								<string name="Name">GolfDriverClientSend</string>
 								<int64 name="SourceAssetId">-1</int64>
 								<BinaryString name="Tags"></BinaryString>
-								<UniqueId name="UniqueId">691863620fe85698027556c2000e7c46</UniqueId>
+								<UniqueId name="UniqueId">27629d78d4d03b440275aa2300027239</UniqueId>
 							</Properties>
 						</Item>
-						<Item class="RemoteEvent" referent="RBX2D2EF7DA8EAD4BF597DB7C5846981CB2">
+						<Item class="RemoteEvent" referent="RBX257767AB7F514EACB9BC9FD79C3A8135">
 							<Properties>
 								<BinaryString name="AttributesSerialize"></BinaryString>
 								<string name="Name">GolfDriverClientRecieve</string>
 								<int64 name="SourceAssetId">-1</int64>
 								<BinaryString name="Tags"></BinaryString>
-								<UniqueId name="UniqueId">691863620fe85698027556c2000e7cd0</UniqueId>
+								<UniqueId name="UniqueId">27629d78d4d03b440275aa230002723a</UniqueId>
 							</Properties>
 						</Item>
 					</Item>
-					<Item class="RemoteEvent" referent="RBXD89EE20B8469444B89DFB260814EF6C7">
+					<Item class="RemoteEvent" referent="RBX265B381FDA8B4D6995C75CE164C39BAC">
 						<Properties>
 							<BinaryString name="AttributesSerialize"></BinaryString>
 							<string name="Name">ToolActivation</string>
 							<int64 name="SourceAssetId">-1</int64>
 							<BinaryString name="Tags"></BinaryString>
-							<UniqueId name="UniqueId">691863620fe85698027556c2000274c1</UniqueId>
+							<UniqueId name="UniqueId">27629d78d4d03b440275aa230002723b</UniqueId>
 						</Properties>
 					</Item>
 				</Item>
 			</Item>
-			<Item class="Folder" referent="RBX502187CB66DE4AAB90CE99B070DF6B6E">
+			<Item class="Folder" referent="RBX91E0A49955B0428BB1C925B34DF741CA">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<string name="Name">Functions</string>
 					<int64 name="SourceAssetId">-1</int64>
 					<BinaryString name="Tags"></BinaryString>
-					<UniqueId name="UniqueId">691863620fe85698027556c200027412</UniqueId>
+					<UniqueId name="UniqueId">27629d78d4d03b440275aa2300027231</UniqueId>
 				</Properties>
 			</Item>
-			<Item class="Folder" referent="RBXE0E2BC9292544CBCA3447F2E92D92C07">
+			<Item class="Folder" referent="RBX6B6CB6C0235F456982833EA44838B704">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<string name="Name">Components</string>
 					<int64 name="SourceAssetId">-1</int64>
 					<BinaryString name="Tags"></BinaryString>
-					<UniqueId name="UniqueId">691863620fe85698027556c200027413</UniqueId>
+					<UniqueId name="UniqueId">27629d78d4d03b440275aa2300027232</UniqueId>
 				</Properties>
-				<Item class="Folder" referent="RBX78475F65BA7A420B9738B196D05A1B0E">
+				<Item class="Folder" referent="RBXBD9607715FFF479996BB24A549FC5779">
 					<Properties>
 						<BinaryString name="AttributesSerialize"></BinaryString>
 						<string name="Name">GUI</string>
 						<int64 name="SourceAssetId">-1</int64>
 						<BinaryString name="Tags"></BinaryString>
-						<UniqueId name="UniqueId">691863620fe85698027556c200027414</UniqueId>
+						<UniqueId name="UniqueId">27629d78d4d03b440275aa2300027233</UniqueId>
 					</Properties>
 				</Item>
-				<Item class="Folder" referent="RBX53387B4ACB454F1E807002CCF5F819EC">
+				<Item class="Folder" referent="RBX556D43B598584BC994A02B1817B19927">
 					<Properties>
 						<BinaryString name="AttributesSerialize"></BinaryString>
 						<string name="Name">Objects</string>
 						<int64 name="SourceAssetId">-1</int64>
 						<BinaryString name="Tags"></BinaryString>
-						<UniqueId name="UniqueId">691863620fe85698027556c200027415</UniqueId>
+						<UniqueId name="UniqueId">27629d78d4d03b440275aa2300027234</UniqueId>
 					</Properties>
-					<Item class="MeshPart" referent="RBXAA9D005787E04D2A82C4E1C056AD8CFB">
+					<Item class="MeshPart" referent="RBX1D0241BB79424465AC5B7C048B70C3C6">
 						<Properties>
 							<bool name="Anchored">false</bool>
 							<BinaryString name="AttributesSerialize"></BinaryString>
@@ -2925,7 +2946,7 @@ return SharedInitialisation]]></ProtectedString>
 							<token name="TopSurface">0</token>
 							<token name="TopSurfaceInput">0</token>
 							<float name="Transparency">0</float>
-							<UniqueId name="UniqueId">691863620fe85698027556c2000467da</UniqueId>
+							<UniqueId name="UniqueId">27629d78d4d03b440275aa2300027237</UniqueId>
 							<Vector3 name="Velocity">
 								<X>0</X>
 								<Y>0</Y>
@@ -2938,7 +2959,7 @@ return SharedInitialisation]]></ProtectedString>
 							</Vector3>
 						</Properties>
 					</Item>
-					<Item class="UnionOperation" referent="RBXF2AEEF11CB8B4FE2868579042573C00E">
+					<Item class="UnionOperation" referent="RBX5CF3560FE640401A8386D0CBFC053720">
 						<Properties>
 							<bool name="Anchored">false</bool>
 							<Content name="AssetId"><url>https://www.roblox.com//asset/?id=1221280050</url></Content>
@@ -3034,7 +3055,7 @@ return SharedInitialisation]]></ProtectedString>
 							<token name="TopSurface">0</token>
 							<token name="TopSurfaceInput">0</token>
 							<float name="Transparency">0</float>
-							<UniqueId name="UniqueId">691863620fe85698027556c2000467db</UniqueId>
+							<UniqueId name="UniqueId">27629d78d4d03b440275aa230002723c</UniqueId>
 							<bool name="UsePartColor">false</bool>
 							<Vector3 name="Velocity">
 								<X>0</X>
@@ -3049,22 +3070,22 @@ return SharedInitialisation]]></ProtectedString>
 						</Properties>
 					</Item>
 				</Item>
-				<Item class="Folder" referent="RBX2B03C7B44D3E4E4A95E0082C08BEBAD3">
+				<Item class="Folder" referent="RBX2AACCA4222024A0EB0F1D68F99B5BAD8">
 					<Properties>
 						<BinaryString name="AttributesSerialize"></BinaryString>
 						<string name="Name">Particles</string>
 						<int64 name="SourceAssetId">-1</int64>
 						<BinaryString name="Tags"></BinaryString>
-						<UniqueId name="UniqueId">691863620fe85698027556c200027416</UniqueId>
+						<UniqueId name="UniqueId">27629d78d4d03b440275aa2300027235</UniqueId>
 					</Properties>
 				</Item>
-				<Item class="Folder" referent="RBX15DC053D1B424F488682595153015ED8">
+				<Item class="Folder" referent="RBX27AC9F82A8C541F9947D4399323DED0B">
 					<Properties>
 						<BinaryString name="AttributesSerialize"></BinaryString>
 						<string name="Name">Sounds</string>
 						<int64 name="SourceAssetId">-1</int64>
 						<BinaryString name="Tags"></BinaryString>
-						<UniqueId name="UniqueId">691863620fe85698027556c200027417</UniqueId>
+						<UniqueId name="UniqueId">27629d78d4d03b440275aa2300027236</UniqueId>
 					</Properties>
 				</Item>
 			</Item>
