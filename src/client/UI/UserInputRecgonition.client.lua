@@ -23,21 +23,13 @@ end)
 
 --RunTime
 UserInputService.InputBegan:Connect(function(GameInput, GameProcessedEvent)
-    if UserInputRegister == true then
-        if GameInput.UserInputType == Enum.UserInputType.MouseButton1 or Enum.UserInputType.Touch or Enum.UserInputType.Gamepad1 then
-            --print("UserInputRegistered is true.")
-
-            if PowerBarUI.Enabled == true then
-                for i = 1, 20, 1 do
-                    print(i)
-                end
-            end
-        end
+    if GameInput.UserInputType == Enum.UserInputType.MouseButton1 or Enum.UserInputType.Touch or Enum.UserInputType.Gamepad1 then
+        print("Input Started")
     end
 end)
 
 UserInputService.InputEnded:Connect(function(GameInput, GameProcessedEvent)
     if GameInput.UserInputType == Enum.UserInputType.MouseButton1 or Enum.UserInputType.Touch or Enum.UserInputType.Gamepad1 then
-        UserInputRegister = false
+        print("Input Ended")
     end
 end)
