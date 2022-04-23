@@ -2,6 +2,7 @@
 
 --Services
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
 
 --Variables
@@ -16,20 +17,43 @@ local GolfDriverServer = ReplicatedStorage.Common.Events.Tools.GolfDriver.GolfDr
 local PowerBarUI = game.Players.LocalPlayer.PlayerGui:WaitForChild("GolfPowerBar")
 local PowerSlider = PowerBarUI.OuterFrame.InnerFrame.PowerSlider
 
---VariableRegister
-GolfDriverClient.OnClientEvent:Connect(function()
-    UserInputRegister = true
-end)
-
 --RunTime
 UserInputService.InputBegan:Connect(function(GameInput, GameProcessedEvent)
     if GameInput.UserInputType == Enum.UserInputType.MouseButton1 or Enum.UserInputType.Touch or Enum.UserInputType.Gamepad1 then
-        print("Input Started")
+        if PowerBarUI.Enabled == true then
+            UserInputRegister = true
+
+            while UserInputRegister == true do
+                task.spawn(function()
+                    local Success, ErrorData = pcall(function()
+                        RunService.Heartbeat:Connect(function()
+                            print("hi")
+
+                            RunService.Heartbeat:Wait()
+                        end)
+                    end)
+
+                    if not Success then
+                        print(ErrorData)
+                    end
+                end)
+            end
+        end
     end
 end)
 
 UserInputService.InputEnded:Connect(function(GameInput, GameProcessedEvent)
     if GameInput.UserInputType == Enum.UserInputType.MouseButton1 or Enum.UserInputType.Touch or Enum.UserInputType.Gamepad1 then
-        print("Input Ended")
+        if PowerBarUI.Enabled == true then
+            task.spawn(function()
+                local Success, ErrorData = pcall(function()
+                    
+                end)
+
+                if not Success then
+                    print(ErrorData)
+                end
+            end)
+        end
     end
 end)
