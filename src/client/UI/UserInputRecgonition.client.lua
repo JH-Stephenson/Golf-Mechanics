@@ -13,6 +13,7 @@ local GolfDriverServer = ReplicatedStorage.Common.Events.Tools.GolfDriver.GolfDr
 
 --UI
 local PowerBarUI = game.Players.LocalPlayer.PlayerGui:WaitForChild("GolfPowerBar")
+local PowerSlider = PowerBarUI.OuterFrame.InnerFrame.PowerSlider
 
 --VariableRegister
 GolfDriverClient.OnClientEvent:Connect(function()
