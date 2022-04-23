@@ -32,3 +32,9 @@ UserInputService.InputBegan:Connect(function(GameInput, GameProcessedEvent)
         end
     end
 end)
+
+UserInputService.InputEnded:Connect(function(GameInput, GameProcessedEvent)
+    if GameInput.UserInputType == Enum.UserInputType.MouseButton1 or Enum.UserInputType.Touch or Enum.UserInputType.Gamepad1 then
+        UserInputRegister = false
+    end
+end)
