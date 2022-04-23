@@ -30,16 +30,17 @@ UserInputService.InputBegan:Connect(function(GameInput, GameProcessedEvent)
                             if UserInputRegister == false then
                                 break
                             end
+
                             UserPowerRate = UserInputPowerRate
                             task.wait()
-
+                            
                             if UserInputPowerRate == 320 then
                                 for UserInputPowerRate = 320, 1, -1 do
                                     PowerSlider.Position = UDim2.new(0, UserInputPowerRate, 0, 0)
-
                                     if UserInputRegister == false then
                                         break
                                     end
+
                                     UserPowerRate = UserInputPowerRate
                                     task.wait()
                                 end
