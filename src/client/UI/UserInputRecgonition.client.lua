@@ -26,11 +26,8 @@ UserInputService.InputBegan:Connect(function(GameInput, GameProcessedEvent)
             while UserInputRegister == true do
                 task.spawn(function()
                     local Success, ErrorData = pcall(function()
-                        RunService.Heartbeat:Connect(function()
-                            print("hi")
-
-                            RunService.Heartbeat:Wait()
-                        end)
+                        print("hi")
+                        RunService.Heartbeat:Wait()
                     end)
 
                     if not Success then
