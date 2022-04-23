@@ -26,21 +26,22 @@ UserInputService.InputBegan:Connect(function(GameInput, GameProcessedEvent)
                 local Success, ErrorData = pcall(function()
                     while UserInputRegister == true do
                         for UserInputPowerRate = 1, 320, 1 do
-                            --MoveUIUpHere
-                            
+                            PowerSlider.Position = UDim2.new(0, UserInputPowerRate, 0, 0)
+                            if UserInputRegister == false then
+                                UserPowerRate = UserInputPowerRate
+                                break
+                            end
+                            task.wait()
+
                             if UserInputPowerRate == 320 then
                                 for UserInputPowerRate = 320, 1, -1 do
-                                    --MoveUIDownHere
+                                    PowerSlider.Position = UDim2.new(0, UserInputPowerRate, 0, 0)
 
                                     if UserInputRegister == false then
                                         UserPowerRate = UserInputPowerRate
                                         break
                                     end
-                                end
-
-                                if UserInputRegister == false then
-                                    UserPowerRate = UserInputPowerRate
-                                    break
+                                    task.wait()
                                 end
                             end
                         end
