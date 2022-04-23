@@ -12,7 +12,7 @@ local SharedInitialisationModule = require(ReplicatedStorage.Common.Modules.Shar
 PlayersService.PlayerAdded:Connect(function(Player)
     task.spawn(function()
         local Success, ErrorData = pcall(function()
-            print(Player.UserId.." has been initialisaed on the Server.")
+            print(Player.UserId.." has been initalised on the Server.")
             DataStorageModule.SetupPlayer(Player)
             SharedInitialisationModule.ServerModuleInitialisation()
         end)
