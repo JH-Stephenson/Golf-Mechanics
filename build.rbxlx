@@ -719,13 +719,35 @@ local UserInputService = game:GetService("UserInputService")
 local UserInputRegister = false
 local UserPowerRate = 0
 
+--RequestedTool
+local DriverRequested = false
+local IronRequested = false
+local PutterRequested = false
+local WedgeRequested = false
+local WoodRequested = false
+
 --Events
-local GolfDriverClient = ReplicatedStorage.Common.Events.Tools.GolfDriver.GolfDriverClientSend
-local GolfDriverServer = ReplicatedStorage.Common.Events.Tools.GolfDriver.GolfDriverClientRecieve
+local GolfClubClient = ReplicatedStorage.Common.Events.Tools.GolfClubs.GolfClubClientRecieve
+local GolfClubServer = ReplicatedStorage.Common.Events.Tools.GolfClubs.GolfClubServerSend
 
 --UI
 local PowerBarUI = game.Players.LocalPlayer.PlayerGui:WaitForChild("GolfPowerBar")
 local PowerSlider = PowerBarUI.OuterFrame.InnerFrame.PowerSlider
+
+--RequestedToolClients
+GolfClubClient.OnClientEvent:Connect(function(ClubName)
+    if ClubName == ("Driver") then
+        DriverRequested = true
+    elseif ClubName == ("Iron") then
+        IronRequested = true
+    elseif ClubName == ("Putter") then
+        PutterRequested = true
+    elseif ClubName == ("Wedge") then
+        WedgeRequested = true
+    elseif ClubName == ("Wood") then
+        WoodRequested = true
+    end
+end)
 
 --RunTime
 UserInputService.InputBegan:Connect(function(GameInput, GameProcessedEvent)
@@ -743,7 +765,7 @@ UserInputService.InputBegan:Connect(function(GameInput, GameProcessedEvent)
 
                             UserPowerRate = UserInputPowerRate
                             task.wait()
-                            
+
                             if UserInputPowerRate == 320 then
                                 for UserInputPowerRate = 320, 1, -1 do
                                     PowerSlider.Position = UDim2.new(0, UserInputPowerRate, 0, 0)
@@ -773,8 +795,31 @@ UserInputService.InputEnded:Connect(function(GameInput, GameProcessedEvent)
         if PowerBarUI.Enabled == true then
             task.spawn(function()
                 local Success, ErrorData = pcall(function()
-                    UserInputRegister = false
-                    print(UserPowerRate)
+                    if DriverRequested == true then
+                        UserInputRegister = false
+                        DriverRequested = false
+                        GolfClubServer:FireServer("Driver", UserPowerRate)
+                        
+                    elseif IronRequested == true then
+                        UserInputRegister = false
+                        IronRequested = false
+                        GolfClubServer:FireServer("Iron", UserPowerRate)
+
+                    elseif PutterRequested == true then
+                        UserInputRegister = false
+                        PutterRequested = false
+                        GolfClubServer:FireServer("Putter", UserPowerRate)
+
+                    elseif WedgeRequested == true then
+                        UserInputRegister = false
+                        WedgeRequested = false
+                        GolfClubServer:FireServer("Wedge", UserPowerRate)
+
+                    elseif WoodRequested == true then
+                        UserInputRegister = false
+                        WoodRequested = false
+                        GolfClubServer:FireServer("Wood", UserPowerRate)
+                    end
                 end)
 
                 if not Success then
@@ -2567,8 +2612,8 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RunService = game:GetService("RunService")
 
 --Events
-local GolfDriverClient = ReplicatedStorage.Common.Events.Tools.GolfDriver.GolfDriverClientSend
-local GolfDriverServer = ReplicatedStorage.Common.Events.Tools.GolfDriver.GolfDriverClientRecieve
+local GolfClubClient = ReplicatedStorage.Common.Events.Tools.GolfClubs.GolfClubClientRecieve
+local GolfClubServer = ReplicatedStorage.Common.Events.Tools.GolfClubs.GolfClubServerSend
 
 --Module
 local GolfDriverModule = {}
@@ -2582,7 +2627,7 @@ function GolfDriverModule.ClientIntialisation(Player)
             local PowerBarUI = PlayerGui:FindFirstChild("GolfPowerBar")
             PowerBarUI.Enabled = true
 
-            GolfDriverClient:FireClient(Player)
+            GolfClubClient:FireClient(Player, "Driver")
             print("Server has opened the PowerBar for "..Player.UserId)
         end)
     end)
@@ -2592,6 +2637,36 @@ return GolfDriverModule]]></ProtectedString>
 								<int64 name="SourceAssetId">-1</int64>
 								<BinaryString name="Tags"></BinaryString>
 								<UniqueId name="UniqueId">691863620fe85698027556c2000e7c2e</UniqueId>
+							</Properties>
+						</Item>
+						<Item class="Script" referent="RBX1924DD12779E47038FBC5FADC6D60409">
+							<Properties>
+								<BinaryString name="AttributesSerialize"></BinaryString>
+								<bool name="Disabled">false</bool>
+								<Content name="LinkedSource"><null></null></Content>
+								<string name="Name">GolfClubServer</string>
+								<string name="ScriptGuid">{64BA288D-AED0-47BA-ADAB-37AB74F101B0}</string>
+								<ProtectedString name="Source"><![CDATA[--GolfClubServer
+
+--Services
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+--Events
+local GolfClubClient = ReplicatedStorage.Common.Events.Tools.GolfClubs.GolfClubClientRecieve
+local GolfClubServer = ReplicatedStorage.Common.Events.Tools.GolfClubs.GolfClubServerSend
+
+--EventRuntime
+GolfClubServer.OnServerEvent:Connect(function(Player, ClubType, ClubPower)
+    Player.PlayerGui.GolfPowerBar.Enabled = false
+    Player.PlayerGui.GolfPowerBar.OuterFrame.InnerFrame.PowerSlider.Position = UDim2.new(0.547, -160, 0.489, -22)
+
+    print(Player)
+    print(ClubType)
+    print(ClubPower)
+end)]]></ProtectedString>
+								<int64 name="SourceAssetId">-1</int64>
+								<BinaryString name="Tags"></BinaryString>
+								<UniqueId name="UniqueId">3b1450083ef05cde0275fda6000c163a</UniqueId>
 							</Properties>
 						</Item>
 					</Item>
@@ -2794,33 +2869,6 @@ return SharedInitialisation]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 						<UniqueId name="UniqueId">27629d78d4d03b440275aa230002722f</UniqueId>
 					</Properties>
-					<Item class="Folder" referent="RBX48DB396120EB4FA797362869647100BA">
-						<Properties>
-							<BinaryString name="AttributesSerialize"></BinaryString>
-							<string name="Name">GolfDriver</string>
-							<int64 name="SourceAssetId">-1</int64>
-							<BinaryString name="Tags"></BinaryString>
-							<UniqueId name="UniqueId">27629d78d4d03b440275aa2300027230</UniqueId>
-						</Properties>
-						<Item class="RemoteEvent" referent="RBX3F2470AC655A42E79DCC89B5E76B35E0">
-							<Properties>
-								<BinaryString name="AttributesSerialize"></BinaryString>
-								<string name="Name">GolfDriverClientRecieve</string>
-								<int64 name="SourceAssetId">-1</int64>
-								<BinaryString name="Tags"></BinaryString>
-								<UniqueId name="UniqueId">27629d78d4d03b440275aa2300083f52</UniqueId>
-							</Properties>
-						</Item>
-						<Item class="RemoteEvent" referent="RBX3BAE7D0530454748AB20554634D9ED59">
-							<Properties>
-								<BinaryString name="AttributesSerialize"></BinaryString>
-								<string name="Name">GolfDriverClientSend</string>
-								<int64 name="SourceAssetId">-1</int64>
-								<BinaryString name="Tags"></BinaryString>
-								<UniqueId name="UniqueId">27629d78d4d03b440275aa2300083f65</UniqueId>
-							</Properties>
-						</Item>
-					</Item>
 					<Item class="RemoteEvent" referent="RBXB69DC5B2CD044347B696645FD05E6900">
 						<Properties>
 							<BinaryString name="AttributesSerialize"></BinaryString>
@@ -2829,6 +2877,33 @@ return SharedInitialisation]]></ProtectedString>
 							<BinaryString name="Tags"></BinaryString>
 							<UniqueId name="UniqueId">27629d78d4d03b440275aa2300083f66</UniqueId>
 						</Properties>
+					</Item>
+					<Item class="Folder" referent="RBX10C9EF4B2D2E44A1B8A7027A9C7F42FA">
+						<Properties>
+							<BinaryString name="AttributesSerialize"></BinaryString>
+							<string name="Name">GolfClubs</string>
+							<int64 name="SourceAssetId">-1</int64>
+							<BinaryString name="Tags"></BinaryString>
+							<UniqueId name="UniqueId">3b1450083ef05cde0275fda600027215</UniqueId>
+						</Properties>
+						<Item class="RemoteEvent" referent="RBX1D7D2402371A42ADA1A580A77F1A7401">
+							<Properties>
+								<BinaryString name="AttributesSerialize"></BinaryString>
+								<string name="Name">GolfClubClientRecieve</string>
+								<int64 name="SourceAssetId">-1</int64>
+								<BinaryString name="Tags"></BinaryString>
+								<UniqueId name="UniqueId">3b1450083ef05cde0275fda600027216</UniqueId>
+							</Properties>
+						</Item>
+						<Item class="RemoteEvent" referent="RBXE879C2BCC06A4AAAA1C21A280BF3DED0">
+							<Properties>
+								<BinaryString name="AttributesSerialize"></BinaryString>
+								<string name="Name">GolfClubServerSend</string>
+								<int64 name="SourceAssetId">-1</int64>
+								<BinaryString name="Tags"></BinaryString>
+								<UniqueId name="UniqueId">3b1450083ef05cde0275fda600064a10</UniqueId>
+							</Properties>
+						</Item>
 					</Item>
 				</Item>
 			</Item>
@@ -2866,7 +2941,7 @@ return SharedInitialisation]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 						<UniqueId name="UniqueId">27629d78d4d03b440275aa2300027234</UniqueId>
 					</Properties>
-					<Item class="MeshPart" referent="RBX199B27C732E1467CAC6C0C9A01B4D47C">
+					<Item class="MeshPart" referent="RBXA4A0D497D38D4BFB84AA5C831340CC18">
 						<Properties>
 							<bool name="Anchored">false</bool>
 							<BinaryString name="AttributesSerialize"></BinaryString>
@@ -2966,7 +3041,7 @@ return SharedInitialisation]]></ProtectedString>
 							<token name="TopSurface">0</token>
 							<token name="TopSurfaceInput">0</token>
 							<float name="Transparency">0</float>
-							<UniqueId name="UniqueId">27629d78d4d03b440275aa2300084075</UniqueId>
+							<UniqueId name="UniqueId">3b1450083ef05cde0275fda60002724d</UniqueId>
 							<Vector3 name="Velocity">
 								<X>0</X>
 								<Y>0</Y>
@@ -2979,7 +3054,7 @@ return SharedInitialisation]]></ProtectedString>
 							</Vector3>
 						</Properties>
 					</Item>
-					<Item class="UnionOperation" referent="RBX622286E229BE44D9B68F137FBF4DC957">
+					<Item class="UnionOperation" referent="RBX1FB6078A5FA24FE6A9751948424DAB0F">
 						<Properties>
 							<bool name="Anchored">false</bool>
 							<Content name="AssetId"><url>https://www.roblox.com//asset/?id=1221280050</url></Content>
@@ -3075,7 +3150,7 @@ return SharedInitialisation]]></ProtectedString>
 							<token name="TopSurface">0</token>
 							<token name="TopSurfaceInput">0</token>
 							<float name="Transparency">0</float>
-							<UniqueId name="UniqueId">27629d78d4d03b440275aa2300084076</UniqueId>
+							<UniqueId name="UniqueId">3b1450083ef05cde0275fda60002724e</UniqueId>
 							<bool name="UsePartColor">false</bool>
 							<Vector3 name="Velocity">
 								<X>0</X>
