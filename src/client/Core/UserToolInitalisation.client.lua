@@ -8,7 +8,7 @@ local Player = game.Players.LocalPlayer
 local Character = game.Workspace:WaitForChild(Player.Name)
 
 --Events
-local ToolActivationEvent = ReplicatedStorage.Common.Events.Tools.ToolActivation
+local ToolActivationEvent = ReplicatedStorage.Common.Events.Tools:WaitForChild("ToolActivated")
 
 --RunTime
 Character.ChildAdded:Connect(function(AddedChild)

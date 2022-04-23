@@ -9,7 +9,7 @@ local GolfTeeModule = require(game.ServerScriptService.Server.Core.Modules.Objec
 local GolfDriverModule = require(game.ServerScriptService.Server.Core.Modules.GolfClubs.GolfDriver)
 
 --Events
-local ToolActivationEvent = ReplicatedStorage.Common.Events.Tools.ToolActivation
+local ToolActivationEvent = ReplicatedStorage.Common.Events.Tools:WaitForChild("ToolActivated")
 
 --RunTime
 ToolActivationEvent.OnServerEvent:Connect(function(Player, ToolName)
