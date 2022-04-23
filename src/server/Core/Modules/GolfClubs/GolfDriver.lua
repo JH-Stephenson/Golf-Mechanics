@@ -5,8 +5,8 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RunService = game:GetService("RunService")
 
 --Events
-local GolfDriverClient = ReplicatedStorage.Common.Events.Tools.GolfDriver.GolfDriverClientSend
-local GolfDriverServer = ReplicatedStorage.Common.Events.Tools.GolfDriver.GolfDriverClientRecieve
+local GolfClubClient = ReplicatedStorage.Common.Events.Tools.GolfClubs.GolfClubClientRecieve
+local GolfClubServer = ReplicatedStorage.Common.Events.Tools.GolfClubs.GolfClubServerSend
 
 --Module
 local GolfDriverModule = {}
@@ -20,7 +20,7 @@ function GolfDriverModule.ClientIntialisation(Player)
             local PowerBarUI = PlayerGui:FindFirstChild("GolfPowerBar")
             PowerBarUI.Enabled = true
 
-            GolfDriverClient:FireClient(Player)
+            GolfClubClient:FireClient("Driver", Player)
             print("Server has opened the PowerBar for "..Player.UserId)
         end)
     end)
