@@ -80,27 +80,27 @@
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<CoordinateFrame name="CFrame">
-					<X>1.75588965</X>
-					<Y>4.81925488</Y>
-					<Z>-6.81230211</Z>
-					<R00>-0.0975940749</R00>
-					<R01>-0.418421775</R01>
-					<R02>0.902994275</R02>
-					<R10>-0</R10>
-					<R11>0.907325566</R11>
-					<R12>0.420428753</R12>
-					<R20>-0.995226324</R20>
-					<R21>0.0410313569</R21>
-					<R22>-0.0885495991</R22>
+					<X>18.5286026</X>
+					<Y>9.28902721</Y>
+					<Z>3.21309614</Z>
+					<R00>0.0627793446</R00>
+					<R01>-0.357042283</R01>
+					<R02>0.931976259</R02>
+					<R10>1.86264515e-09</R10>
+					<R11>0.933818281</R11>
+					<R12>0.357747972</R12>
+					<R20>-0.998027444</R20>
+					<R21>-0.022459181</R21>
+					<R22>0.0586244985</R22>
 				</CoordinateFrame>
 				<Ref name="CameraSubject">null</Ref>
 				<token name="CameraType">0</token>
 				<float name="FieldOfView">70</float>
 				<token name="FieldOfViewMode">0</token>
 				<CoordinateFrame name="Focus">
-					<X>-0.050104022</X>
-					<Y>3.97839499</Y>
-					<Z>-6.63520241</Z>
+					<X>16.6646423</X>
+					<Y>8.57352829</Y>
+					<Z>3.09584665</Z>
 					<R00>1</R00>
 					<R01>0</R01>
 					<R02>0</R02>
@@ -675,23 +675,23 @@ local Player = game.Players.LocalPlayer
 local Character = game.Workspace:WaitForChild(Player.Name)
 
 --Events
-local ToolActivationEvent = ReplicatedStorage.Common.Events.ToolActivation
+local ToolActivationEvent = ReplicatedStorage.Common.Events.Tools.ToolActivation
 
 --RunTime
 Character.ChildAdded:Connect(function(AddedChild)
-    if AddedChild:IsA("Tool") then
-        AddedChild.Activated:Connect(function()
-            task.spawn(function()
-                local Success, ErrorData = pcall(function()
+    task.spawn(function()
+        local Success, ErrorData = pcall(function()
+            if AddedChild:IsA("Tool") then
+                AddedChild.Activated:Connect(function()
                     ToolActivationEvent:FireServer(AddedChild.Name)
                 end)
-
-                if not Success then
-                    print(ErrorData)
-                end
-            end)
+            end
         end)
-    end
+
+        if not Success then
+            print(ErrorData)
+        end
+    end)
 end)]]></ProtectedString>
 							<int64 name="SourceAssetId">-1</int64>
 							<BinaryString name="Tags"></BinaryString>
@@ -1032,7 +1032,7 @@ SharedInitialisationModule.ClientModuleInitialisation()]]></ProtectedString>
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Tool" referent="RBXBCBDF3D9E3194867AB233A9E66C98CE9">
+		<Item class="Tool" referent="RBX885135F153F14D9FB59829A37429D867">
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<bool name="CanBeDropped">false</bool>
@@ -1058,9 +1058,9 @@ SharedInitialisationModule.ClientModuleInitialisation()]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 				<Content name="TextureId"><null></null></Content>
 				<string name="ToolTip"></string>
-				<UniqueId name="UniqueId">691863620fe85698027556c200065cc8</UniqueId>
+				<UniqueId name="UniqueId">691863620fe85698027556c200087da7</UniqueId>
 			</Properties>
-			<Item class="Part" referent="RBXC398BF838044497A9CE0C0AD36D7C3AB">
+			<Item class="Part" referent="RBX5A63593B8C08462CAF8FC4E023361396">
 				<Properties>
 					<bool name="Anchored">false</bool>
 					<BinaryString name="AttributesSerialize"></BinaryString>
@@ -1074,16 +1074,16 @@ SharedInitialisationModule.ClientModuleInitialisation()]]></ProtectedString>
 					<token name="BottomSurfaceInput">0</token>
 					<CoordinateFrame name="CFrame">
 						<X>-0.200000048</X>
-						<Y>3.92499614</Y>
+						<Y>4.92488003</Y>
 						<Z>-5.08899975</Z>
 						<R00>1</R00>
-						<R01>2.27989828e-13</R01>
+						<R01>2.20877326e-13</R01>
 						<R02>-5.68434189e-14</R02>
-						<R10>2.27989828e-13</R10>
+						<R10>2.35088126e-13</R10>
 						<R11>0.999992371</R11>
-						<R12>-8.88175286e-15</R12>
+						<R12>-8.29895353e-15</R12>
 						<R20>-5.68434189e-14</R20>
-						<R21>-8.88175286e-15</R21>
+						<R21>-9.46468263e-15</R21>
 						<R22>1</R22>
 					</CoordinateFrame>
 					<bool name="CanCollide">false</bool>
@@ -1140,7 +1140,7 @@ SharedInitialisationModule.ClientModuleInitialisation()]]></ProtectedString>
 					<token name="TopSurface">0</token>
 					<token name="TopSurfaceInput">0</token>
 					<float name="Transparency">1</float>
-					<UniqueId name="UniqueId">691863620fe85698027556c200065cc5</UniqueId>
+					<UniqueId name="UniqueId">691863620fe85698027556c200087da8</UniqueId>
 					<Vector3 name="Velocity">
 						<X>0</X>
 						<Y>0</Y>
@@ -1155,7 +1155,7 @@ SharedInitialisationModule.ClientModuleInitialisation()]]></ProtectedString>
 					</Vector3>
 				</Properties>
 			</Item>
-			<Item class="MeshPart" referent="RBX50AD8E31382348C9971E491709535BD2">
+			<Item class="MeshPart" referent="RBXEFDFF3336C914CBC94C98DCBEBF34862">
 				<Properties>
 					<bool name="Anchored">false</bool>
 					<BinaryString name="AttributesSerialize"></BinaryString>
@@ -1169,16 +1169,16 @@ SharedInitialisationModule.ClientModuleInitialisation()]]></ProtectedString>
 					<token name="BottomSurfaceInput">0</token>
 					<CoordinateFrame name="CFrame">
 						<X>0.00147648156</X>
-						<Y>0.573422909</Y>
+						<Y>1.27342308</Y>
 						<Z>-4.98497677</Z>
 						<R00>1</R00>
-						<R01>1.13995131e-13</R01>
-						<R02>-2.84217094e-14</R02>
-						<R10>1.13995131e-13</R10>
+						<R01>-1.21110804e-13</R01>
+						<R02>2.84217094e-14</R02>
+						<R10>3.49093042e-13</R10>
 						<R11>0.999996185</R11>
-						<R12>-4.4408849e-15</R12>
-						<R20>-2.84217094e-14</R20>
-						<R21>-4.4408849e-15</R21>
+						<R12>5.02379137e-15</R12>
+						<R20>-8.52651283e-14</R20>
+						<R21>-1.39056603e-14</R21>
 						<R22>1</R22>
 					</CoordinateFrame>
 					<bool name="CanCollide">false</bool>
@@ -1255,7 +1255,7 @@ SharedInitialisationModule.ClientModuleInitialisation()]]></ProtectedString>
 					<token name="TopSurface">0</token>
 					<token name="TopSurfaceInput">0</token>
 					<float name="Transparency">0</float>
-					<UniqueId name="UniqueId">691863620fe85698027556c200065cbc</UniqueId>
+					<UniqueId name="UniqueId">691863620fe85698027556c200087da9</UniqueId>
 					<Vector3 name="Velocity">
 						<X>0</X>
 						<Y>0</Y>
@@ -1267,8 +1267,48 @@ SharedInitialisationModule.ClientModuleInitialisation()]]></ProtectedString>
 						<Z>0.263953954</Z>
 					</Vector3>
 				</Properties>
+				<Item class="ManualWeld" referent="RBXA445111D4D534B69BC619B2F39157A1B">
+					<Properties>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<CoordinateFrame name="C0">
+							<X>0</X>
+							<Y>0</Y>
+							<Z>0</Z>
+							<R00>1</R00>
+							<R01>3.49093042e-13</R01>
+							<R02>-8.52651283e-14</R02>
+							<R10>-1.21110804e-13</R10>
+							<R11>0.999996185</R11>
+							<R12>-1.39056603e-14</R12>
+							<R20>2.84217094e-14</R20>
+							<R21>5.02379137e-15</R21>
+							<R22>1</R22>
+						</CoordinateFrame>
+						<CoordinateFrame name="C1">
+							<X>0.201476529</X>
+							<Y>-3.65148449</Y>
+							<Z>0.10402298</Z>
+							<R00>1</R00>
+							<R01>7.10548072e-15</R01>
+							<R02>0</R02>
+							<R10>-7.10537399e-15</R10>
+							<R11>1</R11>
+							<R12>-5.82867088e-16</R12>
+							<R20>0</R20>
+							<R21>5.82867088e-16</R21>
+							<R22>1</R22>
+						</CoordinateFrame>
+						<bool name="Enabled">true</bool>
+						<string name="Name">Weld</string>
+						<Ref name="Part0">RBXEFDFF3336C914CBC94C98DCBEBF34862</Ref>
+						<Ref name="Part1">RBX5A63593B8C08462CAF8FC4E023361396</Ref>
+						<int64 name="SourceAssetId">-1</int64>
+						<BinaryString name="Tags"></BinaryString>
+						<UniqueId name="UniqueId">691863620fe85698027556c2000c85a8</UniqueId>
+					</Properties>
+				</Item>
 			</Item>
-			<Item class="MeshPart" referent="RBXD01903DA1C1C4B8CA0D96D60862C1383">
+			<Item class="MeshPart" referent="RBX45E0CF0C0DF140349F89E81B6FE003B8">
 				<Properties>
 					<bool name="Anchored">false</bool>
 					<BinaryString name="AttributesSerialize"></BinaryString>
@@ -1282,16 +1322,16 @@ SharedInitialisationModule.ClientModuleInitialisation()]]></ProtectedString>
 					<token name="BottomSurfaceInput">0</token>
 					<CoordinateFrame name="CFrame">
 						<X>-0.200000048</X>
-						<Y>3.52545428</Y>
+						<Y>4.52547312</Y>
 						<Z>-5.09010506</Z>
 						<R00>1</R00>
-						<R01>9.31430155e-10</R01>
-						<R02>6.98496316e-10</R02>
-						<R10>-9.30967248e-10</R10>
+						<R01>9.30732158e-10</R01>
+						<R02>6.98665459e-10</R02>
+						<R10>-9.30269084e-10</R10>
 						<R11>0.999992371</R11>
-						<R12>7.63948488e-11</R12>
-						<R20>-6.98608615e-10</R20>
-						<R21>-7.6413223e-11</R21>
+						<R12>7.64226876e-11</R12>
+						<R20>-6.98779146e-10</R20>
+						<R21>-7.64410341e-11</R21>
 						<R22>1</R22>
 					</CoordinateFrame>
 					<bool name="CanCollide">false</bool>
@@ -1368,7 +1408,7 @@ SharedInitialisationModule.ClientModuleInitialisation()]]></ProtectedString>
 					<token name="TopSurface">0</token>
 					<token name="TopSurfaceInput">0</token>
 					<float name="Transparency">0</float>
-					<UniqueId name="UniqueId">691863620fe85698027556c200065cbd</UniqueId>
+					<UniqueId name="UniqueId">691863620fe85698027556c200087daa</UniqueId>
 					<Vector3 name="Velocity">
 						<X>0</X>
 						<Y>0</Y>
@@ -1380,8 +1420,48 @@ SharedInitialisationModule.ClientModuleInitialisation()]]></ProtectedString>
 						<Z>0.0756451488</Z>
 					</Vector3>
 				</Properties>
+				<Item class="ManualWeld" referent="RBXC6B4C84B9BED404F8DE193E533A2C79B">
+					<Properties>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<CoordinateFrame name="C0">
+							<X>0</X>
+							<Y>0</Y>
+							<Z>0</Z>
+							<R00>1</R00>
+							<R01>-9.30732158e-10</R01>
+							<R02>-6.98665459e-10</R02>
+							<R10>9.30732158e-10</R10>
+							<R11>1</R11>
+							<R12>-7.64232705e-11</R12>
+							<R20>6.98665459e-10</R20>
+							<R21>7.64232705e-11</R21>
+							<R22>1</R22>
+						</CoordinateFrame>
+						<CoordinateFrame name="C1">
+							<X>0</X>
+							<Y>-0.399409771</Y>
+							<Z>-0.00110530853</Z>
+							<R00>1</R00>
+							<R01>-2.20877326e-13</R01>
+							<R02>5.68434189e-14</R02>
+							<R10>2.20877326e-13</R10>
+							<R11>1</R11>
+							<R12>8.29901791e-15</R12>
+							<R20>-5.68434189e-14</R20>
+							<R21>-8.29901706e-15</R21>
+							<R22>1</R22>
+						</CoordinateFrame>
+						<bool name="Enabled">true</bool>
+						<string name="Name">Weld</string>
+						<Ref name="Part0">RBX45E0CF0C0DF140349F89E81B6FE003B8</Ref>
+						<Ref name="Part1">RBX5A63593B8C08462CAF8FC4E023361396</Ref>
+						<int64 name="SourceAssetId">-1</int64>
+						<BinaryString name="Tags"></BinaryString>
+						<UniqueId name="UniqueId">691863620fe85698027556c2000c85a9</UniqueId>
+					</Properties>
+				</Item>
 			</Item>
-			<Item class="MeshPart" referent="RBXCDD05049941446C6B4466831253E599E">
+			<Item class="MeshPart" referent="RBX255482C0FD2045E6A116C60B623EB559">
 				<Properties>
 					<bool name="Anchored">false</bool>
 					<BinaryString name="AttributesSerialize"></BinaryString>
@@ -1395,16 +1475,16 @@ SharedInitialisationModule.ClientModuleInitialisation()]]></ProtectedString>
 					<token name="BottomSurfaceInput">0</token>
 					<CoordinateFrame name="CFrame">
 						<X>-0.200145766</X>
-						<Y>1.92796063</Y>
+						<Y>2.77792811</Y>
 						<Z>-5.09010601</Z>
 						<R00>1</R00>
-						<R01>9.31430155e-10</R01>
-						<R02>6.98499869e-10</R02>
-						<R10>-9.30967248e-10</R10>
+						<R01>9.30489963e-10</R01>
+						<R02>6.98725855e-10</R02>
+						<R10>-9.30026889e-10</R10>
 						<R11>0.999992371</R11>
-						<R12>7.63946267e-11</R12>
-						<R20>-6.98612168e-10</R20>
-						<R21>-7.64130009e-11</R21>
+						<R12>7.64325131e-11</R12>
+						<R20>-6.98839542e-10</R20>
+						<R21>-7.64508595e-11</R21>
 						<R22>1</R22>
 					</CoordinateFrame>
 					<bool name="CanCollide">false</bool>
@@ -1481,7 +1561,7 @@ SharedInitialisationModule.ClientModuleInitialisation()]]></ProtectedString>
 					<token name="TopSurface">0</token>
 					<token name="TopSurfaceInput">0</token>
 					<float name="Transparency">0</float>
-					<UniqueId name="UniqueId">691863620fe85698027556c200065cbe</UniqueId>
+					<UniqueId name="UniqueId">691863620fe85698027556c200087dab</UniqueId>
 					<Vector3 name="Velocity">
 						<X>0</X>
 						<Y>0</Y>
@@ -1489,10 +1569,50 @@ SharedInitialisationModule.ClientModuleInitialisation()]]></ProtectedString>
 					</Vector3>
 					<Vector3 name="size">
 						<X>0.0679377839</X>
-						<Y>2.21812534</Y>
+						<Y>2.5181253</Y>
 						<Z>0.0679380298</Z>
 					</Vector3>
 				</Properties>
+				<Item class="ManualWeld" referent="RBXE8F2D588FBEC4020AD86070986E27256">
+					<Properties>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<CoordinateFrame name="C0">
+							<X>0</X>
+							<Y>0</Y>
+							<Z>0</Z>
+							<R00>1</R00>
+							<R01>-9.30261979e-10</R01>
+							<R02>-6.98782698e-10</R02>
+							<R10>9.30261979e-10</R10>
+							<R11>1</R11>
+							<R12>-7.64419777e-11</R12>
+							<R20>6.98782698e-10</R20>
+							<R21>7.64419777e-11</R21>
+							<R22>1</R22>
+						</CoordinateFrame>
+						<CoordinateFrame name="C1">
+							<X>-0.000145718455</X>
+							<Y>-2.14696836</Y>
+							<Z>-0.00110626221</Z>
+							<R00>1</R00>
+							<R01>7.11513097e-15</R01>
+							<R02>0</R02>
+							<R10>-7.11515807e-15</R10>
+							<R11>1</R11>
+							<R12>-5.82928074e-16</R12>
+							<R20>0</R20>
+							<R21>5.82927863e-16</R21>
+							<R22>1</R22>
+						</CoordinateFrame>
+						<bool name="Enabled">true</bool>
+						<string name="Name">Weld</string>
+						<Ref name="Part0">RBX255482C0FD2045E6A116C60B623EB559</Ref>
+						<Ref name="Part1">RBX5A63593B8C08462CAF8FC4E023361396</Ref>
+						<int64 name="SourceAssetId">-1</int64>
+						<BinaryString name="Tags"></BinaryString>
+						<UniqueId name="UniqueId">691863620fe85698027556c2000c85a7</UniqueId>
+					</Properties>
+				</Item>
 			</Item>
 		</Item>
 	</Item>
@@ -1508,6 +1628,302 @@ SharedInitialisationModule.ClientModuleInitialisation()]]></ProtectedString>
 			<UniqueId name="UniqueId">691863620fe85698027556c20001bef5</UniqueId>
 			<token name="VirtualCursorMode">0</token>
 		</Properties>
+		<Item class="ScreenGui" referent="RBX597F8461F9E94BA09D47D2B6F8741C2F">
+			<Properties>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<bool name="AutoLocalize">true</bool>
+				<int name="DisplayOrder">0</int>
+				<bool name="Enabled">false</bool>
+				<bool name="IgnoreGuiInset">false</bool>
+				<string name="Name">GolfPowerBar</string>
+				<bool name="ResetOnSpawn">true</bool>
+				<Ref name="RootLocalizationTable">null</Ref>
+				<token name="SelectionBehaviorDown">0</token>
+				<token name="SelectionBehaviorLeft">0</token>
+				<token name="SelectionBehaviorRight">0</token>
+				<token name="SelectionBehaviorUp">0</token>
+				<bool name="SelectionGroup">false</bool>
+				<int64 name="SourceAssetId">-1</int64>
+				<BinaryString name="Tags"></BinaryString>
+				<UniqueId name="UniqueId">691863620fe85698027556c20014474a</UniqueId>
+				<token name="ZIndexBehavior">0</token>
+			</Properties>
+			<Item class="Frame" referent="RBXBB319C8B0F1A41D6AD05B0CED0C1C8BF">
+				<Properties>
+					<bool name="Active">false</bool>
+					<Vector2 name="AnchorPoint">
+						<X>0</X>
+						<Y>0</Y>
+					</Vector2>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<bool name="AutoLocalize">true</bool>
+					<token name="AutomaticSize">0</token>
+					<Color3 name="BackgroundColor3">
+						<R>1</R>
+						<G>1</G>
+						<B>1</B>
+					</Color3>
+					<float name="BackgroundTransparency">0</float>
+					<Color3 name="BorderColor3">
+						<R>0.105882362</R>
+						<G>0.164705887</G>
+						<B>0.207843155</B>
+					</Color3>
+					<token name="BorderMode">0</token>
+					<int name="BorderSizePixel">1</int>
+					<bool name="ClipsDescendants">true</bool>
+					<bool name="Draggable">false</bool>
+					<int name="LayoutOrder">0</int>
+					<string name="Name">OuterFrame</string>
+					<Ref name="NextSelectionDown">null</Ref>
+					<Ref name="NextSelectionLeft">null</Ref>
+					<Ref name="NextSelectionRight">null</Ref>
+					<Ref name="NextSelectionUp">null</Ref>
+					<UDim2 name="Position">
+						<XS>0.373567611</XS>
+						<XO>0</XO>
+						<YS>0.766566277</YS>
+						<YO>0</YO>
+					</UDim2>
+					<Ref name="RootLocalizationTable">null</Ref>
+					<float name="Rotation">0</float>
+					<bool name="Selectable">false</bool>
+					<token name="SelectionBehaviorDown">0</token>
+					<token name="SelectionBehaviorLeft">0</token>
+					<token name="SelectionBehaviorRight">0</token>
+					<token name="SelectionBehaviorUp">0</token>
+					<bool name="SelectionGroup">false</bool>
+					<Ref name="SelectionImageObject">null</Ref>
+					<UDim2 name="Size">
+						<XS>0</XS>
+						<XO>330</XO>
+						<YS>0</YS>
+						<YO>55</YO>
+					</UDim2>
+					<token name="SizeConstraint">0</token>
+					<int64 name="SourceAssetId">-1</int64>
+					<token name="Style">0</token>
+					<BinaryString name="Tags"></BinaryString>
+					<UniqueId name="UniqueId">691863620fe85698027556c200144747</UniqueId>
+					<bool name="Visible">true</bool>
+					<int name="ZIndex">1</int>
+				</Properties>
+				<Item class="UICorner" referent="RBX0711F4453A174A7FA572928DDAF9C4EC">
+					<Properties>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<UDim name="CornerRadius">
+							<S>0</S>
+							<O>8</O>
+						</UDim>
+						<string name="Name">UICorner</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<BinaryString name="Tags"></BinaryString>
+						<UniqueId name="UniqueId">691863620fe85698027556c20014474b</UniqueId>
+					</Properties>
+				</Item>
+				<Item class="ImageLabel" referent="RBXF7238D82B0204A46B778A3ECB1CF8319">
+					<Properties>
+						<bool name="Active">false</bool>
+						<Vector2 name="AnchorPoint">
+							<X>0</X>
+							<Y>0</Y>
+						</Vector2>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<bool name="AutoLocalize">true</bool>
+						<token name="AutomaticSize">0</token>
+						<Color3 name="BackgroundColor3">
+							<R>1</R>
+							<G>1</G>
+							<B>1</B>
+						</Color3>
+						<float name="BackgroundTransparency">0</float>
+						<Color3 name="BorderColor3">
+							<R>0.105882362</R>
+							<G>0.164705887</G>
+							<B>0.207843155</B>
+						</Color3>
+						<token name="BorderMode">0</token>
+						<int name="BorderSizePixel">1</int>
+						<bool name="ClipsDescendants">true</bool>
+						<bool name="Draggable">false</bool>
+						<Content name="Image"><url>http://www.roblox.com/asset/?id=9407511157</url></Content>
+						<Color3 name="ImageColor3">
+							<R>1</R>
+							<G>1</G>
+							<B>1</B>
+						</Color3>
+						<Vector2 name="ImageRectOffset">
+							<X>0</X>
+							<Y>0</Y>
+						</Vector2>
+						<Vector2 name="ImageRectSize">
+							<X>0</X>
+							<Y>0</Y>
+						</Vector2>
+						<float name="ImageTransparency">0</float>
+						<int name="LayoutOrder">0</int>
+						<string name="Name">InnerFrame</string>
+						<Ref name="NextSelectionDown">null</Ref>
+						<Ref name="NextSelectionLeft">null</Ref>
+						<Ref name="NextSelectionRight">null</Ref>
+						<Ref name="NextSelectionUp">null</Ref>
+						<UDim2 name="Position">
+							<XS>0.5</XS>
+							<XO>-160</XO>
+							<YS>0.481818169</YS>
+							<YO>-22</YO>
+						</UDim2>
+						<token name="ResampleMode">0</token>
+						<Ref name="RootLocalizationTable">null</Ref>
+						<float name="Rotation">0</float>
+						<token name="ScaleType">0</token>
+						<bool name="Selectable">false</bool>
+						<token name="SelectionBehaviorDown">0</token>
+						<token name="SelectionBehaviorLeft">0</token>
+						<token name="SelectionBehaviorRight">0</token>
+						<token name="SelectionBehaviorUp">0</token>
+						<bool name="SelectionGroup">false</bool>
+						<Ref name="SelectionImageObject">null</Ref>
+						<UDim2 name="Size">
+							<XS>0</XS>
+							<XO>320</XO>
+							<YS>0</YS>
+							<YO>45</YO>
+						</UDim2>
+						<token name="SizeConstraint">0</token>
+						<Rect2D name="SliceCenter">
+							<min>
+								<X>0</X>
+								<Y>0</Y>
+							</min>
+							<max>
+								<X>0</X>
+								<Y>0</Y>
+							</max>
+						</Rect2D>
+						<float name="SliceScale">1</float>
+						<int64 name="SourceAssetId">-1</int64>
+						<BinaryString name="Tags"></BinaryString>
+						<UDim2 name="TileSize">
+							<XS>1</XS>
+							<XO>0</XO>
+							<YS>1</YS>
+							<YO>0</YO>
+						</UDim2>
+						<UniqueId name="UniqueId">691863620fe85698027556c200144748</UniqueId>
+						<bool name="Visible">true</bool>
+						<int name="ZIndex">2</int>
+					</Properties>
+					<Item class="UICorner" referent="RBX1DDF712EEF644E2C97D40B28B374D9FF">
+						<Properties>
+							<BinaryString name="AttributesSerialize"></BinaryString>
+							<UDim name="CornerRadius">
+								<S>0</S>
+								<O>8</O>
+							</UDim>
+							<string name="Name">UICorner</string>
+							<int64 name="SourceAssetId">-1</int64>
+							<BinaryString name="Tags"></BinaryString>
+							<UniqueId name="UniqueId">691863620fe85698027556c20014474c</UniqueId>
+						</Properties>
+					</Item>
+					<Item class="ImageLabel" referent="RBX33F68C55163549D59892509AE6B912AA">
+						<Properties>
+							<bool name="Active">false</bool>
+							<Vector2 name="AnchorPoint">
+								<X>0</X>
+								<Y>0</Y>
+							</Vector2>
+							<BinaryString name="AttributesSerialize"></BinaryString>
+							<bool name="AutoLocalize">true</bool>
+							<token name="AutomaticSize">0</token>
+							<Color3 name="BackgroundColor3">
+								<R>1</R>
+								<G>1</G>
+								<B>1</B>
+							</Color3>
+							<float name="BackgroundTransparency">0</float>
+							<Color3 name="BorderColor3">
+								<R>0.105882362</R>
+								<G>0.164705887</G>
+								<B>0.207843155</B>
+							</Color3>
+							<token name="BorderMode">0</token>
+							<int name="BorderSizePixel">0</int>
+							<bool name="ClipsDescendants">false</bool>
+							<bool name="Draggable">false</bool>
+							<Content name="Image"><null></null></Content>
+							<Color3 name="ImageColor3">
+								<R>1</R>
+								<G>1</G>
+								<B>1</B>
+							</Color3>
+							<Vector2 name="ImageRectOffset">
+								<X>0</X>
+								<Y>0</Y>
+							</Vector2>
+							<Vector2 name="ImageRectSize">
+								<X>0</X>
+								<Y>0</Y>
+							</Vector2>
+							<float name="ImageTransparency">0</float>
+							<int name="LayoutOrder">0</int>
+							<string name="Name">PowerSlider</string>
+							<Ref name="NextSelectionDown">null</Ref>
+							<Ref name="NextSelectionLeft">null</Ref>
+							<Ref name="NextSelectionRight">null</Ref>
+							<Ref name="NextSelectionUp">null</Ref>
+							<UDim2 name="Position">
+								<XS>0.54687506</XS>
+								<XO>-160</XO>
+								<YS>0.48888889</YS>
+								<YO>-22</YO>
+							</UDim2>
+							<token name="ResampleMode">0</token>
+							<Ref name="RootLocalizationTable">null</Ref>
+							<float name="Rotation">0</float>
+							<token name="ScaleType">0</token>
+							<bool name="Selectable">false</bool>
+							<token name="SelectionBehaviorDown">0</token>
+							<token name="SelectionBehaviorLeft">0</token>
+							<token name="SelectionBehaviorRight">0</token>
+							<token name="SelectionBehaviorUp">0</token>
+							<bool name="SelectionGroup">false</bool>
+							<Ref name="SelectionImageObject">null</Ref>
+							<UDim2 name="Size">
+								<XS>0</XS>
+								<XO>2</XO>
+								<YS>0</YS>
+								<YO>45</YO>
+							</UDim2>
+							<token name="SizeConstraint">0</token>
+							<Rect2D name="SliceCenter">
+								<min>
+									<X>0</X>
+									<Y>0</Y>
+								</min>
+								<max>
+									<X>0</X>
+									<Y>0</Y>
+								</max>
+							</Rect2D>
+							<float name="SliceScale">1</float>
+							<int64 name="SourceAssetId">-1</int64>
+							<BinaryString name="Tags"></BinaryString>
+							<UDim2 name="TileSize">
+								<XS>1</XS>
+								<XO>0</XO>
+								<YS>1</YS>
+								<YO>0</YO>
+							</UDim2>
+							<UniqueId name="UniqueId">691863620fe85698027556c200144749</UniqueId>
+							<bool name="Visible">true</bool>
+							<int name="ZIndex">3</int>
+						</Properties>
+					</Item>
+				</Item>
+			</Item>
+		</Item>
 	</Item>
 	<Item class="LocalizationService" referent="RBX4AE935D1D6724DCABB4BD52D9BF02338">
 		<Properties>
@@ -2071,6 +2487,51 @@ return RaycastingModule]]></ProtectedString>
 							</Properties>
 						</Item>
 					</Item>
+					<Item class="Folder" referent="RBXEF5B3EC8AB034FDB8BFA05FEF838AAAB">
+						<Properties>
+							<BinaryString name="AttributesSerialize"></BinaryString>
+							<string name="Name">GolfClubs</string>
+							<int64 name="SourceAssetId">-1</int64>
+							<BinaryString name="Tags"></BinaryString>
+							<UniqueId name="UniqueId">691863620fe85698027556c2000e7c2d</UniqueId>
+						</Properties>
+						<Item class="ModuleScript" referent="RBX816ACFCBCD8F43EABE3C32E9AD23BC99">
+							<Properties>
+								<BinaryString name="AttributesSerialize"></BinaryString>
+								<Content name="LinkedSource"><null></null></Content>
+								<string name="Name">GolfDriver</string>
+								<string name="ScriptGuid">{DC0EBF16-1454-4487-A163-F60A43BA19B9}</string>
+								<ProtectedString name="Source"><![CDATA[--GolfDriver
+
+--Services
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
+
+--Events
+local GolfDriverClient = ReplicatedStorage.Common.Events.Tools.GolfDriver.GolfDriverClientSend
+local GolfDriverServer = ReplicatedStorage.Common.Events.Tools.GolfDriver.GolfDriverClientRecieve
+
+--Module
+local GolfDriverModule = {}
+
+function GolfDriverModule.ClientIntialisation(Player)
+    task.spawn(function()
+        local Success, ErrorData = pcall(function()
+            local PlayerGui = Player.PlayerGui
+            local Character = game.Workspace:FindFirstChild(Player.Name)
+        
+            print(Player)
+        end)
+    end)
+end
+
+return GolfDriverModule]]></ProtectedString>
+								<int64 name="SourceAssetId">-1</int64>
+								<BinaryString name="Tags"></BinaryString>
+								<UniqueId name="UniqueId">691863620fe85698027556c2000e7c2e</UniqueId>
+							</Properties>
+						</Item>
+					</Item>
 				</Item>
 				<Item class="Folder" referent="RBX0BCBF7EC1C46401188DE120931E0960E">
 					<Properties>
@@ -2147,9 +2608,10 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 --Modules
 local GolfBallModule = require(game.ServerScriptService.Server.Core.Modules.ObjectCreation.GolfBallCreator)
 local GolfTeeModule = require(game.ServerScriptService.Server.Core.Modules.ObjectCreation.GolfTeeCreator)
+local GolfDriverModule = require(game.ServerScriptService.Server.Core.Modules.GolfClubs.GolfDriver)
 
 --Events
-local ToolActivationEvent = ReplicatedStorage.Common.Events.ToolActivation
+local ToolActivationEvent = ReplicatedStorage.Common.Events.Tools.ToolActivation
 
 --RunTime
 ToolActivationEvent.OnServerEvent:Connect(function(Player, ToolName)
@@ -2161,6 +2623,10 @@ ToolActivationEvent.OnServerEvent:Connect(function(Player, ToolName)
         
             if ToolName == ("Golf Ball") then
                 local GolfBall = GolfBallModule.CreateGolfBall(Player, game.Workspace:FindFirstChild(Player.UserId.."'s Golf Ball"), game.Workspace:FindFirstChild(Player.UserId.."'s Golf Tee"))
+            end
+
+            if ToolName == ("Driver") then
+                GolfDriverModule.ClientIntialisation(Player)
 			end
         end)
         
@@ -2257,14 +2723,50 @@ return SharedInitialisation]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 					<UniqueId name="UniqueId">691863620fe85698027556c200027411</UniqueId>
 				</Properties>
-				<Item class="RemoteEvent" referent="RBXD89EE20B8469444B89DFB260814EF6C7">
+				<Item class="Folder" referent="RBX9AC6C72DE8334E6AA2E087FDCF6F07DE">
 					<Properties>
 						<BinaryString name="AttributesSerialize"></BinaryString>
-						<string name="Name">ToolActivation</string>
+						<string name="Name">Tools</string>
 						<int64 name="SourceAssetId">-1</int64>
 						<BinaryString name="Tags"></BinaryString>
-						<UniqueId name="UniqueId">691863620fe85698027556c2000274c1</UniqueId>
+						<UniqueId name="UniqueId">691863620fe85698027556c2000e7c3c</UniqueId>
 					</Properties>
+					<Item class="Folder" referent="RBXA1570491611D4BCE9C945D71B1292822">
+						<Properties>
+							<BinaryString name="AttributesSerialize"></BinaryString>
+							<string name="Name">GolfDriver</string>
+							<int64 name="SourceAssetId">-1</int64>
+							<BinaryString name="Tags"></BinaryString>
+							<UniqueId name="UniqueId">691863620fe85698027556c2000e7c3d</UniqueId>
+						</Properties>
+						<Item class="RemoteEvent" referent="RBX351F1DC1DAEB4EE59CC54494469C1EA3">
+							<Properties>
+								<BinaryString name="AttributesSerialize"></BinaryString>
+								<string name="Name">GolfDriverClientSend</string>
+								<int64 name="SourceAssetId">-1</int64>
+								<BinaryString name="Tags"></BinaryString>
+								<UniqueId name="UniqueId">691863620fe85698027556c2000e7c46</UniqueId>
+							</Properties>
+						</Item>
+						<Item class="RemoteEvent" referent="RBX2D2EF7DA8EAD4BF597DB7C5846981CB2">
+							<Properties>
+								<BinaryString name="AttributesSerialize"></BinaryString>
+								<string name="Name">GolfDriverClientRecieve</string>
+								<int64 name="SourceAssetId">-1</int64>
+								<BinaryString name="Tags"></BinaryString>
+								<UniqueId name="UniqueId">691863620fe85698027556c2000e7cd0</UniqueId>
+							</Properties>
+						</Item>
+					</Item>
+					<Item class="RemoteEvent" referent="RBXD89EE20B8469444B89DFB260814EF6C7">
+						<Properties>
+							<BinaryString name="AttributesSerialize"></BinaryString>
+							<string name="Name">ToolActivation</string>
+							<int64 name="SourceAssetId">-1</int64>
+							<BinaryString name="Tags"></BinaryString>
+							<UniqueId name="UniqueId">691863620fe85698027556c2000274c1</UniqueId>
+						</Properties>
+					</Item>
 				</Item>
 			</Item>
 			<Item class="Folder" referent="RBX502187CB66DE4AAB90CE99B070DF6B6E">
