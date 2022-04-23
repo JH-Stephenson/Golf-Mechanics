@@ -20,7 +20,7 @@ function GolfDriverModule.ClientIntialisation(Player)
             local PowerBarUI = PlayerGui:FindFirstChild("GolfPowerBar")
             PowerBarUI.Enabled = true
 
-            GolfClubClient:FireClient("Driver", Player)
+            GolfClubClient:FireClient(Player, "Driver")
             print("Server has opened the PowerBar for "..Player.UserId)
         end)
     end)
