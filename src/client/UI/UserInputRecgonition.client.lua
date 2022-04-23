@@ -22,11 +22,13 @@ UserInputService.InputBegan:Connect(function(GameInput, GameProcessedEvent)
     if GameInput.UserInputType == Enum.UserInputType.MouseButton1 or Enum.UserInputType.Touch or Enum.UserInputType.Gamepad1 then
         if PowerBarUI.Enabled == true then
             UserInputRegister = true
-
             task.spawn(function()
                 local Success, ErrorData = pcall(function()
-                    print("hi")
-                    task.wait(1)
+                    while UserInputRegister == true do
+                        --START TO EDIT UI HERE
+                        print("hi")
+                        task.wait()
+                    end
                 end)
 
                 if not Success then
@@ -42,7 +44,7 @@ UserInputService.InputEnded:Connect(function(GameInput, GameProcessedEvent)
         if PowerBarUI.Enabled == true then
             task.spawn(function()
                 local Success, ErrorData = pcall(function()
-                    
+                    UserInputRegister = false
                 end)
 
                 if not Success then
