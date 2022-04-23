@@ -27,9 +27,11 @@ UserInputService.InputBegan:Connect(function(GameInput, GameProcessedEvent)
                     while UserInputRegister == true do
                         for UserInputPowerRate = 1, 320, 1 do
                             --MoveUIUpHere
+                            
                             if UserInputPowerRate == 320 then
                                 for UserInputPowerRate = 320, 1, -1 do
                                     --MoveUIDownHere
+
                                     if UserInputRegister == false then
                                         UserPowerRate = UserInputPowerRate
                                         break
