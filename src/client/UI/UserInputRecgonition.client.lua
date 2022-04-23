@@ -6,6 +6,7 @@ local UserInputService = game:GetService("UserInputService")
 
 --Variables
 local UserInputRegister = false
+local UserPowerRate = 0
 
 --Events
 local GolfDriverClient = ReplicatedStorage.Common.Events.Tools.GolfDriver.GolfDriverClientSend
@@ -27,7 +28,9 @@ UserInputService.InputBegan:Connect(function(GameInput, GameProcessedEvent)
             --print("UserInputRegistered is true.")
 
             if PowerBarUI.Enabled == true then
-                print("YEET")
+                for i = 1, 20, 1 do
+                    print(i)
+                end
             end
         end
     end
