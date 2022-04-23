@@ -8,21 +8,21 @@ local Player = game.Players.LocalPlayer
 local Character = game.Workspace:WaitForChild(Player.Name)
 
 --Events
-local ToolActivationEvent = ReplicatedStorage.Common.Events.ToolActivation
+local ToolActivationEvent = ReplicatedStorage.Common.Events.Tools.ToolActivation
 
 --RunTime
 Character.ChildAdded:Connect(function(AddedChild)
-    if AddedChild:IsA("Tool") then
-        AddedChild.Activated:Connect(function()
-            task.spawn(function()
-                local Success, ErrorData = pcall(function()
+    task.spawn(function()
+        local Success, ErrorData = pcall(function()
+            if AddedChild:IsA("Tool") then
+                AddedChild.Activated:Connect(function()
                     ToolActivationEvent:FireServer(AddedChild.Name)
                 end)
-
-                if not Success then
-                    print(ErrorData)
-                end
-            end)
+            end
         end)
-    end
+
+        if not Success then
+            print(ErrorData)
+        end
+    end)
 end)
