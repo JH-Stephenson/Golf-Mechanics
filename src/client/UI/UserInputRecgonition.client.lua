@@ -14,6 +14,7 @@ local GolfDriverServer = ReplicatedStorage.Common.Events.Tools.GolfDriver.GolfDr
 --UI
 local PowerBarUI = game.Players.LocalPlayer.PlayerGui.GolfPowerBar
 
+--VariableRegister
 GolfDriverClient.OnClientEvent:Connect(function()
     UserInputRegister = true
 end)
