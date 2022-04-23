@@ -26,7 +26,7 @@ UserInputService.InputBegan:Connect(function(GameInput, GameProcessedEvent)
             task.spawn(function()
                 local Success, ErrorData = pcall(function()
                     print("hi")
-                    task.wait(0.1)
+                    task.wait(1)
                 end)
 
                 if not Success then
