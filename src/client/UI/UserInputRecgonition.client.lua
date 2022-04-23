@@ -25,8 +25,23 @@ UserInputService.InputBegan:Connect(function(GameInput, GameProcessedEvent)
             task.spawn(function()
                 local Success, ErrorData = pcall(function()
                     while UserInputRegister == true do
-                        --START TO EDIT UI HERE
-                        print("hi")
+                        for UserInputPowerRate = 1, 320, 1 do
+                            --MoveUIUpHere
+                            if UserInputPowerRate == 320 then
+                                for UserInputPowerRate = 320, 1, -1 do
+                                    --MoveUIDownHere
+                                    if UserInputRegister == false then
+                                        UserPowerRate = UserInputPowerRate
+                                        break
+                                    end
+                                end
+
+                                if UserInputRegister == false then
+                                    UserPowerRate = UserInputPowerRate
+                                    break
+                                end
+                            end
+                        end
                         task.wait()
                     end
                 end)
