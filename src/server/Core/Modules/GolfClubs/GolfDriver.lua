@@ -17,6 +17,9 @@ function GolfDriverModule.ClientIntialisation(Player)
             local PlayerGui = Player.PlayerGui
             local Character = game.Workspace:FindFirstChild(Player.Name)
 
+            --Animation will play here.
+            wait(3)
+
             local PowerBarUI = PlayerGui:FindFirstChild("GolfPowerBar")
             PowerBarUI.Enabled = true
 
