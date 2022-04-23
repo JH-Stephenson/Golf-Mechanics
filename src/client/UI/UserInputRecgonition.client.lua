@@ -23,18 +23,16 @@ UserInputService.InputBegan:Connect(function(GameInput, GameProcessedEvent)
         if PowerBarUI.Enabled == true then
             UserInputRegister = true
 
-            while UserInputRegister == true do
-                task.spawn(function()
-                    local Success, ErrorData = pcall(function()
-                        print("hi")
-                        RunService.Heartbeat:Wait()
-                    end)
-
-                    if not Success then
-                        print(ErrorData)
-                    end
+            task.spawn(function()
+                local Success, ErrorData = pcall(function()
+                    print("hi")
+                    task.wait(0.1)
                 end)
-            end
+
+                if not Success then
+                    print(ErrorData)
+                end
+            end)
         end
     end
 end)
