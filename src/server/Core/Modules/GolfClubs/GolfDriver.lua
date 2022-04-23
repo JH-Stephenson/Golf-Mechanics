@@ -16,8 +16,11 @@ function GolfDriverModule.ClientIntialisation(Player)
         local Success, ErrorData = pcall(function()
             local PlayerGui = Player.PlayerGui
             local Character = game.Workspace:FindFirstChild(Player.Name)
-        
-            print(Player)
+
+            local PowerBarUI = PlayerGui:FindFirstChild("PowerBarUI")
+            PowerBarUI.Enabled = true
+
+            print("Server has opened the PowerBar for "..Player.UserId)
         end)
     end)
 end
