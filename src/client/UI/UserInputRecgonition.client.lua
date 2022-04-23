@@ -85,23 +85,26 @@ UserInputService.InputEnded:Connect(function(GameInput, GameProcessedEvent)
         if PowerBarUI.Enabled == true then
             task.spawn(function()
                 local Success, ErrorData = pcall(function()
-
                     if DriverRequested == true then
                         UserInputRegister = false
                         DriverRequested = false
                         GolfClubServer:FireServer("Driver", UserPowerRate)
+                        
                     elseif IronRequested == true then
                         UserInputRegister = false
                         IronRequested = false
                         GolfClubServer:FireServer("Iron", UserPowerRate)
+
                     elseif PutterRequested == true then
                         UserInputRegister = false
                         PutterRequested = false
                         GolfClubServer:FireServer("Putter", UserPowerRate)
+
                     elseif WedgeRequested == true then
                         UserInputRegister = false
                         WedgeRequested = false
                         GolfClubServer:FireServer("Wedge", UserPowerRate)
+
                     elseif WoodRequested == true then
                         UserInputRegister = false
                         WoodRequested = false
