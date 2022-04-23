@@ -629,35 +629,6 @@ gcLgc4RKxr21zq2UlJSM]]></BinaryString>
 						<BinaryString name="Tags"></BinaryString>
 						<UniqueId name="UniqueId">691863620fe85698027556c2000271b6</UniqueId>
 					</Properties>
-					<Item class="LocalScript" referent="RBX869DA3381B5F4D52AF2D5BA76F1F4AC5">
-						<Properties>
-							<BinaryString name="AttributesSerialize"></BinaryString>
-							<bool name="Disabled">false</bool>
-							<Content name="LinkedSource"><null></null></Content>
-							<string name="Name">UserInputRecgonition</string>
-							<string name="ScriptGuid">{64C8A813-F759-4088-B8D4-9EFF5BF2E961}</string>
-							<ProtectedString name="Source"><![CDATA[--UserInputRecgonititon
-
---Services
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local UserInputService = game:GetService("UserInputService")
-
---Variables
-local UserInputRegister = false
-
---RunTime
-UserInputService.InputBegan:Connect(function(GameInput, GameProcessedEvent)
-    if UserInputRegister == true then
-        if GameInput.UserInputType == Enum.UserInputType.MouseButton1 or Enum.UserInputType.Touch or Enum.UserInputType.Gamepad1 then
-            print("Print UserInputRegistered is true.")
-        end
-    end
-end)]]></ProtectedString>
-							<int64 name="SourceAssetId">-1</int64>
-							<BinaryString name="Tags"></BinaryString>
-							<UniqueId name="UniqueId">691863620fe85698027556c200027583</UniqueId>
-						</Properties>
-					</Item>
 					<Item class="LocalScript" referent="RBXAC0374D12388400D850E69A014430E70">
 						<Properties>
 							<BinaryString name="AttributesSerialize"></BinaryString>
@@ -730,6 +701,53 @@ SharedInitialisationModule.ClientModuleInitialisation()]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 						<UniqueId name="UniqueId">691863620fe85698027556c200027262</UniqueId>
 					</Properties>
+					<Item class="LocalScript" referent="RBX119AAD75C95040ED982F684F1A47CE8F">
+						<Properties>
+							<BinaryString name="AttributesSerialize"></BinaryString>
+							<bool name="Disabled">false</bool>
+							<Content name="LinkedSource"><null></null></Content>
+							<string name="Name">UserInputRecgonition</string>
+							<string name="ScriptGuid">{1ACC3026-BBB4-47D9-BAEE-E6728242C95E}</string>
+							<ProtectedString name="Source"><![CDATA[--UserInputRecgonititon
+
+--Services
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local UserInputService = game:GetService("UserInputService")
+
+--Variables
+local UserInputRegister = false
+local UserPowerRate = 0
+
+--Events
+local GolfDriverClient = ReplicatedStorage.Common.Events.Tools.GolfDriver.GolfDriverClientSend
+local GolfDriverServer = ReplicatedStorage.Common.Events.Tools.GolfDriver.GolfDriverClientRecieve
+
+--UI
+local PowerBarUI = game.Players.LocalPlayer.PlayerGui:WaitForChild("GolfPowerBar")
+local PowerSlider = PowerBarUI.OuterFrame.InnerFrame.PowerSlider
+
+--VariableRegister
+GolfDriverClient.OnClientEvent:Connect(function()
+    UserInputRegister = true
+end)
+
+--RunTime
+UserInputService.InputBegan:Connect(function(GameInput, GameProcessedEvent)
+    if GameInput.UserInputType == Enum.UserInputType.MouseButton1 or Enum.UserInputType.Touch or Enum.UserInputType.Gamepad1 then
+        print("Input Started")
+    end
+end)
+
+UserInputService.InputEnded:Connect(function(GameInput, GameProcessedEvent)
+    if GameInput.UserInputType == Enum.UserInputType.MouseButton1 or Enum.UserInputType.Touch or Enum.UserInputType.Gamepad1 then
+        print("Input Ended")
+    end
+end)]]></ProtectedString>
+							<int64 name="SourceAssetId">-1</int64>
+							<BinaryString name="Tags"></BinaryString>
+							<UniqueId name="UniqueId">691863620fe85698027556c200183b90</UniqueId>
+						</Properties>
+					</Item>
 				</Item>
 			</Item>
 		</Item>
@@ -2519,8 +2537,12 @@ function GolfDriverModule.ClientIntialisation(Player)
         local Success, ErrorData = pcall(function()
             local PlayerGui = Player.PlayerGui
             local Character = game.Workspace:FindFirstChild(Player.Name)
-        
-            print(Player)
+
+            local PowerBarUI = PlayerGui:FindFirstChild("GolfPowerBar")
+            PowerBarUI.Enabled = true
+
+            GolfDriverClient:FireClient(Player)
+            print("Server has opened the PowerBar for "..Player.UserId)
         end)
     end)
 end
