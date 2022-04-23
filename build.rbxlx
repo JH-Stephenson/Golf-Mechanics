@@ -80,18 +80,18 @@
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<CoordinateFrame name="CFrame">
-					<X>18.5286026</X>
-					<Y>9.28902721</Y>
-					<Z>3.21309614</Z>
-					<R00>0.0627793446</R00>
-					<R01>-0.357042283</R01>
-					<R02>0.931976259</R02>
-					<R10>1.86264515e-09</R10>
-					<R11>0.933818281</R11>
-					<R12>0.357747972</R12>
-					<R20>-0.998027444</R20>
-					<R21>-0.022459181</R21>
-					<R22>0.0586244985</R22>
+					<X>18.2581635</X>
+					<Y>9.78167248</Y>
+					<Z>3.12920785</Z>
+					<R00>0.0209309366</R00>
+					<R01>-0.603937149</R01>
+					<R02>0.796757162</R02>
+					<R10>-0</R10>
+					<R11>0.796931744</R11>
+					<R12>0.604069531</R12>
+					<R20>-0.999780893</R20>
+					<R21>-0.0126437414</R21>
+					<R22>0.0166805275</R22>
 				</CoordinateFrame>
 				<Ref name="CameraSubject">null</Ref>
 				<token name="CameraType">0</token>
@@ -646,7 +646,7 @@ local Player = game.Players.LocalPlayer
 local Character = game.Workspace:WaitForChild(Player.Name)
 
 --Events
-local ToolActivationEvent = ReplicatedStorage.Common.Events.Tools.ToolActivation
+local ToolActivationEvent = ReplicatedStorage.Common.Events.Tools:WaitForChild("ToolActivated")
 
 --RunTime
 Character.ChildAdded:Connect(function(AddedChild)
@@ -735,8 +735,27 @@ UserInputService.InputBegan:Connect(function(GameInput, GameProcessedEvent)
             task.spawn(function()
                 local Success, ErrorData = pcall(function()
                     while UserInputRegister == true do
-                        --START TO EDIT UI HERE
-                        print("hi")
+                        for UserInputPowerRate = 1, 320, 1 do
+                            PowerSlider.Position = UDim2.new(0, UserInputPowerRate, 0, 0)
+                            if UserInputRegister == false then
+                                break
+                            end
+
+                            UserPowerRate = UserInputPowerRate
+                            task.wait()
+                            
+                            if UserInputPowerRate == 320 then
+                                for UserInputPowerRate = 320, 1, -1 do
+                                    PowerSlider.Position = UDim2.new(0, UserInputPowerRate, 0, 0)
+                                    if UserInputRegister == false then
+                                        break
+                                    end
+
+                                    UserPowerRate = UserInputPowerRate
+                                    task.wait()
+                                end
+                            end
+                        end
                         task.wait()
                     end
                 end)
@@ -755,6 +774,7 @@ UserInputService.InputEnded:Connect(function(GameInput, GameProcessedEvent)
             task.spawn(function()
                 local Success, ErrorData = pcall(function()
                     UserInputRegister = false
+                    print(UserPowerRate)
                 end)
 
                 if not Success then
@@ -2654,7 +2674,7 @@ local GolfTeeModule = require(game.ServerScriptService.Server.Core.Modules.Objec
 local GolfDriverModule = require(game.ServerScriptService.Server.Core.Modules.GolfClubs.GolfDriver)
 
 --Events
-local ToolActivationEvent = ReplicatedStorage.Common.Events.Tools.ToolActivation
+local ToolActivationEvent = ReplicatedStorage.Common.Events.Tools:WaitForChild("ToolActivated")
 
 --RunTime
 ToolActivationEvent.OnServerEvent:Connect(function(Player, ToolName)
@@ -2782,32 +2802,32 @@ return SharedInitialisation]]></ProtectedString>
 							<BinaryString name="Tags"></BinaryString>
 							<UniqueId name="UniqueId">27629d78d4d03b440275aa2300027230</UniqueId>
 						</Properties>
-						<Item class="RemoteEvent" referent="RBXF2D87DEB6BAC4C0EAC2AC386BF677FE3">
-							<Properties>
-								<BinaryString name="AttributesSerialize"></BinaryString>
-								<string name="Name">GolfDriverClientSend</string>
-								<int64 name="SourceAssetId">-1</int64>
-								<BinaryString name="Tags"></BinaryString>
-								<UniqueId name="UniqueId">27629d78d4d03b440275aa2300027239</UniqueId>
-							</Properties>
-						</Item>
-						<Item class="RemoteEvent" referent="RBX257767AB7F514EACB9BC9FD79C3A8135">
+						<Item class="RemoteEvent" referent="RBX3F2470AC655A42E79DCC89B5E76B35E0">
 							<Properties>
 								<BinaryString name="AttributesSerialize"></BinaryString>
 								<string name="Name">GolfDriverClientRecieve</string>
 								<int64 name="SourceAssetId">-1</int64>
 								<BinaryString name="Tags"></BinaryString>
-								<UniqueId name="UniqueId">27629d78d4d03b440275aa230002723a</UniqueId>
+								<UniqueId name="UniqueId">27629d78d4d03b440275aa2300083f52</UniqueId>
+							</Properties>
+						</Item>
+						<Item class="RemoteEvent" referent="RBX3BAE7D0530454748AB20554634D9ED59">
+							<Properties>
+								<BinaryString name="AttributesSerialize"></BinaryString>
+								<string name="Name">GolfDriverClientSend</string>
+								<int64 name="SourceAssetId">-1</int64>
+								<BinaryString name="Tags"></BinaryString>
+								<UniqueId name="UniqueId">27629d78d4d03b440275aa2300083f65</UniqueId>
 							</Properties>
 						</Item>
 					</Item>
-					<Item class="RemoteEvent" referent="RBX265B381FDA8B4D6995C75CE164C39BAC">
+					<Item class="RemoteEvent" referent="RBXB69DC5B2CD044347B696645FD05E6900">
 						<Properties>
 							<BinaryString name="AttributesSerialize"></BinaryString>
-							<string name="Name">ToolActivation</string>
+							<string name="Name">ToolActivated</string>
 							<int64 name="SourceAssetId">-1</int64>
 							<BinaryString name="Tags"></BinaryString>
-							<UniqueId name="UniqueId">27629d78d4d03b440275aa230002723b</UniqueId>
+							<UniqueId name="UniqueId">27629d78d4d03b440275aa2300083f66</UniqueId>
 						</Properties>
 					</Item>
 				</Item>
@@ -2846,7 +2866,7 @@ return SharedInitialisation]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 						<UniqueId name="UniqueId">27629d78d4d03b440275aa2300027234</UniqueId>
 					</Properties>
-					<Item class="MeshPart" referent="RBX1D0241BB79424465AC5B7C048B70C3C6">
+					<Item class="MeshPart" referent="RBX199B27C732E1467CAC6C0C9A01B4D47C">
 						<Properties>
 							<bool name="Anchored">false</bool>
 							<BinaryString name="AttributesSerialize"></BinaryString>
@@ -2946,7 +2966,7 @@ return SharedInitialisation]]></ProtectedString>
 							<token name="TopSurface">0</token>
 							<token name="TopSurfaceInput">0</token>
 							<float name="Transparency">0</float>
-							<UniqueId name="UniqueId">27629d78d4d03b440275aa2300027237</UniqueId>
+							<UniqueId name="UniqueId">27629d78d4d03b440275aa2300084075</UniqueId>
 							<Vector3 name="Velocity">
 								<X>0</X>
 								<Y>0</Y>
@@ -2959,7 +2979,7 @@ return SharedInitialisation]]></ProtectedString>
 							</Vector3>
 						</Properties>
 					</Item>
-					<Item class="UnionOperation" referent="RBX5CF3560FE640401A8386D0CBFC053720">
+					<Item class="UnionOperation" referent="RBX622286E229BE44D9B68F137FBF4DC957">
 						<Properties>
 							<bool name="Anchored">false</bool>
 							<Content name="AssetId"><url>https://www.roblox.com//asset/?id=1221280050</url></Content>
@@ -3055,7 +3075,7 @@ return SharedInitialisation]]></ProtectedString>
 							<token name="TopSurface">0</token>
 							<token name="TopSurfaceInput">0</token>
 							<float name="Transparency">0</float>
-							<UniqueId name="UniqueId">27629d78d4d03b440275aa230002723c</UniqueId>
+							<UniqueId name="UniqueId">27629d78d4d03b440275aa2300084076</UniqueId>
 							<bool name="UsePartColor">false</bool>
 							<Vector3 name="Velocity">
 								<X>0</X>
