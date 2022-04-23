@@ -28,9 +28,9 @@ UserInputService.InputBegan:Connect(function(GameInput, GameProcessedEvent)
                         for UserInputPowerRate = 1, 320, 1 do
                             PowerSlider.Position = UDim2.new(0, UserInputPowerRate, 0, 0)
                             if UserInputRegister == false then
-                                UserPowerRate = UserInputPowerRate
                                 break
                             end
+                            UserPowerRate = UserInputPowerRate
                             task.wait()
 
                             if UserInputPowerRate == 320 then
@@ -38,9 +38,9 @@ UserInputService.InputBegan:Connect(function(GameInput, GameProcessedEvent)
                                     PowerSlider.Position = UDim2.new(0, UserInputPowerRate, 0, 0)
 
                                     if UserInputRegister == false then
-                                        UserPowerRate = UserInputPowerRate
                                         break
                                     end
+                                    UserPowerRate = UserInputPowerRate
                                     task.wait()
                                 end
                             end
@@ -63,6 +63,7 @@ UserInputService.InputEnded:Connect(function(GameInput, GameProcessedEvent)
             task.spawn(function()
                 local Success, ErrorData = pcall(function()
                     UserInputRegister = false
+                    print(UserPowerRate)
                 end)
 
                 if not Success then
