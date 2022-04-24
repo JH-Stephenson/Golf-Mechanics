@@ -19,6 +19,8 @@ WorkspacePlayer.ChildAdded:Connect(function(AddedChild)
                 AddedChild.Activated:Connect(function()
                     ToolActivatedEvent:FireServer(AddedChild.Name)
                 end)
+
+                --GENERATE HITPART (DriverHead) .Touched HERE IF HIT ON GolfBallTouch==True (ATTRIBUTE)
             end
         end)
 
