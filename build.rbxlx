@@ -80,27 +80,27 @@
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<CoordinateFrame name="CFrame">
-					<X>18.2581635</X>
-					<Y>9.78167248</Y>
-					<Z>3.12920785</Z>
-					<R00>0.0209309366</R00>
-					<R01>-0.603937149</R01>
-					<R02>0.796757162</R02>
+					<X>8.21924019</X>
+					<Y>1.13523936</Y>
+					<Z>12.7177296</Z>
+					<R00>0.94205308</R00>
+					<R01>-0.22690323</R01>
+					<R02>0.247085109</R02>
 					<R10>-0</R10>
-					<R11>0.796931744</R11>
-					<R12>0.604069531</R12>
-					<R20>-0.999780893</R20>
-					<R21>-0.0126437414</R21>
-					<R22>0.0166805275</R22>
+					<R11>0.736547291</R11>
+					<R12>0.676386178</R12>
+					<R20>-0.335464031</R20>
+					<R21>-0.637191653</R21>
+					<R22>0.693866551</R22>
 				</CoordinateFrame>
 				<Ref name="CameraSubject">null</Ref>
 				<token name="CameraType">0</token>
 				<float name="FieldOfView">70</float>
 				<token name="FieldOfViewMode">0</token>
 				<CoordinateFrame name="Focus">
-					<X>16.6646423</X>
-					<Y>8.57352829</Y>
-					<Z>3.09584665</Z>
+					<X>7.72506714</X>
+					<Y>-0.217540741</Y>
+					<Z>11.3299885</Z>
 					<R00>1</R00>
 					<R01>0</R01>
 					<R02>0</R02>
@@ -659,7 +659,35 @@ SharedInitialisationModule.ClientModuleInitialisation()]]></ProtectedString>
 							<Content name="LinkedSource"><null></null></Content>
 							<string name="Name">ToolClient</string>
 							<string name="ScriptGuid">{8B1EB873-67A4-4495-B323-83169FF65BE2}</string>
-							<ProtectedString name="Source"></ProtectedString>
+							<ProtectedString name="Source"><![CDATA[--ToolClient
+
+--Services
+local PlayersService = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+--ToolClientPreRequisites
+local ServicePlayer = PlayersService.LocalPlayer
+local WorkspacePlayer = game.Workspace:WaitForChild(ServicePlayer.Name)
+
+--ToolEvents
+local ToolActivatedEvent = ReplicatedStorage.Common.Events.Tools.ToolActivatedEvent
+
+--RunTime
+WorkspacePlayer.ChildAdded:Connect(function(AddedChild)
+    task.spawn(function()
+        local Success, ErrorData = pcall(function()
+            if AddedChild:IsA("Tool") then
+                AddedChild.Activated:Connect(function()
+                    ToolActivatedEvent:FireServer(AddedChild.Name)
+                end)
+            end
+        end)
+
+        if not Success then
+            print(ErrorData)
+        end
+    end)
+end)]]></ProtectedString>
 							<int64 name="SourceAssetId">-1</int64>
 							<BinaryString name="Tags"></BinaryString>
 							<UniqueId name="UniqueId">5c7e1f85a8302b070276ca9800027294</UniqueId>
@@ -2099,7 +2127,7 @@ function BezierModule.Lerp(StartPosition, EndPosition, Time)
     return StartPosition + (EndPosition - StartPosition) * Time
 end
 
-function BezierModule.QuadraticBezier(Player, GolfTee, StartPart, MidPart, EndPart, TravelPart)
+function BezierModule.QuadraticBezier(ServicePlayer, GolfTee, StartPart, MidPart, EndPart, TravelPart)
     task.spawn(function()
         local Success, ErrorData = pcall(function()
             for QuadraticBezierCounter = 0, 10, 1 do
@@ -2127,7 +2155,7 @@ function BezierModule.QuadraticBezier(Player, GolfTee, StartPart, MidPart, EndPa
     end)
 end
 
-function BezierModule.CubicBezier(Player, GolfTee, StartPart, MidPart1, MidPart2, EndPart, TravelPart)
+function BezierModule.CubicBezier(ServicePlayer, GolfTee, StartPart, MidPart1, MidPart2, EndPart, TravelPart)
     task.spawn(function()
         local Success, ErrorData = pcall(function()
             for CubicBezierCounter = 0, 10, 1 do
@@ -2195,17 +2223,17 @@ function DataStorageModule.DataStoreName()
     return("PGM | v0.01")
 end
 
-function DataStorageModule.SetupPlayer(Player)
+function DataStorageModule.SetupPlayer(ServicePlayer)
     task.spawn(function()
         local Success, ErrorData = pcall(function()
             local CurrentDataStore = DataStoreService:GetDataStore(DataStorageModule.DataStoreName())
-            local CheckPlayersData = CurrentDataStore:GetAsync(Player.UserId)
+            local CheckPlayersData = CurrentDataStore:GetAsync(ServicePlayer.UserId)
         
-            local PlayerJoinedTable = CurrentPlayerData[Player.UserId] or {};
-            CurrentPlayerData[Player.UserId] = PlayerJoinedTable
+            local PlayerJoinedTable = CurrentPlayerData[ServicePlayer.UserId] or {};
+            CurrentPlayerData[ServicePlayer.UserId] = PlayerJoinedTable
         
             if CheckPlayersData == nil then
-                print(Player.UserId.."'s not visited this game before!")
+                print(ServicePlayer.UserId.."'s not visited this game before!")
         
                 --SetupData
                 PlayerJoinedTable["£"] = 1
@@ -2222,7 +2250,7 @@ function DataStorageModule.SetupPlayer(Player)
                 PlayerJoinedTable["Player Hosting Expierence"] = 1
                 PlayerJoinedTable["Player Roving Expierence"] = 1
             else
-                print(Player.UserId.."'s has visited this game before!")
+                print(ServicePlayer.UserId.."'s has visited this game before!")
         
                 --SetDataFromDataStore
                 PlayerJoinedTable["£"] = CheckPlayersData["£"]
@@ -2242,7 +2270,7 @@ function DataStorageModule.SetupPlayer(Player)
             --Create Public Variables
             local PublicPlayerLeaderstats = Instance.new("Folder")
             PublicPlayerLeaderstats.Name = ("leaderstats")
-            PublicPlayerLeaderstats.Parent = Player
+            PublicPlayerLeaderstats.Parent = ServicePlayer
         
             local PlayersMoney = Instance.new("IntValue")
             PlayersMoney.Parent = PublicPlayerLeaderstats
@@ -2268,30 +2296,80 @@ return DataStorageModule]]></ProtectedString>
 							</Properties>
 						</Item>
 					</Item>
-					<Item class="Folder" referent="RBXE01E8E56B56C4F9AAD9F997AFA04CC21">
+					<Item class="Folder" referent="RBX7F89ABA829124C15A318F086C866857E">
 						<Properties>
 							<BinaryString name="AttributesSerialize"></BinaryString>
-							<string name="Name">ObjectCreation</string>
+							<string name="Name">Raycasting</string>
 							<int64 name="SourceAssetId">-1</int64>
 							<BinaryString name="Tags"></BinaryString>
-							<UniqueId name="UniqueId">691863620fe85698027556c2000271bb</UniqueId>
+							<UniqueId name="UniqueId">691863620fe85698027556c2000271bc</UniqueId>
 						</Properties>
-						<Item class="ModuleScript" referent="RBX919115D99CCE45E3A0C7ECB294725DF4">
+						<Item class="ModuleScript" referent="RBX061AA16DE3F241B5AE37CED403BD4AB8">
+							<Properties>
+								<BinaryString name="AttributesSerialize"></BinaryString>
+								<Content name="LinkedSource"><null></null></Content>
+								<string name="Name">RaycastingModule</string>
+								<string name="ScriptGuid">{0FED101E-1DE7-4C85-A960-2E9FD8454FDA}</string>
+								<ProtectedString name="Source"><![CDATA[local RaycastingModule = {}
+
+function RaycastingModule.FindPlayersGround(ServicePlayer)
+    --WorkspacePreRequisites
+    local WorkspacePlayer = ServicePlayer.Character
+    local WorkspacePlayerRoot = WorkspacePlayer:FindFirstChild("HumanoidRootPart")
+
+    --RaycastingParameters
+    local RaycastOrigin = WorkspacePlayerRoot.Position
+    local RaycastDirection = Vector3.new(0, -20, 0)
+    
+    local RaycastParameters = RaycastParams.new()
+    RaycastParameters.FilterType = Enum.RaycastFilterType.Blacklist
+    RaycastParameters.FilterDescendantsInstances = {WorkspacePlayer}
+    RaycastParameters.IgnoreWater = false
+
+    --RaycastCreation
+    local Raycast = workspace:Raycast(RaycastOrigin, RaycastDirection, RaycastParameters)
+
+    if Raycast then
+        print("Player's Raycast Hit Object: ", Raycast.Instance:GetFullName())
+        print("Player's Raycast Hit Object at Position: ", Raycast.Position)
+        print("Player's Raycast Hit an Object with the Material: ", Raycast.Material.Name)
+        print("Player's Raycast Surface Normal at Position: ", Raycast.Normal)
+
+        return Raycast
+    end
+end
+
+return RaycastingModule]]></ProtectedString>
+								<int64 name="SourceAssetId">-1</int64>
+								<BinaryString name="Tags"></BinaryString>
+								<UniqueId name="UniqueId">691863620fe85698027556c20002762d</UniqueId>
+							</Properties>
+						</Item>
+					</Item>
+					<Item class="Folder" referent="RBX0BFA3A7DEFD24EB9B22C9067E2BE28A5">
+						<Properties>
+							<BinaryString name="AttributesSerialize"></BinaryString>
+							<string name="Name">ObjectCreators</string>
+							<int64 name="SourceAssetId">-1</int64>
+							<BinaryString name="Tags"></BinaryString>
+							<UniqueId name="UniqueId">5c7e1f85a8302b070276ca98000feed0</UniqueId>
+						</Properties>
+						<Item class="ModuleScript" referent="RBX6815FE3EA13C494FBA56F8E37E64DFB1">
 							<Properties>
 								<BinaryString name="AttributesSerialize"></BinaryString>
 								<Content name="LinkedSource"><null></null></Content>
 								<string name="Name">GolfBallCreator</string>
-								<string name="ScriptGuid">{1C9406EC-6FE1-49E0-945A-8382F884748E}</string>
+								<string name="ScriptGuid">{52327138-D281-44D8-BBAC-49708A2CC272}</string>
 								<ProtectedString name="Source"><![CDATA[local GolfBallCreator = {}
 
-function GolfBallCreator.CreateGolfBall(Player, GolfBall, GolfTee)
+function GolfBallCreator.CreateGolfBall(ServicePlayer, GolfBall, GolfTee)
     task.spawn(function()
         local Success, ErrorData = pcall(function()
             if not GolfBall then
-                local WorkspaceCharacter = Player.Character
+                local WorkspaceCharacter = ServicePlayer.Character
 
                 local CreatedGolfBall = game.ReplicatedStorage.Common.Components.Objects.BallObject:Clone()
-                CreatedGolfBall.Name = (Player.UserId.."'s Golf Ball")
+                CreatedGolfBall.Name = (ServicePlayer.UserId.."'s Golf Ball")
                 CreatedGolfBall.Parent = game.ReplicatedStorage.Common.Components.Objects
                 CreatedGolfBall.Size = Vector3.new(0.5, 0.5, 0.5)
                 
@@ -2299,7 +2377,7 @@ function GolfBallCreator.CreateGolfBall(Player, GolfBall, GolfTee)
                     CreatedGolfBall.CFrame = GolfTee.CFrame * CFrame.new(0, 0.55, 0)
                 else
                     local RaycastingModule = require(game.ServerScriptService.Server.Core.Modules.Raycasting.RaycastingModule)
-                    local RaycastingResult = RaycastingModule.FindPlayersGround(Player)
+                    local RaycastingResult = RaycastingModule.FindPlayersGround(ServicePlayer)
     
                     if RaycastingResult then
                         local HumanoidRootPart = WorkspaceCharacter:FindFirstChild("HumanoidRootPart")
@@ -2334,30 +2412,30 @@ end
 return GolfBallCreator]]></ProtectedString>
 								<int64 name="SourceAssetId">-1</int64>
 								<BinaryString name="Tags"></BinaryString>
-								<UniqueId name="UniqueId">691863620fe85698027556c200027629</UniqueId>
+								<UniqueId name="UniqueId">5c7e1f85a8302b070276ca98000feed1</UniqueId>
 							</Properties>
 						</Item>
-						<Item class="ModuleScript" referent="RBX891415BF36D94BE888A0978F53F7A2AA">
+						<Item class="ModuleScript" referent="RBX9B2CA04626214389A95AC9AAF375E816">
 							<Properties>
 								<BinaryString name="AttributesSerialize"></BinaryString>
 								<Content name="LinkedSource"><null></null></Content>
 								<string name="Name">GolfTeeCreator</string>
-								<string name="ScriptGuid">{E906B63D-0391-4FB7-9FAE-146CFAB635B3}</string>
+								<string name="ScriptGuid">{8624A40B-4088-4662-8DA9-6D343D5DE66B}</string>
 								<ProtectedString name="Source"><![CDATA[local GolfTeeCreator = {}
 
-function GolfTeeCreator.CreateGolfTee(Player, GolfTee)
+function GolfTeeCreator.CreateGolfTee(ServicePlayer, GolfTee)
     task.spawn(function()
         local Success, ErrorData = pcall(function()
             if not GolfTee then
                 local RaycastingModule = require(game.ServerScriptService.Server.Core.Modules.Raycasting.RaycastingModule)
-                local RaycastingResult = RaycastingModule.FindPlayersGround(Player)
+                local RaycastingResult = RaycastingModule.FindPlayersGround(ServicePlayer)
         
                 if RaycastingResult then
-                    local WorkspaceCharacter = Player.Character
+                    local WorkspaceCharacter = ServicePlayer.Character
                     local HumanoidRootPart = WorkspaceCharacter:FindFirstChild("HumanoidRootPart")
         
                     local CreatedGolfTee = game.ReplicatedStorage.Common.Components.Objects.TeeObject:Clone()
-                    CreatedGolfTee.Name = (Player.UserId.."'s Golf Tee")
+                    CreatedGolfTee.Name = (ServicePlayer.UserId.."'s Golf Tee")
                     CreatedGolfTee.Parent = game.ReplicatedStorage.Common.Components.Objects
                     CreatedGolfTee.Size = Vector3.new(0.3, 0.7, 0.3)
         
@@ -2390,57 +2468,56 @@ end
 return GolfTeeCreator]]></ProtectedString>
 								<int64 name="SourceAssetId">-1</int64>
 								<BinaryString name="Tags"></BinaryString>
-								<UniqueId name="UniqueId">691863620fe85698027556c20002762b</UniqueId>
+								<UniqueId name="UniqueId">5c7e1f85a8302b070276ca98000feed2</UniqueId>
 							</Properties>
 						</Item>
 					</Item>
-					<Item class="Folder" referent="RBX7F89ABA829124C15A318F086C866857E">
+					<Item class="Folder" referent="RBX5C892A9CF3A0480CAE19D5D1CD79CBF8">
 						<Properties>
 							<BinaryString name="AttributesSerialize"></BinaryString>
-							<string name="Name">Raycasting</string>
+							<string name="Name">ToolModules</string>
 							<int64 name="SourceAssetId">-1</int64>
 							<BinaryString name="Tags"></BinaryString>
-							<UniqueId name="UniqueId">691863620fe85698027556c2000271bc</UniqueId>
+							<UniqueId name="UniqueId">5c7e1f85a8302b070276ca98000feed5</UniqueId>
 						</Properties>
-						<Item class="ModuleScript" referent="RBX061AA16DE3F241B5AE37CED403BD4AB8">
+						<Item class="Folder" referent="RBX4FCB0EDB061B4DBBAD0068CBC68DFC32">
 							<Properties>
 								<BinaryString name="AttributesSerialize"></BinaryString>
-								<Content name="LinkedSource"><null></null></Content>
-								<string name="Name">RaycastingModule</string>
-								<string name="ScriptGuid">{0FED101E-1DE7-4C85-A960-2E9FD8454FDA}</string>
-								<ProtectedString name="Source"><![CDATA[local RaycastingModule = {}
-
-function RaycastingModule.FindPlayersGround(Player)
-    --WorkspacePreRequisites
-    local WorkspacePlayer = Player.Character
-    local WorkspacePlayerRoot = WorkspacePlayer:FindFirstChild("HumanoidRootPart")
-
-    --RaycastingParameters
-    local RaycastOrigin = WorkspacePlayerRoot.Position
-    local RaycastDirection = Vector3.new(0, -20, 0)
-    
-    local RaycastParameters = RaycastParams.new()
-    RaycastParameters.FilterType = Enum.RaycastFilterType.Blacklist
-    RaycastParameters.FilterDescendantsInstances = {WorkspacePlayer}
-    RaycastParameters.IgnoreWater = false
-
-    --RaycastCreation
-    local Raycast = workspace:Raycast(RaycastOrigin, RaycastDirection, RaycastParameters)
-
-    if Raycast then
-        print("Player's Raycast Hit Object: ", Raycast.Instance:GetFullName())
-        print("Player's Raycast Hit Object at Position: ", Raycast.Position)
-        print("Player's Raycast Hit an Object with the Material: ", Raycast.Material.Name)
-        print("Player's Raycast Surface Normal at Position: ", Raycast.Normal)
-
-        return Raycast
-    end
-end
-
-return RaycastingModule]]></ProtectedString>
+								<string name="Name">GolfClubs</string>
 								<int64 name="SourceAssetId">-1</int64>
 								<BinaryString name="Tags"></BinaryString>
-								<UniqueId name="UniqueId">691863620fe85698027556c20002762d</UniqueId>
+								<UniqueId name="UniqueId">5c7e1f85a8302b070276ca98000feed6</UniqueId>
+							</Properties>
+							<Item class="ModuleScript" referent="RBXD93113654C3B4F62AB5DCDF3C02E47E4">
+								<Properties>
+									<BinaryString name="AttributesSerialize"></BinaryString>
+									<Content name="LinkedSource"><null></null></Content>
+									<string name="Name">GolfClubModule</string>
+									<string name="ScriptGuid">{DF993855-7635-4CC0-98E5-D55CA4D4BA95}</string>
+									<ProtectedString name="Source"><![CDATA[--GolfClubModule
+
+--Services
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+--Events
+
+--Module
+local GolfClubModule = {}
+
+return GolfClubModule]]></ProtectedString>
+									<int64 name="SourceAssetId">-1</int64>
+									<BinaryString name="Tags"></BinaryString>
+									<UniqueId name="UniqueId">2230b9d3c0f771cc0276d4430002727d</UniqueId>
+								</Properties>
+							</Item>
+						</Item>
+						<Item class="Folder" referent="RBXDCC7EB97FA184209A005B4475265FA40">
+							<Properties>
+								<BinaryString name="AttributesSerialize"></BinaryString>
+								<string name="Name">HospitalityTools</string>
+								<int64 name="SourceAssetId">-1</int64>
+								<BinaryString name="Tags"></BinaryString>
+								<UniqueId name="UniqueId">5c7e1f85a8302b070276ca98000feed8</UniqueId>
 							</Properties>
 						</Item>
 					</Item>
@@ -2479,11 +2556,11 @@ local DataStorageModule = require(game.ServerScriptService.Server.Core.Modules.D
 local SharedInitialisationModule = require(ReplicatedStorage.Common.Modules.SharedInitialisation)
 
 --RunTime
-PlayersService.PlayerAdded:Connect(function(Player)
+PlayersService.PlayerAdded:Connect(function(ServicePlayer)
     task.spawn(function()
         local Success, ErrorData = pcall(function()
-            print(Player.UserId.." has been initalised on the Server.")
-            DataStorageModule.SetupPlayer(Player)
+            print(ServicePlayer.UserId.." has been initalised on the Server.")
+            DataStorageModule.SetupPlayer(ServicePlayer)
             SharedInitialisationModule.ServerModuleInitialisation()
         end)
 
@@ -2526,7 +2603,37 @@ end)]]></ProtectedString>
 								<Content name="LinkedSource"><null></null></Content>
 								<string name="Name">ToolServer</string>
 								<string name="ScriptGuid">{5F317A25-FDB7-473E-A329-8F72420CE03B}</string>
-								<ProtectedString name="Source"></ProtectedString>
+								<ProtectedString name="Source"><![CDATA[--ToolServer
+
+--Services
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+--Modules
+local GBCM = require(game.ServerScriptService.Server.Core.Modules.ObjectCreators.GolfBallCreator)
+local GTCM = require(game.ServerScriptService.Server.Core.Modules.ObjectCreators.GolfTeeCreator)
+local GCM = require(game.ServerScriptService.Server.Core.Modules.ToolModules.GolfClubs.GolfClubModule)
+
+--ToolEvents
+local ToolActivatedEvent = ReplicatedStorage.Common.Events.Tools.ToolActivatedEvent
+
+--RunTime
+ToolActivatedEvent.OnServerEvent:Connect(function(ServicePlayer, ToolName)
+    task.spawn(function()
+        local Success, ErrorData = pcall(function()
+            if ToolName == ("Golf Ball") then
+                GBCM.CreateGolfBall(ServicePlayer, game.Workspace:FindFirstChild(ServicePlayer.UserId.."'s Golf Ball"), game.Workspace:FindFirstChild(ServicePlayer.UserId.."'s Golf Tee"))
+            elseif ToolName == ("Tee") then
+                GTCM.CreateGolfTee(ServicePlayer, game.Workspace:FindFirstChild(ServicePlayer.UserId.."'s Golf Tee"))
+            elseif ToolName == ("Driver") then
+                
+            end
+        end)
+
+        if not Success then
+            print(ErrorData)
+        end
+    end)
+end)]]></ProtectedString>
 								<int64 name="SourceAssetId">-1</int64>
 								<BinaryString name="Tags"></BinaryString>
 								<UniqueId name="UniqueId">5c7e1f85a8302b070276ca9800027292</UniqueId>
@@ -2618,6 +2725,51 @@ return SharedInitialisation]]></ProtectedString>
 							<UniqueId name="UniqueId">5c7e1f85a8302b070276ca980002720f</UniqueId>
 						</Properties>
 					</Item>
+					<Item class="Folder" referent="RBX204FAA0662D64815A5F8E14F12F50F46">
+						<Properties>
+							<BinaryString name="AttributesSerialize"></BinaryString>
+							<string name="Name">GolfClubs</string>
+							<int64 name="SourceAssetId">-1</int64>
+							<BinaryString name="Tags"></BinaryString>
+							<UniqueId name="UniqueId">2230b9d3c0f771cc0276d4430002727f</UniqueId>
+						</Properties>
+						<Item class="Folder" referent="RBX9BE54EDEF3884ECABA4E278DD5CB2968">
+							<Properties>
+								<BinaryString name="AttributesSerialize"></BinaryString>
+								<string name="Name">GolfDriver</string>
+								<int64 name="SourceAssetId">-1</int64>
+								<BinaryString name="Tags"></BinaryString>
+								<UniqueId name="UniqueId">2230b9d3c0f771cc0276d44300027280</UniqueId>
+							</Properties>
+							<Item class="RemoteEvent" referent="RBX951FE715744445EAA30604531CB0F72A">
+								<Properties>
+									<BinaryString name="AttributesSerialize"></BinaryString>
+									<string name="Name">DriverClientActivate</string>
+									<int64 name="SourceAssetId">-1</int64>
+									<BinaryString name="Tags"></BinaryString>
+									<UniqueId name="UniqueId">2230b9d3c0f771cc0276d44300027281</UniqueId>
+								</Properties>
+							</Item>
+							<Item class="RemoteEvent" referent="RBXE0C5452C497F4AD9A4D6552C13B0AEAF">
+								<Properties>
+									<BinaryString name="AttributesSerialize"></BinaryString>
+									<string name="Name">DriverClientHitGolfBall</string>
+									<int64 name="SourceAssetId">-1</int64>
+									<BinaryString name="Tags"></BinaryString>
+									<UniqueId name="UniqueId">2230b9d3c0f771cc0276d44300027282</UniqueId>
+								</Properties>
+							</Item>
+							<Item class="RemoteEvent" referent="RBXE7B6A7C6461F4ED88D002B4CF94F5D89">
+								<Properties>
+									<BinaryString name="AttributesSerialize"></BinaryString>
+									<string name="Name">DriverClientPowerBarSubmit</string>
+									<int64 name="SourceAssetId">-1</int64>
+									<BinaryString name="Tags"></BinaryString>
+									<UniqueId name="UniqueId">2230b9d3c0f771cc0276d44300027283</UniqueId>
+								</Properties>
+							</Item>
+						</Item>
+					</Item>
 				</Item>
 			</Item>
 			<Item class="Folder" referent="RBX91E0A49955B0428BB1C925B34DF741CA">
@@ -2654,7 +2806,7 @@ return SharedInitialisation]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 						<UniqueId name="UniqueId">27629d78d4d03b440275aa2300027234</UniqueId>
 					</Properties>
-					<Item class="MeshPart" referent="RBXEAE75FCD36C249F6A17C9E4A0B4E6299">
+					<Item class="MeshPart" referent="RBXBCE808609E4A4CB1A1604F4E43FD493D">
 						<Properties>
 							<bool name="Anchored">false</bool>
 							<BinaryString name="AttributesSerialize"></BinaryString>
@@ -2754,7 +2906,7 @@ return SharedInitialisation]]></ProtectedString>
 							<token name="TopSurface">0</token>
 							<token name="TopSurfaceInput">0</token>
 							<float name="Transparency">0</float>
-							<UniqueId name="UniqueId">5c7e1f85a8302b070276ca9800027234</UniqueId>
+							<UniqueId name="UniqueId">2230b9d3c0f771cc0276d4430002729f</UniqueId>
 							<Vector3 name="Velocity">
 								<X>0</X>
 								<Y>0</Y>
@@ -2767,7 +2919,7 @@ return SharedInitialisation]]></ProtectedString>
 							</Vector3>
 						</Properties>
 					</Item>
-					<Item class="UnionOperation" referent="RBXAEE805E8EF784CF188D3D0894E1E8265">
+					<Item class="UnionOperation" referent="RBX1B16898122F54A53BFB826395AEC6567">
 						<Properties>
 							<bool name="Anchored">false</bool>
 							<Content name="AssetId"><url>https://www.roblox.com//asset/?id=1221280050</url></Content>
@@ -2863,7 +3015,7 @@ return SharedInitialisation]]></ProtectedString>
 							<token name="TopSurface">0</token>
 							<token name="TopSurfaceInput">0</token>
 							<float name="Transparency">0</float>
-							<UniqueId name="UniqueId">5c7e1f85a8302b070276ca9800027235</UniqueId>
+							<UniqueId name="UniqueId">2230b9d3c0f771cc0276d443000272a0</UniqueId>
 							<bool name="UsePartColor">false</bool>
 							<Vector3 name="Velocity">
 								<X>0</X>
