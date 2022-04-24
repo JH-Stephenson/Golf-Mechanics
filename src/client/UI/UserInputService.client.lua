@@ -98,23 +98,23 @@ UserInputService.InputEnded:Connect(function(GameInput, GameProcessedEvent)
             if Driver == true then
                 UserInputRegister = false
                 Driver = false
-
+                ClubPowerBarSubmit:FireServer("Driver", UserPowerRate)
             elseif Iron == true then
                 UserInputRegister = false
                 Iron = false
-
+                ClubPowerBarSubmit:FireServer("Iron", UserPowerRate)
             elseif Putter == true then 
                 UserInputRegister = false
                 Putter = false
-
+                ClubPowerBarSubmit:FireServer("Putter", UserPowerRate)
             elseif Wedge == true then
                 UserInputRegister = false
                 Wedge = false
-
+                ClubPowerBarSubmit:FireServer("Wedge", UserPowerRate)
             elseif Wood == true then
                 UserInputRegister = false
                 Wood = false
-
+                ClubPowerBarSubmit:FireServer("Wood", UserPowerRate)
             end
         end)
 
