@@ -27,7 +27,7 @@ local Putter = false
 local Wedge = false
 local Wood = false
 
-ClubClientActivate.OnClientEvent:Connect(function(ServicePlayer, ClubType)
+ClubClientActivate.OnClientEvent:Connect(function(ClubType)
     task.spawn(function()
         local Success, ErrorData = pcall(function()
             if ClubType == ("Driver") then
