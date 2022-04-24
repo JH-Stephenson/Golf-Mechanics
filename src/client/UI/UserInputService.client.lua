@@ -9,7 +9,7 @@ local UserInputService = game:GetService("UserInputService")
 local ServicePlayer = PlayersService.LocalPlayer
 local PlayerGui = ServicePlayer.PlayerGui
 
-local PowerBarUI = PlayerGui:FindFirstChild("GolfPowerBar")
+local PowerBarUI = PlayerGui:WaitForChild("GolfPowerBar")
 local PowerBar = PowerBarUI.OuterFrame.InnerFrame.PowerSlider
 
 --Events
@@ -114,7 +114,7 @@ UserInputService.InputEnded:Connect(function(GameInput, GameProcessedEvent)
             elseif Wood == true then
                 UserInputRegister = false
                 Wood = false
-                
+
             end
         end)
 
