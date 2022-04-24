@@ -16,11 +16,20 @@ WorkspacePlayer.ChildAdded:Connect(function(AddedChild)
     task.spawn(function()
         local Success, ErrorData = pcall(function()
             if AddedChild:IsA("Tool") then
+                local ToolHead = AddedChild:FindFirstChild("Head")
+
                 AddedChild.Activated:Connect(function()
                     ToolActivatedEvent:FireServer(AddedChild.Name)
                 end)
 
-                --GENERATE HITPART (DriverHead) .Touched HERE IF HIT ON GolfBallTouch==True (ATTRIBUTE)
+                if ToolHead then
+                    ToolHead.Touched:Connect(function(TouchedPart)
+                        --GENERATE HITPART (DriverHead) .Touched HERE IF HIT ON GolfBallTouch==True (ATTRIBUTE)
+                        if TouchedPart.Name == ("7822's Golf Ball") then
+                            print("generated!")
+                        end
+                    end)
+                end
             end
         end)
 
