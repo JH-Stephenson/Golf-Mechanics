@@ -16,7 +16,7 @@ ClubPowerBarSubmit.OnServerEvent:Connect(function(ServicePlayer, ClubType, Power
 
             local WorkspaceCharacter = game.Workspace:FindFirstChild(ServicePlayer.Name)
             local WorkspaceClub = WorkspaceCharacter:FindFirstChild(ClubType)
-            local ClubHead = WorkspaceClub:FindFirstChild(ClubType.."Head")
+            local ClubHead = WorkspaceClub:FindFirstChild("Head")
 
             ClubHead:SetAttribute("GolfBallTouch", "True")
             wait(3)
