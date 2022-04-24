@@ -1,4 +1,4 @@
 {
-    "Name": "GolfClubServerSend",
+    "Name": "ToolActivated",
     "ClassName": "RemoteEvent"
 }
