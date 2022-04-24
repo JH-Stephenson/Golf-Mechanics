@@ -4,8 +4,8 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 --Modules
-local GBCM = require(game.ServerScriptService.Server.Core.Modules.ObjectCreation.GolfBallCreator)
-local GTCM = require(game.ServerScriptService.Server.Core.Modules.ObjectCreation.GolfTeeCreator)
+local GBCM = require(game.ServerScriptService.Server.Core.Modules.ObjectCreators.GolfBallCreator)
+local GTCM = require(game.ServerScriptService.Server.Core.Modules.ObjectCreators.GolfTeeCreator)
 
 --ToolEvents
 local ToolActivatedEvent = ReplicatedStorage.Common.Events.Tools.ToolActivatedEvent
