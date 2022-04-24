@@ -80,18 +80,18 @@
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<CoordinateFrame name="CFrame">
-					<X>8.21924019</X>
-					<Y>1.13523936</Y>
-					<Z>12.7177296</Z>
-					<R00>0.94205308</R00>
-					<R01>-0.22690323</R01>
-					<R02>0.247085109</R02>
+					<X>8.33150482</X>
+					<Y>0.707877219</Y>
+					<Z>12.9960861</Z>
+					<R00>0.93968761</R00>
+					<R01>-0.158261284</R01>
+					<R02>0.303217113</R02>
 					<R10>-0</R10>
-					<R11>0.736547291</R11>
-					<R12>0.676386178</R12>
-					<R20>-0.335464031</R20>
-					<R21>-0.637191653</R21>
-					<R22>0.693866551</R22>
+					<R11>0.886511683</R11>
+					<R12>0.462706327</R12>
+					<R20>-0.342033982</R20>
+					<R21>-0.434799403</R21>
+					<R22>0.833044052</R22>
 				</CoordinateFrame>
 				<Ref name="CameraSubject">null</Ref>
 				<token name="CameraType">0</token>
@@ -709,7 +709,131 @@ end)]]></ProtectedString>
 							<Content name="LinkedSource"><null></null></Content>
 							<string name="Name">UserInputService</string>
 							<string name="ScriptGuid">{F3003662-A2D1-46FE-8A38-8FC096CC3B3F}</string>
-							<ProtectedString name="Source"></ProtectedString>
+							<ProtectedString name="Source"><![CDATA[--UserInputService
+
+--Services
+local PlayersService = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local UserInputService = game:GetService("UserInputService")
+
+--PlayerVariables
+local ServicePlayer = PlayersService.LocalPlayer
+local PlayerGui = ServicePlayer.PlayerGui
+
+local PowerBarUI = PlayerGui:WaitForChild("GolfPowerBar")
+local PowerBar = PowerBarUI.OuterFrame.InnerFrame.PowerSlider
+
+--Events
+local ClubClientActivate = ReplicatedStorage.Common.Events.Tools.GolfClubs.ClubClientActivate
+local ClubPowerBarSubmit = ReplicatedStorage.Common.Events.Tools.GolfClubs.ClubPowerBarSubmit
+
+--Variables
+local UserInputRegister = false
+local UserPowerRate = 0
+
+--ToolInUse
+local Driver = false
+local Iron = false
+local Putter = false
+local Wedge = false
+local Wood = false
+
+ClubClientActivate.OnClientEvent:Connect(function(ServicePlayer, ClubType)
+    task.spawn(function()
+        local Success, ErrorData = pcall(function()
+            if ClubType == ("Driver") then
+                Driver = true
+            elseif ClubType == ("Iron") then
+                Iron = true
+            elseif ClubType == ("Putter") then
+                Putter = true
+            elseif ClubType == ("Wedge") then
+                Wedge = true
+            elseif ClubType == ("Wood") then
+                Wood = true
+            end
+        end)
+
+        if not Success then
+            print(ErrorData)
+        end
+    end)
+end)
+
+UserInputService.InputBegan:Connect(function(GameInput, GameProcessedEvent)
+    task.spawn(function()
+        local Success, ErrorData = pcall(function()
+            if GameInput.UserInputType == Enum.UserInputType.MouseButton1 or Enum.UserInputType.Touch or Enum.UserInputType.Gamepad1 then
+                if PowerBarUI.Enabled == true then
+                    UserInputRegister = true
+
+                    while UserInputRegister == true do
+                        for PowerCounter = 1, 320, 1 do
+                            PowerBar.Position = UDim2.new(0, PowerCounter, 0, 0)
+    
+                            if UserInputRegister == false then
+                                break
+                            end
+    
+                            UserPowerRate = PowerCounter
+                            task.wait()
+    
+                            if PowerCounter == 320 then
+                                for PowerCounter = 320, 1, -1 do
+                                    PowerBar.Position = UDim2.new(0, PowerCounter, 0, 0)
+
+                                    if UserInputRegister == false then
+                                        break
+                                    end
+
+                                    UserPowerRate = PowerCounter
+                                    task.wait()
+                                end
+                            end
+                        end
+                        task.wait()
+                    end
+                end
+            end
+        end)
+
+        if not Success then
+            print(ErrorData)
+        end
+    end)
+end)
+
+UserInputService.InputEnded:Connect(function(GameInput, GameProcessedEvent)
+    task.spawn(function()
+        local Success, ErrorData = pcall(function()
+            if Driver == true then
+                UserInputRegister = false
+                Driver = false
+
+            elseif Iron == true then
+                UserInputRegister = false
+                Iron = false
+
+            elseif Putter == true then 
+                UserInputRegister = false
+                Putter = false
+
+            elseif Wedge == true then
+                UserInputRegister = false
+                Wedge = false
+
+            elseif Wood == true then
+                UserInputRegister = false
+                Wood = false
+
+            end
+        end)
+
+        if not Success then
+            print(ErrorData)
+        end
+    end)
+end)]]></ProtectedString>
 							<int64 name="SourceAssetId">-1</int64>
 							<BinaryString name="Tags"></BinaryString>
 							<UniqueId name="UniqueId">5c7e1f85a8302b070276ca9800027296</UniqueId>
@@ -2499,10 +2623,30 @@ return GolfTeeCreator]]></ProtectedString>
 --Services
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
---Events
-
 --Module
 local GolfClubModule = {}
+
+--Events
+local ClubClientActivate = ReplicatedStorage.Common.Events.Tools.GolfClubs.ClubClientActivate
+local ClubPowerBarSubmit = ReplicatedStorage.Common.Events.Tools.GolfClubs.ClubPowerBarSubmit
+
+function GolfClubModule.InitaliseClub(ServicePlayer, GolfClubName)
+    task.spawn(function()
+        local Success, ErrorData = pcall(function()
+            local PlayerUI = ServicePlayer.PlayerGui
+            local PowerBarUI = PlayerUI:FindFirstChild("GolfPowerBar")
+            
+            wait(3)
+
+            ClubClientActivate:FireClient(ServicePlayer, "Driver")
+            PowerBarUI.Enabled = true
+        end)
+
+        if not Success then
+            print(ErrorData)
+        end
+    end)
+end
 
 return GolfClubModule]]></ProtectedString>
 									<int64 name="SourceAssetId">-1</int64>
@@ -2625,7 +2769,7 @@ ToolActivatedEvent.OnServerEvent:Connect(function(ServicePlayer, ToolName)
             elseif ToolName == ("Tee") then
                 GTCM.CreateGolfTee(ServicePlayer, game.Workspace:FindFirstChild(ServicePlayer.UserId.."'s Golf Tee"))
             elseif ToolName == ("Driver") then
-                
+                GCM.InitaliseClub(ServicePlayer, "Driver")
             end
         end)
 
@@ -2741,15 +2885,6 @@ return SharedInitialisation]]></ProtectedString>
 								<BinaryString name="Tags"></BinaryString>
 								<UniqueId name="UniqueId">2230b9d3c0f771cc0276d44300027280</UniqueId>
 							</Properties>
-							<Item class="RemoteEvent" referent="RBX951FE715744445EAA30604531CB0F72A">
-								<Properties>
-									<BinaryString name="AttributesSerialize"></BinaryString>
-									<string name="Name">DriverClientActivate</string>
-									<int64 name="SourceAssetId">-1</int64>
-									<BinaryString name="Tags"></BinaryString>
-									<UniqueId name="UniqueId">2230b9d3c0f771cc0276d44300027281</UniqueId>
-								</Properties>
-							</Item>
 							<Item class="RemoteEvent" referent="RBXE0C5452C497F4AD9A4D6552C13B0AEAF">
 								<Properties>
 									<BinaryString name="AttributesSerialize"></BinaryString>
@@ -2759,15 +2894,24 @@ return SharedInitialisation]]></ProtectedString>
 									<UniqueId name="UniqueId">2230b9d3c0f771cc0276d44300027282</UniqueId>
 								</Properties>
 							</Item>
-							<Item class="RemoteEvent" referent="RBXE7B6A7C6461F4ED88D002B4CF94F5D89">
-								<Properties>
-									<BinaryString name="AttributesSerialize"></BinaryString>
-									<string name="Name">DriverClientPowerBarSubmit</string>
-									<int64 name="SourceAssetId">-1</int64>
-									<BinaryString name="Tags"></BinaryString>
-									<UniqueId name="UniqueId">2230b9d3c0f771cc0276d44300027283</UniqueId>
-								</Properties>
-							</Item>
+						</Item>
+						<Item class="RemoteEvent" referent="RBXAF1EACE3008F4AAC81A003779BDF3E66">
+							<Properties>
+								<BinaryString name="AttributesSerialize"></BinaryString>
+								<string name="Name">ClubClientActivate</string>
+								<int64 name="SourceAssetId">-1</int64>
+								<BinaryString name="Tags"></BinaryString>
+								<UniqueId name="UniqueId">2230b9d3c0f771cc0276d44300027365</UniqueId>
+							</Properties>
+						</Item>
+						<Item class="RemoteEvent" referent="RBXCCB04FC1BF344CEE9119BBDEF3280194">
+							<Properties>
+								<BinaryString name="AttributesSerialize"></BinaryString>
+								<string name="Name">ClubPowerBarSubmit</string>
+								<int64 name="SourceAssetId">-1</int64>
+								<BinaryString name="Tags"></BinaryString>
+								<UniqueId name="UniqueId">2230b9d3c0f771cc0276d44300027367</UniqueId>
+							</Properties>
 						</Item>
 					</Item>
 				</Item>
