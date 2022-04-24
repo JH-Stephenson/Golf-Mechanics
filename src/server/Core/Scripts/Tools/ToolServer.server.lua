@@ -15,12 +15,16 @@ local ToolActivatedEvent = ReplicatedStorage.Common.Events.Tools.ToolActivatedEv
 ToolActivatedEvent.OnServerEvent:Connect(function(ServicePlayer, ToolName)
     task.spawn(function()
         local Success, ErrorData = pcall(function()
+            local GetSwingAttribute = ServicePlayer:GetAttribute("CurrentlySwinging")
+            
             if ToolName == ("Golf Ball") then
                 GBCM.CreateGolfBall(ServicePlayer, game.Workspace:FindFirstChild(ServicePlayer.UserId.."'s Golf Ball"), game.Workspace:FindFirstChild(ServicePlayer.UserId.."'s Golf Tee"))
             elseif ToolName == ("Tee") then
                 GTCM.CreateGolfTee(ServicePlayer, game.Workspace:FindFirstChild(ServicePlayer.UserId.."'s Golf Tee"))
             elseif ToolName == ("Driver") then
-                GCM.InitaliseClub(ServicePlayer, "Driver")
+                if GetSwingAttribute ~= ("True") then
+                    GCM.InitaliseClub(ServicePlayer, "Driver")
+                end
             end
         end)
 
