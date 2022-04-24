@@ -9,7 +9,7 @@ local ServicePlayer = PlayersService.LocalPlayer
 local WorkspacePlayer = game.Workspace:WaitForChild(ServicePlayer.Name)
 
 --ToolEvents
-local ToolActivatedEvent = ReplicatedStorage.Common.Events.ToolActivatedEvent
+local ToolActivatedEvent = ReplicatedStorage.Common.Events.Tools.ToolActivatedEvent
 
 --RunTime
 WorkspacePlayer.ChildAdded:Connect(function(AddedChild)
