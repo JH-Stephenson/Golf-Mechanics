@@ -11,6 +11,9 @@ local WorkspacePlayer = game.Workspace:WaitForChild(ServicePlayer.Name)
 --ToolEvents
 local ToolActivatedEvent = ReplicatedStorage.Common.Events.Tools.ToolActivatedEvent
 
+--GolfClubEvents
+local DriverHit = ReplicatedStorage.Common.Events.Tools.GolfClubs.GolfDriver.HitGolfBall
+
 --RunTime
 WorkspacePlayer.ChildAdded:Connect(function(AddedChild)
     task.spawn(function()
@@ -29,7 +32,10 @@ WorkspacePlayer.ChildAdded:Connect(function(AddedChild)
 
                             if ToolHeadDebounce == ("True") then
                                 ToolHead:SetAttribute("GolfBallTouch", "False")
-                                print("Hit Player's Golf Ball!")
+
+                                if AddedChild.Name == ("Driver") then
+                                    DriverHit:FireServer()
+                                end
                             end
                         end
                     end)
