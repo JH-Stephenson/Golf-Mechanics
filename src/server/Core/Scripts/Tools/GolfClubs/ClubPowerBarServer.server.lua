@@ -11,8 +11,10 @@ ClubPowerBarSubmit.OnServerEvent:Connect(function(ServicePlayer, ClubType, Power
     task.spawn(function()
         local Success, ErrorData = pcall(function()
             local PlayerGui = ServicePlayer.PlayerGui
+
             local PowerBarUI = PlayerGui:WaitForChild("GolfPowerBar")
             PowerBarUI.Enabled = false
+            ServicePlayer:SetAttribute("CurrentlySwinging", "True")
 
             local WorkspaceCharacter = game.Workspace:FindFirstChild(ServicePlayer.Name)
             local WorkspaceClub = WorkspaceCharacter:FindFirstChild(ClubType)
@@ -21,6 +23,7 @@ ClubPowerBarSubmit.OnServerEvent:Connect(function(ServicePlayer, ClubType, Power
             ClubHead:SetAttribute("GolfBallTouch", "True")
             wait(3)
             ClubHead:SetAttribute("GolfBallTouch", "False")
+            ServicePlayer:SetAttribute("CurrentlySwinging", "False")
         end)
 
         if not Success then
