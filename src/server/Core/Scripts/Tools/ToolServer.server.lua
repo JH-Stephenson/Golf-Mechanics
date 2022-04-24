@@ -20,7 +20,7 @@ ToolActivatedEvent.OnServerEvent:Connect(function(ServicePlayer, ToolName)
             elseif ToolName == ("Tee") then
                 GTCM.CreateGolfTee(ServicePlayer, game.Workspace:FindFirstChild(ServicePlayer.UserId.."'s Golf Tee"))
             elseif ToolName == ("Driver") then
-                
+                GCM.InitaliseClub(ServicePlayer, "Driver")
             end
         end)
 
