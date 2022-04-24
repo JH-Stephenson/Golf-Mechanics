@@ -80,27 +80,27 @@
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<CoordinateFrame name="CFrame">
-					<X>8.33150482</X>
-					<Y>0.707877219</Y>
-					<Z>12.9960861</Z>
-					<R00>0.93968761</R00>
-					<R01>-0.158261284</R01>
-					<R02>0.303217113</R02>
-					<R10>-0</R10>
-					<R11>0.886511683</R11>
-					<R12>0.462706327</R12>
-					<R20>-0.342033982</R20>
-					<R21>-0.434799403</R21>
-					<R22>0.833044052</R22>
+					<X>-3.64025378</X>
+					<Y>8.5689106</Y>
+					<Z>14.6752205</Z>
+					<R00>0.282359749</R00>
+					<R01>0.571451724</R01>
+					<R02>-0.770529747</R02>
+					<R10>1.49011594e-08</R10>
+					<R11>0.803213716</R11>
+					<R12>0.595691204</R12>
+					<R20>0.959308624</R20>
+					<R21>-0.168199241</R21>
+					<R22>0.226795197</R22>
 				</CoordinateFrame>
 				<Ref name="CameraSubject">null</Ref>
 				<token name="CameraType">0</token>
 				<float name="FieldOfView">70</float>
 				<token name="FieldOfViewMode">0</token>
 				<CoordinateFrame name="Focus">
-					<X>7.72506714</X>
-					<Y>-0.217540741</Y>
-					<Z>11.3299885</Z>
+					<X>-2.09919429</X>
+					<Y>7.37752819</Y>
+					<Z>14.2216301</Z>
 					<R00>1</R00>
 					<R01>0</R01>
 					<R02>0</R02>
@@ -672,14 +672,35 @@ local WorkspacePlayer = game.Workspace:WaitForChild(ServicePlayer.Name)
 --ToolEvents
 local ToolActivatedEvent = ReplicatedStorage.Common.Events.Tools.ToolActivatedEvent
 
+--GolfClubEvents
+local DriverHit = ReplicatedStorage.Common.Events.Tools.GolfClubs.GolfDriver.HitGolfBall
+
 --RunTime
 WorkspacePlayer.ChildAdded:Connect(function(AddedChild)
     task.spawn(function()
         local Success, ErrorData = pcall(function()
             if AddedChild:IsA("Tool") then
+                local ToolHead = AddedChild:FindFirstChild("Head")
+
                 AddedChild.Activated:Connect(function()
                     ToolActivatedEvent:FireServer(AddedChild.Name)
                 end)
+
+                if ToolHead then
+                    ToolHead.Touched:Connect(function(TouchedPart)
+                        if TouchedPart.Name == (ServicePlayer.UserId.."'s Golf Ball") then
+                            local ToolHeadDebounce = ToolHead:GetAttribute("GolfBallTouch")
+
+                            if ToolHeadDebounce == ("True") then
+                                ToolHead:SetAttribute("GolfBallTouch", "False")
+
+                                if AddedChild.Name == ("Driver") then
+                                    DriverHit:FireServer()
+                                end
+                            end
+                        end
+                    end)
+                end
             end
         end)
 
@@ -1327,7 +1348,7 @@ end)]]></ProtectedString>
 					<string name="MaterialVariantSerialized"></string>
 					<Content name="MeshID"><url>rbxassetid://5573351009</url></Content>
 					<Content name="MeshId"><url>rbxassetid://5573351009</url></Content>
-					<string name="Name">DriverHead</string>
+					<string name="Name">Head</string>
 					<SharedString name="PhysicalConfigData">F3NsZmLoTsEex6RsqwbnqQ==</SharedString>
 					<BinaryString name="PhysicsData"></BinaryString>
 					<CoordinateFrame name="PivotOffset">
@@ -2764,12 +2785,16 @@ local ToolActivatedEvent = ReplicatedStorage.Common.Events.Tools.ToolActivatedEv
 ToolActivatedEvent.OnServerEvent:Connect(function(ServicePlayer, ToolName)
     task.spawn(function()
         local Success, ErrorData = pcall(function()
+            local GetSwingAttribute = ServicePlayer:GetAttribute("CurrentlySwinging")
+            
             if ToolName == ("Golf Ball") then
                 GBCM.CreateGolfBall(ServicePlayer, game.Workspace:FindFirstChild(ServicePlayer.UserId.."'s Golf Ball"), game.Workspace:FindFirstChild(ServicePlayer.UserId.."'s Golf Tee"))
             elseif ToolName == ("Tee") then
                 GTCM.CreateGolfTee(ServicePlayer, game.Workspace:FindFirstChild(ServicePlayer.UserId.."'s Golf Tee"))
             elseif ToolName == ("Driver") then
-                GCM.InitaliseClub(ServicePlayer, "Driver")
+                if GetSwingAttribute ~= ("True") then
+                    GCM.InitaliseClub(ServicePlayer, "Driver")
+                end
             end
         end)
 
@@ -2782,6 +2807,87 @@ end)]]></ProtectedString>
 								<BinaryString name="Tags"></BinaryString>
 								<UniqueId name="UniqueId">5c7e1f85a8302b070276ca9800027292</UniqueId>
 							</Properties>
+						</Item>
+						<Item class="Folder" referent="RBXC3E464AFBE8E4478A8269D3FB08BB936">
+							<Properties>
+								<BinaryString name="AttributesSerialize"></BinaryString>
+								<string name="Name">GolfClubs</string>
+								<int64 name="SourceAssetId">-1</int64>
+								<BinaryString name="Tags"></BinaryString>
+								<UniqueId name="UniqueId">2230b9d3c0f771cc0276d4430012189b</UniqueId>
+							</Properties>
+							<Item class="Script" referent="RBX6720F73239DF44B6B9674D9B95C11741">
+								<Properties>
+									<BinaryString name="AttributesSerialize"></BinaryString>
+									<bool name="Disabled">false</bool>
+									<Content name="LinkedSource"><null></null></Content>
+									<string name="Name">ClubPowerBarServer</string>
+									<string name="ScriptGuid">{52881562-EBED-454C-9848-07AD4FADBFAB}</string>
+									<ProtectedString name="Source"><![CDATA[--ClubPowerBarServer
+
+--Services
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+--Events
+local ClubClientActivate = ReplicatedStorage.Common.Events.Tools.GolfClubs.ClubClientActivate
+local ClubPowerBarSubmit = ReplicatedStorage.Common.Events.Tools.GolfClubs.ClubPowerBarSubmit
+
+ClubPowerBarSubmit.OnServerEvent:Connect(function(ServicePlayer, ClubType, PowerRate)
+    task.spawn(function()
+        local Success, ErrorData = pcall(function()
+            local WorkspaceCharacter = game.Workspace:FindFirstChild(ServicePlayer.Name)
+            local PlayerGui = ServicePlayer.PlayerGui
+            local PowerBarUI = PlayerGui:WaitForChild("GolfPowerBar")
+
+            local WorkspaceClub = WorkspaceCharacter:FindFirstChild(ClubType)
+            local ClubHead = WorkspaceClub:FindFirstChild("Head")
+
+            PowerBarUI.Enabled = false
+            ServicePlayer:SetAttribute("CurrentPowerRate", PowerRate)
+            ServicePlayer:SetAttribute("CurrentlySwinging", "True")
+            ClubHead:SetAttribute("GolfBallTouch", "True")
+
+            wait(3)
+
+            ClubHead:SetAttribute("GolfBallTouch", "False")
+            ServicePlayer:SetAttribute("CurrentlySwinging", "False")
+            ServicePlayer:SetAttribute("CurrentPowerRate", 0)
+        end)
+
+        if not Success then
+            print(ErrorData)
+        end
+    end)
+end)]]></ProtectedString>
+									<int64 name="SourceAssetId">-1</int64>
+									<BinaryString name="Tags"></BinaryString>
+									<UniqueId name="UniqueId">2230b9d3c0f771cc0276d4430012189c</UniqueId>
+								</Properties>
+							</Item>
+							<Item class="Script" referent="RBXAF38E09C33314D368FDD17EE6E4ABB9B">
+								<Properties>
+									<BinaryString name="AttributesSerialize"></BinaryString>
+									<bool name="Disabled">false</bool>
+									<Content name="LinkedSource"><null></null></Content>
+									<string name="Name">ClubSwingServer</string>
+									<string name="ScriptGuid">{1DEBB1B5-6672-4AF1-94F4-0D790C348A28}</string>
+									<ProtectedString name="Source"><![CDATA[--ClubSwingServer
+
+--Services
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+--GolfClubEvents
+local DriverHit = ReplicatedStorage.Common.Events.Tools.GolfClubs.GolfDriver.HitGolfBall
+
+--RunTime
+DriverHit.OnServerEvent:Connect(function(ServicePlayer)
+    
+end)]]></ProtectedString>
+									<int64 name="SourceAssetId">-1</int64>
+									<BinaryString name="Tags"></BinaryString>
+									<UniqueId name="UniqueId">2230b9d3c0f771cc0276d443001bf945</UniqueId>
+								</Properties>
+							</Item>
 						</Item>
 					</Item>
 				</Item>
@@ -2885,13 +2991,13 @@ return SharedInitialisation]]></ProtectedString>
 								<BinaryString name="Tags"></BinaryString>
 								<UniqueId name="UniqueId">2230b9d3c0f771cc0276d44300027280</UniqueId>
 							</Properties>
-							<Item class="RemoteEvent" referent="RBXE0C5452C497F4AD9A4D6552C13B0AEAF">
+							<Item class="RemoteEvent" referent="RBX953DB2E140304819A595825DE50B9E19">
 								<Properties>
 									<BinaryString name="AttributesSerialize"></BinaryString>
-									<string name="Name">DriverClientHitGolfBall</string>
+									<string name="Name">HitGolfBall</string>
 									<int64 name="SourceAssetId">-1</int64>
 									<BinaryString name="Tags"></BinaryString>
-									<UniqueId name="UniqueId">2230b9d3c0f771cc0276d44300027282</UniqueId>
+									<UniqueId name="UniqueId">2230b9d3c0f771cc0276d443001bf940</UniqueId>
 								</Properties>
 							</Item>
 						</Item>
@@ -2950,7 +3056,7 @@ return SharedInitialisation]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 						<UniqueId name="UniqueId">27629d78d4d03b440275aa2300027234</UniqueId>
 					</Properties>
-					<Item class="MeshPart" referent="RBXBCE808609E4A4CB1A1604F4E43FD493D">
+					<Item class="MeshPart" referent="RBX8C69FB24B65A42ED8411E45AEFC8A550">
 						<Properties>
 							<bool name="Anchored">false</bool>
 							<BinaryString name="AttributesSerialize"></BinaryString>
@@ -3050,7 +3156,7 @@ return SharedInitialisation]]></ProtectedString>
 							<token name="TopSurface">0</token>
 							<token name="TopSurfaceInput">0</token>
 							<float name="Transparency">0</float>
-							<UniqueId name="UniqueId">2230b9d3c0f771cc0276d4430002729f</UniqueId>
+							<UniqueId name="UniqueId">2230b9d3c0f771cc0276d443001bfa2c</UniqueId>
 							<Vector3 name="Velocity">
 								<X>0</X>
 								<Y>0</Y>
@@ -3063,7 +3169,7 @@ return SharedInitialisation]]></ProtectedString>
 							</Vector3>
 						</Properties>
 					</Item>
-					<Item class="UnionOperation" referent="RBX1B16898122F54A53BFB826395AEC6567">
+					<Item class="UnionOperation" referent="RBX2157E92551AB4E88A961981383533DE7">
 						<Properties>
 							<bool name="Anchored">false</bool>
 							<Content name="AssetId"><url>https://www.roblox.com//asset/?id=1221280050</url></Content>
@@ -3159,7 +3265,7 @@ return SharedInitialisation]]></ProtectedString>
 							<token name="TopSurface">0</token>
 							<token name="TopSurfaceInput">0</token>
 							<float name="Transparency">0</float>
-							<UniqueId name="UniqueId">2230b9d3c0f771cc0276d443000272a0</UniqueId>
+							<UniqueId name="UniqueId">2230b9d3c0f771cc0276d443001bfa2d</UniqueId>
 							<bool name="UsePartColor">false</bool>
 							<Vector3 name="Velocity">
 								<X>0</X>
