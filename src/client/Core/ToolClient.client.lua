@@ -24,9 +24,13 @@ WorkspacePlayer.ChildAdded:Connect(function(AddedChild)
 
                 if ToolHead then
                     ToolHead.Touched:Connect(function(TouchedPart)
-                        --GENERATE HITPART (DriverHead) .Touched HERE IF HIT ON GolfBallTouch==True (ATTRIBUTE)
-                        if TouchedPart.Name == ("7822's Golf Ball") then
-                            print("generated!")
+                        if TouchedPart.Name == (ServicePlayer.UserId.."'s Golf Ball") then
+                            local ToolHeadDebounce = ToolHead:GetAttribute("GolfBallTouch")
+
+                            if ToolHeadDebounce == ("True") then
+                                ToolHead:SetAttribute("GolfBallTouch", "False")
+                                print("Hit Player's Golf Ball!")
+                            end
                         end
                     end)
                 end
