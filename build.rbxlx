@@ -740,7 +740,7 @@ local Wood = false
 
 ClubClientActivate.OnClientEvent:Connect(function(ServicePlayer, ClubType)
     task.spawn(function()
-        local Success, ErrorData = pcall(function()
+		local Success, ErrorData = pcall(function()
             if ClubType == ("Driver") then
                 Driver = true
             elseif ClubType == ("Iron") then
