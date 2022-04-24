@@ -13,17 +13,17 @@ function DataStorageModule.DataStoreName()
     return("PGM | v0.01")
 end
 
-function DataStorageModule.SetupPlayer(Player)
+function DataStorageModule.SetupPlayer(ServicePlayer)
     task.spawn(function()
         local Success, ErrorData = pcall(function()
             local CurrentDataStore = DataStoreService:GetDataStore(DataStorageModule.DataStoreName())
-            local CheckPlayersData = CurrentDataStore:GetAsync(Player.UserId)
+            local CheckPlayersData = CurrentDataStore:GetAsync(ServicePlayer.UserId)
         
-            local PlayerJoinedTable = CurrentPlayerData[Player.UserId] or {};
-            CurrentPlayerData[Player.UserId] = PlayerJoinedTable
+            local PlayerJoinedTable = CurrentPlayerData[ServicePlayer.UserId] or {};
+            CurrentPlayerData[ServicePlayer.UserId] = PlayerJoinedTable
         
             if CheckPlayersData == nil then
-                print(Player.UserId.."'s not visited this game before!")
+                print(ServicePlayer.UserId.."'s not visited this game before!")
         
                 --SetupData
                 PlayerJoinedTable["£"] = 1
@@ -40,7 +40,7 @@ function DataStorageModule.SetupPlayer(Player)
                 PlayerJoinedTable["Player Hosting Expierence"] = 1
                 PlayerJoinedTable["Player Roving Expierence"] = 1
             else
-                print(Player.UserId.."'s has visited this game before!")
+                print(ServicePlayer.UserId.."'s has visited this game before!")
         
                 --SetDataFromDataStore
                 PlayerJoinedTable["£"] = CheckPlayersData["£"]
@@ -60,7 +60,7 @@ function DataStorageModule.SetupPlayer(Player)
             --Create Public Variables
             local PublicPlayerLeaderstats = Instance.new("Folder")
             PublicPlayerLeaderstats.Name = ("leaderstats")
-            PublicPlayerLeaderstats.Parent = Player
+            PublicPlayerLeaderstats.Parent = ServicePlayer
         
             local PlayersMoney = Instance.new("IntValue")
             PlayersMoney.Parent = PublicPlayerLeaderstats

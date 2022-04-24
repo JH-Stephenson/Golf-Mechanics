@@ -9,11 +9,11 @@ local DataStorageModule = require(game.ServerScriptService.Server.Core.Modules.D
 local SharedInitialisationModule = require(ReplicatedStorage.Common.Modules.SharedInitialisation)
 
 --RunTime
-PlayersService.PlayerAdded:Connect(function(Player)
+PlayersService.PlayerAdded:Connect(function(ServicePlayer)
     task.spawn(function()
         local Success, ErrorData = pcall(function()
-            print(Player.UserId.." has been initalised on the Server.")
-            DataStorageModule.SetupPlayer(Player)
+            print(ServicePlayer.UserId.." has been initalised on the Server.")
+            DataStorageModule.SetupPlayer(ServicePlayer)
             SharedInitialisationModule.ServerModuleInitialisation()
         end)
 

@@ -1,13 +1,13 @@
 local GolfBallCreator = {}
 
-function GolfBallCreator.CreateGolfBall(Player, GolfBall, GolfTee)
+function GolfBallCreator.CreateGolfBall(ServicePlayer, GolfBall, GolfTee)
     task.spawn(function()
         local Success, ErrorData = pcall(function()
             if not GolfBall then
-                local WorkspaceCharacter = Player.Character
+                local WorkspaceCharacter = ServicePlayer.Character
 
                 local CreatedGolfBall = game.ReplicatedStorage.Common.Components.Objects.BallObject:Clone()
-                CreatedGolfBall.Name = (Player.UserId.."'s Golf Ball")
+                CreatedGolfBall.Name = (ServicePlayer.UserId.."'s Golf Ball")
                 CreatedGolfBall.Parent = game.ReplicatedStorage.Common.Components.Objects
                 CreatedGolfBall.Size = Vector3.new(0.5, 0.5, 0.5)
                 
@@ -15,7 +15,7 @@ function GolfBallCreator.CreateGolfBall(Player, GolfBall, GolfTee)
                     CreatedGolfBall.CFrame = GolfTee.CFrame * CFrame.new(0, 0.55, 0)
                 else
                     local RaycastingModule = require(game.ServerScriptService.Server.Core.Modules.Raycasting.RaycastingModule)
-                    local RaycastingResult = RaycastingModule.FindPlayersGround(Player)
+                    local RaycastingResult = RaycastingModule.FindPlayersGround(ServicePlayer)
     
                     if RaycastingResult then
                         local HumanoidRootPart = WorkspaceCharacter:FindFirstChild("HumanoidRootPart")

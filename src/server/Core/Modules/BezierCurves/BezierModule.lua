@@ -10,7 +10,7 @@ function BezierModule.Lerp(StartPosition, EndPosition, Time)
     return StartPosition + (EndPosition - StartPosition) * Time
 end
 
-function BezierModule.QuadraticBezier(Player, GolfTee, StartPart, MidPart, EndPart, TravelPart)
+function BezierModule.QuadraticBezier(ServicePlayer, GolfTee, StartPart, MidPart, EndPart, TravelPart)
     task.spawn(function()
         local Success, ErrorData = pcall(function()
             for QuadraticBezierCounter = 0, 10, 1 do
@@ -38,7 +38,7 @@ function BezierModule.QuadraticBezier(Player, GolfTee, StartPart, MidPart, EndPa
     end)
 end
 
-function BezierModule.CubicBezier(Player, GolfTee, StartPart, MidPart1, MidPart2, EndPart, TravelPart)
+function BezierModule.CubicBezier(ServicePlayer, GolfTee, StartPart, MidPart1, MidPart2, EndPart, TravelPart)
     task.spawn(function()
         local Success, ErrorData = pcall(function()
             for CubicBezierCounter = 0, 10, 1 do

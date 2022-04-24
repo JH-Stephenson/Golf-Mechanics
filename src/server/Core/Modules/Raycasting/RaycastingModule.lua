@@ -1,8 +1,8 @@
 local RaycastingModule = {}
 
-function RaycastingModule.FindPlayersGround(Player)
+function RaycastingModule.FindPlayersGround(ServicePlayer)
     --WorkspacePreRequisites
-    local WorkspacePlayer = Player.Character
+    local WorkspacePlayer = ServicePlayer.Character
     local WorkspacePlayerRoot = WorkspacePlayer:FindFirstChild("HumanoidRootPart")
 
     --RaycastingParameters

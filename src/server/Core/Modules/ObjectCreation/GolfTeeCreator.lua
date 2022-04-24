@@ -1,18 +1,18 @@
 local GolfTeeCreator = {}
 
-function GolfTeeCreator.CreateGolfTee(Player, GolfTee)
+function GolfTeeCreator.CreateGolfTee(ServicePlayer, GolfTee)
     task.spawn(function()
         local Success, ErrorData = pcall(function()
             if not GolfTee then
                 local RaycastingModule = require(game.ServerScriptService.Server.Core.Modules.Raycasting.RaycastingModule)
-                local RaycastingResult = RaycastingModule.FindPlayersGround(Player)
+                local RaycastingResult = RaycastingModule.FindPlayersGround(ServicePlayer)
         
                 if RaycastingResult then
-                    local WorkspaceCharacter = Player.Character
+                    local WorkspaceCharacter = ServicePlayer.Character
                     local HumanoidRootPart = WorkspaceCharacter:FindFirstChild("HumanoidRootPart")
         
                     local CreatedGolfTee = game.ReplicatedStorage.Common.Components.Objects.TeeObject:Clone()
-                    CreatedGolfTee.Name = (Player.UserId.."'s Golf Tee")
+                    CreatedGolfTee.Name = (ServicePlayer.UserId.."'s Golf Tee")
                     CreatedGolfTee.Parent = game.ReplicatedStorage.Common.Components.Objects
                     CreatedGolfTee.Size = Vector3.new(0.3, 0.7, 0.3)
         
