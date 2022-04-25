@@ -6,7 +6,8 @@ local RunService = game:GetService("RunService")
 
 --RequiredModules
 local Raycasting = require(game.ServerScriptService.Server.Core.Modules.Raycasting.RaycastingModule)
-local BezierModule = require(game.ServerScriptService.Server.Core.Modules.BezierCurves.BezierModule)
+local GolfSwingCFrames = require(game.ServerScriptService.Server.Core.Modules.GolfClubs.CFrameCalculator)
+local Bezier = require(game.ServerScriptService.Server.Core.Modules.BezierCurves.BezierModule)
 
 --Module
 local SwingModule = {}
