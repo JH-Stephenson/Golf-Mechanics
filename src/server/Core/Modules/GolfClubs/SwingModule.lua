@@ -36,14 +36,21 @@ function SwingModule.HitBall(ServicePlayer, GolfSwingDistance)
                     BezierPoint2.Name = (ServicePlayer.UserId.."'s Bezier Point 2")
                     BezierPoint2.Anchored = true
                     BezierPoint2.CanCollide = false
-                    BezierPoint2.CFrame = GolfSwingCFrames.CalculatePart1(CharacterRoot, GolfSwingDistance, BezierPoint1)
+                    BezierPoint2.CFrame = GolfSwingCFrames.CalculatePart2(CharacterRoot, GolfSwingDistance, BezierPoint1)
 
                     local BezierPoint3 = Instance.new("Part")
                     BezierPoint3.Transparency = 1
                     BezierPoint3.Name = (ServicePlayer.UserId.."'s Bezier Point 3")
                     BezierPoint3.Anchored = true
                     BezierPoint3.CanCollide = false
-                    BezierPoint3.CFrame = GolfSwingCFrames.CalculatePart2(CharacterRoot, GolfSwingDistance, BezierPoint1)
+                    BezierPoint3.CFrame = GolfSwingCFrames.CalculatePart3(CharacterRoot, GolfSwingDistance, BezierPoint1)
+
+                    local BezierPoint4 = Instance.new("Part")
+                    BezierPoint4.Transparency = 1
+                    BezierPoint4.Name = (ServicePlayer.UserId.."'s Bezier Point 4")
+                    BezierPoint4.Anchored = true
+                    BezierPoint4.CanCollide = false
+                    BezierPoint4.CFrame = GolfSwingCFrames.CalculatePart4(CharacterRoot, GolfSwingDistance, BezierPoint1)
                 end
             end
         end)
