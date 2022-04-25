@@ -16,7 +16,7 @@ DriverHit.OnServerEvent:Connect(function(ServicePlayer)
         local Success, ErrorData = pcall(function()
             local CurrentPowerRate = ServicePlayer:GetAttribute("CurrentPowerRate")
             local ServerSwingDistance = SwingDistanceModule.GenerateDriverDistance(CurrentPowerRate)
-            local SwingBall = SwingModule.HitBall(ServerSwingDistance)
+            local SwingBall = SwingModule.HitBall(ServicePlayer, ServerSwingDistance)
         end)
 
         if not Success then
