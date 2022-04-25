@@ -38,7 +38,7 @@ function SwingModule.HitBall(ServicePlayer, GolfSwingDistance)
                     BezierPoint2.Parent = game.Workspace
                     BezierPoint2.Anchored = true
                     BezierPoint2.CanCollide = false
-                    BezierPoint2.CFrame = GolfSwingCFrames.CalculatePart2(CharacterRoot, GolfSwingDistance, BezierPoint1)
+                    BezierPoint2.CFrame = GolfSwingCFrames.CalculatePart2()
 
                     local BezierPoint3 = Instance.new("Part")
                     BezierPoint3.Transparency = 1
@@ -46,7 +46,7 @@ function SwingModule.HitBall(ServicePlayer, GolfSwingDistance)
                     BezierPoint3.Parent = game.Workspace
                     BezierPoint3.Anchored = true
                     BezierPoint3.CanCollide = false
-                    BezierPoint3.CFrame = GolfSwingCFrames.CalculatePart3(CharacterRoot, GolfSwingDistance, BezierPoint1)
+                    BezierPoint3.CFrame = GolfSwingCFrames.CalculatePart3()
 
                     local BezierPoint4 = Instance.new("Part")
                     BezierPoint4.Transparency = 1
@@ -54,7 +54,7 @@ function SwingModule.HitBall(ServicePlayer, GolfSwingDistance)
                     BezierPoint4.Parent = game.Workspace
                     BezierPoint4.Anchored = true
                     BezierPoint4.CanCollide = false
-                    BezierPoint4.CFrame = GolfSwingCFrames.CalculatePart4(CharacterRoot, GolfSwingDistance, BezierPoint1)
+                    BezierPoint4.CFrame = GolfSwingCFrames.CalculatePart4()
 
                     local BezierPoint4Raycast = Raycasting.FindPartGround(BezierPoint4)
                     BezierPoint4.Position = BezierPoint4Raycast.Position + Vector3.new(0, (BezierPoint4.Size.Y / 2), 0)
