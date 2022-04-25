@@ -51,6 +51,9 @@ function SwingModule.HitBall(ServicePlayer, GolfSwingDistance)
                     BezierPoint4.Anchored = true
                     BezierPoint4.CanCollide = false
                     BezierPoint4.CFrame = GolfSwingCFrames.CalculatePart4(CharacterRoot, GolfSwingDistance, BezierPoint1)
+
+                    local BezierPoint4Raycast = Raycasting.FindPartGround(BezierPoint4)
+                    BezierPoint4.Position = BezierPoint4Raycast.Position + Vector3.new(0, (BezierPoint4.Size.Y / 2), 0)
                 end
             end
         end)
