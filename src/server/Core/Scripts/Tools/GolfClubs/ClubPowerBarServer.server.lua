@@ -22,7 +22,7 @@ ClubPowerBarSubmit.OnServerEvent:Connect(function(ServicePlayer, ClubType, Power
             ServicePlayer:SetAttribute("CurrentlySwinging", "True")
             ClubHead:SetAttribute("GolfBallTouch", "True")
 
-            wait(3)
+            wait(3) -- Time Length for Animation to Play for the Physical Swing
 
             ClubHead:SetAttribute("GolfBallTouch", "False")
             ServicePlayer:SetAttribute("CurrentlySwinging", "False")
