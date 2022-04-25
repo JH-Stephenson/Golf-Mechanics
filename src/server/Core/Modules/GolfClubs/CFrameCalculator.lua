@@ -8,7 +8,7 @@ local CFrameCalculator = {}
 
 function CFrameCalculator.CalculatePart1(HumanoidRootPart, SwingStrength, StartPart)
     --PLEASE JAMES CREATE THE WINDSPEED
-    local WindSpeed = 0
+    local WindSpeed = 5
 
     local QuarterWindSpeed = (-SwingStrength / 4)
     local HalfWindSpeed = (-SwingStrength / 2)
