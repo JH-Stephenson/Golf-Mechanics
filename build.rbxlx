@@ -2484,6 +2484,29 @@ function RaycastingModule.FindPlayersGround(ServicePlayer)
     end
 end
 
+function RaycastingModule.FindPartGround(PartName)
+    --RaycastingParameters
+    local RaycastOrigin = PartName.Position
+    local RaycastDirection = Vector3.new(0, -20, 0)
+    
+    local RaycastParameters = RaycastParams.new()
+    RaycastParameters.FilterType = Enum.RaycastFilterType.Blacklist
+    RaycastParameters.FilterDescendantsInstances = {PartName}
+    RaycastParameters.IgnoreWater = false
+
+    --RaycastCreation
+    local Raycast = workspace:Raycast(RaycastOrigin, RaycastDirection, RaycastParameters)
+
+    if Raycast then
+        print("Player's Raycast Hit Object: ", Raycast.Instance:GetFullName())
+        print("Player's Raycast Hit Object at Position: ", Raycast.Position)
+        print("Player's Raycast Hit an Object with the Material: ", Raycast.Material.Name)
+        print("Player's Raycast Surface Normal at Position: ", Raycast.Normal)
+
+        return Raycast
+    end
+end
+
 return RaycastingModule]]></ProtectedString>
 								<int64 name="SourceAssetId">-1</int64>
 								<BinaryString name="Tags"></BinaryString>
@@ -2686,6 +2709,202 @@ return GolfClubModule]]></ProtectedString>
 							</Properties>
 						</Item>
 					</Item>
+					<Item class="Folder" referent="RBX89A21548ACF949539F5B225AFE364C9A">
+						<Properties>
+							<BinaryString name="AttributesSerialize"></BinaryString>
+							<string name="Name">GolfClubs</string>
+							<int64 name="SourceAssetId">-1</int64>
+							<BinaryString name="Tags"></BinaryString>
+							<UniqueId name="UniqueId">060f4a583af3069a02786ade00027474</UniqueId>
+						</Properties>
+						<Item class="ModuleScript" referent="RBXEC4BE7EA6D0649A0A0B191F329F9A50B">
+							<Properties>
+								<BinaryString name="AttributesSerialize"></BinaryString>
+								<Content name="LinkedSource"><null></null></Content>
+								<string name="Name">CFrameCalculator</string>
+								<string name="ScriptGuid">{9C4C02F0-839D-41EE-858D-9CAFB882A126}</string>
+								<ProtectedString name="Source"><![CDATA[--CFrameCalculator
+
+--Services
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+--Variables
+local WindSpeed = ReplicatedStorage.Common.Components.Objects.WindSpeed.WindSpeed
+
+--Module
+local CFrameCalculator = {}
+
+function CFrameCalculator.CalculatePart2()
+
+end
+
+function CFrameCalculator.CalculatePart3(HumanoidRootPart, SwingStrength, StartPart)
+
+end
+
+function CFrameCalculator.CalculatePart4()
+
+end
+
+--EndModule
+return CFrameCalculator]]></ProtectedString>
+								<int64 name="SourceAssetId">-1</int64>
+								<BinaryString name="Tags"></BinaryString>
+								<UniqueId name="UniqueId">060f4a583af3069a02786ade00027475</UniqueId>
+							</Properties>
+						</Item>
+						<Item class="ModuleScript" referent="RBXA2A1A32CA66743AD88877D536FF3B2AB">
+							<Properties>
+								<BinaryString name="AttributesSerialize"></BinaryString>
+								<Content name="LinkedSource"><null></null></Content>
+								<string name="Name">SwingDistanceModule</string>
+								<string name="ScriptGuid">{4B67D877-6057-4B02-A77C-88FB5DBB00E8}</string>
+								<ProtectedString name="Source"><![CDATA[--SwingDistanceModule
+
+local SwingDistanceModule = {}
+
+function SwingDistanceModule.GenerateDriverDistance(PowerRate)
+    if PowerRate >= 0 and PowerRate <= 20 then
+        return(math.random(5, 10))
+
+    elseif PowerRate >= 21 and PowerRate <= 40 then
+        return(math.random(7, 15))
+
+    elseif PowerRate >= 41 and PowerRate <= 60 then
+        return(math.random(12, 18))
+
+    elseif PowerRate >= 61 and PowerRate <= 80 then
+        return(math.random(15, 20))
+
+    elseif PowerRate >= 81 and PowerRate <= 100 then
+        return(math.random(18, 22))
+
+    elseif PowerRate >= 101 and PowerRate <= 120 then
+        return(math.random(20, 25))
+
+    elseif PowerRate >= 121 and PowerRate <= 140 then
+        return(math.random(22, 28))
+
+    elseif PowerRate >= 141 and PowerRate <= 160 then
+        return(math.random(25, 30))
+
+    elseif PowerRate >= 161 and PowerRate <= 180 then
+        return(math.random(27, 32))
+
+    elseif PowerRate >= 181 and PowerRate <= 200 then
+        return(math.random(30, 35))
+        
+    elseif PowerRate >= 201 and PowerRate <= 220 then
+        return(math.random(32, 37))
+
+    elseif PowerRate >= 221 and PowerRate <= 240 then
+        return(math.random(35, 40))
+
+    elseif PowerRate >= 241 and PowerRate <= 260 then
+        return(math.random(40, 43))
+
+    elseif PowerRate >= 261 and PowerRate <= 280 then
+        return(math.random(43, 45))
+
+    elseif PowerRate >= 281 and PowerRate <= 300 then
+        return(math.random(45, 47))
+
+    elseif PowerRate >= 301 and PowerRate <= 320 then
+        return(math.random(47, 50))
+    end
+end
+
+return SwingDistanceModule]]></ProtectedString>
+								<int64 name="SourceAssetId">-1</int64>
+								<BinaryString name="Tags"></BinaryString>
+								<UniqueId name="UniqueId">060f4a583af3069a02786ade00027476</UniqueId>
+							</Properties>
+						</Item>
+						<Item class="ModuleScript" referent="RBX9A9318967C0147EE862750E045992514">
+							<Properties>
+								<BinaryString name="AttributesSerialize"></BinaryString>
+								<Content name="LinkedSource"><null></null></Content>
+								<string name="Name">SwingModule</string>
+								<string name="ScriptGuid">{FE28D7F4-F1C8-4056-B823-0CB38CC59E2F}</string>
+								<ProtectedString name="Source"><![CDATA[--SwingModule
+
+--Services
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
+
+--RequiredModules
+local Raycasting = require(game.ServerScriptService.Server.Core.Modules.Raycasting.RaycastingModule)
+local GolfSwingCFrames = require(game.ServerScriptService.Server.Core.Modules.GolfClubs.CFrameCalculator)
+local Bezier = require(game.ServerScriptService.Server.Core.Modules.BezierCurves.BezierModule)
+
+--Module
+local SwingModule = {}
+
+--RunTime
+function SwingModule.HitBall(ServicePlayer, GolfSwingDistance)
+    task.spawn(function()
+        local Success, ErrorData = pcall(function()
+            local WorkspaceCharacter = game.Workspace:FindFirstChild(ServicePlayer.Name)
+            local CharacterRoot = WorkspaceCharacter:FindFirstChild("HumanoidRootPart")
+
+            local GolfBall = game.Workspace:FindFirstChild(ServicePlayer.UserId.."'s Golf Ball")
+            local GroundRaycast = Raycasting.FindPlayersGround(ServicePlayer)
+
+            if GolfBall then
+                if GroundRaycast then
+                    local BezierPoint1 = Instance.new("Part")
+                    BezierPoint1.Transparency = 1
+                    BezierPoint1.Name = (ServicePlayer.UserId.."'s Bezier Point 1")
+                    BezierPoint1.Parent = game.Workspace
+                    BezierPoint1.Anchored = true
+                    BezierPoint1.CanCollide = false
+                    BezierPoint1.CFrame = GolfBall.CFrame
+
+                    local BezierPoint2 = Instance.new("Part")
+                    BezierPoint2.Transparency = 1
+                    BezierPoint2.Name = (ServicePlayer.UserId.."'s Bezier Point 2")
+                    BezierPoint2.Parent = game.Workspace
+                    BezierPoint2.Anchored = true
+                    BezierPoint2.CanCollide = false
+                    BezierPoint2.CFrame = GolfSwingCFrames.CalculatePart2(CharacterRoot, GolfSwingDistance, BezierPoint1)
+
+                    local BezierPoint3 = Instance.new("Part")
+                    BezierPoint3.Transparency = 1
+                    BezierPoint3.Name = (ServicePlayer.UserId.."'s Bezier Point 3")
+                    BezierPoint3.Parent = game.Workspace
+                    BezierPoint3.Anchored = true
+                    BezierPoint3.CanCollide = false
+                    BezierPoint3.CFrame = GolfSwingCFrames.CalculatePart3(CharacterRoot, GolfSwingDistance, BezierPoint1)
+
+                    local BezierPoint4 = Instance.new("Part")
+                    BezierPoint4.Transparency = 1
+                    BezierPoint4.Name = (ServicePlayer.UserId.."'s Bezier Point 4")
+                    BezierPoint4.Parent = game.Workspace
+                    BezierPoint4.Anchored = true
+                    BezierPoint4.CanCollide = false
+                    BezierPoint4.CFrame = GolfSwingCFrames.CalculatePart4(CharacterRoot, GolfSwingDistance, BezierPoint1)
+
+                    local BezierPoint4Raycast = Raycasting.FindPartGround(BezierPoint4)
+                    BezierPoint4.Position = BezierPoint4Raycast.Position + Vector3.new(0, (BezierPoint4.Size.Y / 2), 0)
+                end
+            end
+        end)
+
+        if not Success then
+            print(ErrorData)
+        end
+    end)
+end
+
+
+--EndModule
+return SwingModule]]></ProtectedString>
+								<int64 name="SourceAssetId">-1</int64>
+								<BinaryString name="Tags"></BinaryString>
+								<UniqueId name="UniqueId">060f4a583af3069a02786ade00027477</UniqueId>
+							</Properties>
+						</Item>
+					</Item>
 				</Item>
 				<Item class="Folder" referent="RBX0BCBF7EC1C46401188DE120931E0960E">
 					<Properties>
@@ -2847,7 +3066,7 @@ ClubPowerBarSubmit.OnServerEvent:Connect(function(ServicePlayer, ClubType, Power
             ServicePlayer:SetAttribute("CurrentlySwinging", "True")
             ClubHead:SetAttribute("GolfBallTouch", "True")
 
-            wait(3)
+            wait(3) -- Time Length for Animation to Play for the Physical Swing
 
             ClubHead:SetAttribute("GolfBallTouch", "False")
             ServicePlayer:SetAttribute("CurrentlySwinging", "False")
@@ -2876,18 +3095,74 @@ end)]]></ProtectedString>
 --Services
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
+--Modules
+local SwingDistanceModule = require(game.ServerScriptService.Server.Core.Modules.GolfClubs.SwingDistanceModule)
+local SwingModule = require(game.ServerScriptService.Server.Core.Modules.GolfClubs.SwingModule)
+
 --GolfClubEvents
 local DriverHit = ReplicatedStorage.Common.Events.Tools.GolfClubs.GolfDriver.HitGolfBall
 
 --RunTime
 DriverHit.OnServerEvent:Connect(function(ServicePlayer)
-    
+    task.spawn(function()
+        local Success, ErrorData = pcall(function()
+            local CurrentPowerRate = ServicePlayer:GetAttribute("CurrentPowerRate")
+            local ServerSwingDistance = SwingDistanceModule.GenerateDriverDistance(CurrentPowerRate)
+            local SwingBall = SwingModule.HitBall(ServicePlayer, ServerSwingDistance)
+        end)
+
+        if not Success then
+            print(ErrorData)
+        end
+    end)
 end)]]></ProtectedString>
 									<int64 name="SourceAssetId">-1</int64>
 									<BinaryString name="Tags"></BinaryString>
 									<UniqueId name="UniqueId">2230b9d3c0f771cc0276d443001bf945</UniqueId>
 								</Properties>
 							</Item>
+						</Item>
+					</Item>
+					<Item class="Folder" referent="RBX99A8CE7BA89E422FA8D9C6BE56B8FE94">
+						<Properties>
+							<BinaryString name="AttributesSerialize"></BinaryString>
+							<string name="Name">Weather</string>
+							<int64 name="SourceAssetId">-1</int64>
+							<BinaryString name="Tags"></BinaryString>
+							<UniqueId name="UniqueId">060f4a583af3069a02786ade000a8152</UniqueId>
+						</Properties>
+						<Item class="Script" referent="RBX713BE8AC7A42409092DA01B6E0F59099">
+							<Properties>
+								<BinaryString name="AttributesSerialize"></BinaryString>
+								<bool name="Disabled">false</bool>
+								<Content name="LinkedSource"><null></null></Content>
+								<string name="Name">WindSpeed</string>
+								<string name="ScriptGuid">{E9F9D4BB-AC67-466D-AA76-288EE3D7CFBD}</string>
+								<ProtectedString name="Source"><![CDATA[--WindSpeed
+
+--Services
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+--Variables
+local WindSpeed = ReplicatedStorage.Common.Components.Objects.WindSpeed.WindSpeed
+
+--RunTime
+while true do
+    local Success, ErrorData = pcall(function()
+        local GeneratedSpeed = math.random(1, 13)
+        WindSpeed.Value = GeneratedSpeed
+    
+        wait(15)
+    end)
+
+    if not Success then
+        print(ErrorData)
+    end
+end]]></ProtectedString>
+								<int64 name="SourceAssetId">-1</int64>
+								<BinaryString name="Tags"></BinaryString>
+								<UniqueId name="UniqueId">060f4a583af3069a02786ade000a8153</UniqueId>
+							</Properties>
 						</Item>
 					</Item>
 				</Item>
@@ -3056,228 +3331,256 @@ return SharedInitialisation]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 						<UniqueId name="UniqueId">27629d78d4d03b440275aa2300027234</UniqueId>
 					</Properties>
-					<Item class="MeshPart" referent="RBX8C69FB24B65A42ED8411E45AEFC8A550">
+					<Item class="Folder" referent="RBX895DBF90184A4A1CACCFB8B2F10CD527">
 						<Properties>
-							<bool name="Anchored">false</bool>
 							<BinaryString name="AttributesSerialize"></BinaryString>
-							<float name="BackParamA">-0.5</float>
-							<float name="BackParamB">0.5</float>
-							<token name="BackSurface">0</token>
-							<token name="BackSurfaceInput">0</token>
-							<float name="BottomParamA">-0.5</float>
-							<float name="BottomParamB">0.5</float>
-							<token name="BottomSurface">0</token>
-							<token name="BottomSurfaceInput">0</token>
-							<CoordinateFrame name="CFrame">
-								<X>-14.25</X>
-								<Y>0.31002</Y>
-								<Z>-34</Z>
-								<R00>1</R00>
-								<R01>-4.48739401e-09</R01>
-								<R02>-2.32828479e-10</R02>
-								<R10>4.48739357e-09</R10>
-								<R11>1</R11>
-								<R12>-1.04308548e-07</R12>
-								<R20>2.32828923e-10</R20>
-								<R21>1.0430854e-07</R21>
-								<R22>1</R22>
-							</CoordinateFrame>
-							<bool name="CanCollide">false</bool>
-							<bool name="CanQuery">true</bool>
-							<bool name="CanTouch">true</bool>
-							<bool name="CastShadow">true</bool>
-							<int name="CollisionGroupId">0</int>
-							<Color3uint8 name="Color3uint8">4293040960</Color3uint8>
-							<PhysicalProperties name="CustomPhysicalProperties">
-								<CustomPhysics>false</CustomPhysics>
-							</PhysicalProperties>
-							<bool name="DoubleSided">false</bool>
-							<float name="FrontParamA">-0.5</float>
-							<float name="FrontParamB">0.5</float>
-							<token name="FrontSurface">0</token>
-							<token name="FrontSurfaceInput">0</token>
-							<bool name="HasJointOffset">false</bool>
-							<bool name="HasSkinnedMesh">false</bool>
-							<Vector3 name="InitialSize">
-								<X>4.32000017</X>
-								<Y>27.7131863</Y>
-								<Z>4.32000017</Z>
-							</Vector3>
-							<Vector3 name="JointOffset">
-								<X>0</X>
-								<Y>0</Y>
-								<Z>0</Z>
-							</Vector3>
-							<BinaryString name="LODData"></BinaryString>
-							<float name="LeftParamA">-0.5</float>
-							<float name="LeftParamB">0.5</float>
-							<token name="LeftSurface">0</token>
-							<token name="LeftSurfaceInput">0</token>
-							<bool name="Locked">false</bool>
-							<bool name="Massless">false</bool>
-							<token name="Material">272</token>
-							<string name="MaterialVariantSerialized"></string>
-							<Content name="MeshID"><url>rbxassetid://5573347194</url></Content>
-							<Content name="MeshId"><url>rbxassetid://5573347194</url></Content>
-							<string name="Name">TeeObject</string>
-							<SharedString name="PhysicalConfigData">SDoAh+PYBvJH8j465dXqFA==</SharedString>
-							<BinaryString name="PhysicsData"></BinaryString>
-							<CoordinateFrame name="PivotOffset">
-								<X>0</X>
-								<Y>0</Y>
-								<Z>0</Z>
-								<R00>1</R00>
-								<R01>0</R01>
-								<R02>0</R02>
-								<R10>0</R10>
-								<R11>1</R11>
-								<R12>0</R12>
-								<R20>0</R20>
-								<R21>0</R21>
-								<R22>1</R22>
-							</CoordinateFrame>
-							<float name="Reflectance">0</float>
-							<token name="RenderFidelity">1</token>
-							<float name="RightParamA">-0.5</float>
-							<float name="RightParamB">0.5</float>
-							<token name="RightSurface">0</token>
-							<token name="RightSurfaceInput">0</token>
-							<int name="RootPriority">0</int>
-							<Vector3 name="RotVelocity">
-								<X>0</X>
-								<Y>0</Y>
-								<Z>0</Z>
-							</Vector3>
+							<string name="Name">WindSpeed</string>
 							<int64 name="SourceAssetId">-1</int64>
 							<BinaryString name="Tags"></BinaryString>
-							<Content name="TextureID"><null></null></Content>
-							<float name="TopParamA">-0.5</float>
-							<float name="TopParamB">0.5</float>
-							<token name="TopSurface">0</token>
-							<token name="TopSurfaceInput">0</token>
-							<float name="Transparency">0</float>
-							<UniqueId name="UniqueId">2230b9d3c0f771cc0276d443001bfa2c</UniqueId>
-							<Vector3 name="Velocity">
-								<X>0</X>
-								<Y>0</Y>
-								<Z>0</Z>
-							</Vector3>
-							<Vector3 name="size">
-								<X>0.150000006</X>
-								<Y>0.600000024</Y>
-								<Z>0.150000006</Z>
-							</Vector3>
+							<UniqueId name="UniqueId">060f4a583af3069a02786ade000a8060</UniqueId>
 						</Properties>
+						<Item class="IntValue" referent="RBX9210E2D1B21D4F3CBECBA62E15879C3E">
+							<Properties>
+								<BinaryString name="AttributesSerialize"></BinaryString>
+								<string name="Name">WindSpeed</string>
+								<int64 name="SourceAssetId">-1</int64>
+								<BinaryString name="Tags"></BinaryString>
+								<UniqueId name="UniqueId">060f4a583af3069a02786ade000a80ec</UniqueId>
+								<int64 name="Value">0</int64>
+							</Properties>
+						</Item>
 					</Item>
-					<Item class="UnionOperation" referent="RBX2157E92551AB4E88A961981383533DE7">
+					<Item class="Folder" referent="RBX11DAE66AEAF54965A94810F3BAB09544">
 						<Properties>
-							<bool name="Anchored">false</bool>
-							<Content name="AssetId"><url>https://www.roblox.com//asset/?id=1221280050</url></Content>
 							<BinaryString name="AttributesSerialize"></BinaryString>
-							<float name="BackParamA">-0.5</float>
-							<float name="BackParamB">0.5</float>
-							<token name="BackSurface">0</token>
-							<token name="BackSurfaceInput">0</token>
-							<float name="BottomParamA">-0.5</float>
-							<float name="BottomParamB">0.5</float>
-							<token name="BottomSurface">0</token>
-							<token name="BottomSurfaceInput">0</token>
-							<CoordinateFrame name="CFrame">
-								<X>6.75</X>
-								<Y>0.149999976</Y>
-								<Z>12</Z>
-								<R00>0</R00>
-								<R01>0</R01>
-								<R02>-1</R02>
-								<R10>0</R10>
-								<R11>1</R11>
-								<R12>0</R12>
-								<R20>1</R20>
-								<R21>0</R21>
-								<R22>0</R22>
-							</CoordinateFrame>
-							<bool name="CanCollide">false</bool>
-							<bool name="CanQuery">true</bool>
-							<bool name="CanTouch">true</bool>
-							<bool name="CastShadow">true</bool>
-							<BinaryString name="ChildData"></BinaryString>
-							<SharedString name="ChildData2">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
-							<int name="CollisionGroupId">0</int>
-							<Color3uint8 name="Color3uint8">4294506744</Color3uint8>
-							<PhysicalProperties name="CustomPhysicalProperties">
-								<CustomPhysics>false</CustomPhysics>
-							</PhysicalProperties>
-							<token name="FormFactor">3</token>
-							<float name="FrontParamA">-0.5</float>
-							<float name="FrontParamB">0.5</float>
-							<token name="FrontSurface">0</token>
-							<token name="FrontSurfaceInput">0</token>
-							<Vector3 name="InitialSize">
-								<X>4</X>
-								<Y>4</Y>
-								<Z>4</Z>
-							</Vector3>
-							<BinaryString name="LODData"></BinaryString>
-							<float name="LeftParamA">-0.5</float>
-							<float name="LeftParamB">0.5</float>
-							<token name="LeftSurface">0</token>
-							<token name="LeftSurfaceInput">0</token>
-							<bool name="Locked">false</bool>
-							<bool name="Massless">false</bool>
-							<token name="Material">272</token>
-							<string name="MaterialVariantSerialized"></string>
-							<BinaryString name="MeshData"></BinaryString>
-							<SharedString name="MeshData2">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
-							<string name="Name">BallObject</string>
-							<SharedString name="PhysicalConfigData">UvaEMW0/aTdc8qGnSu4zMg==</SharedString>
-							<BinaryString name="PhysicsData"></BinaryString>
-							<CoordinateFrame name="PivotOffset">
-								<X>0</X>
-								<Y>0</Y>
-								<Z>0</Z>
-								<R00>1</R00>
-								<R01>0</R01>
-								<R02>0</R02>
-								<R10>0</R10>
-								<R11>1</R11>
-								<R12>0</R12>
-								<R20>0</R20>
-								<R21>0</R21>
-								<R22>1</R22>
-							</CoordinateFrame>
-							<float name="Reflectance">0</float>
-							<token name="RenderFidelity">1</token>
-							<float name="RightParamA">-0.5</float>
-							<float name="RightParamB">0.5</float>
-							<token name="RightSurface">0</token>
-							<token name="RightSurfaceInput">0</token>
-							<int name="RootPriority">0</int>
-							<Vector3 name="RotVelocity">
-								<X>0</X>
-								<Y>0</Y>
-								<Z>0</Z>
-							</Vector3>
-							<float name="SmoothingAngle">0</float>
+							<string name="Name">GolfObjects</string>
 							<int64 name="SourceAssetId">-1</int64>
 							<BinaryString name="Tags"></BinaryString>
-							<float name="TopParamA">-0.5</float>
-							<float name="TopParamB">0.5</float>
-							<token name="TopSurface">0</token>
-							<token name="TopSurfaceInput">0</token>
-							<float name="Transparency">0</float>
-							<UniqueId name="UniqueId">2230b9d3c0f771cc0276d443001bfa2d</UniqueId>
-							<bool name="UsePartColor">false</bool>
-							<Vector3 name="Velocity">
-								<X>0</X>
-								<Y>0</Y>
-								<Z>0</Z>
-							</Vector3>
-							<Vector3 name="size">
-								<X>0.300000012</X>
-								<Y>0.300000012</Y>
-								<Z>0.300000012</Z>
-							</Vector3>
+							<UniqueId name="UniqueId">060f4a583af3069a02786ade000a8061</UniqueId>
 						</Properties>
+						<Item class="MeshPart" referent="RBX797505D40CA14968A5816D89867C7C09">
+							<Properties>
+								<bool name="Anchored">false</bool>
+								<BinaryString name="AttributesSerialize"></BinaryString>
+								<float name="BackParamA">-0.5</float>
+								<float name="BackParamB">0.5</float>
+								<token name="BackSurface">0</token>
+								<token name="BackSurfaceInput">0</token>
+								<float name="BottomParamA">-0.5</float>
+								<float name="BottomParamB">0.5</float>
+								<token name="BottomSurface">0</token>
+								<token name="BottomSurfaceInput">0</token>
+								<CoordinateFrame name="CFrame">
+									<X>-14.25</X>
+									<Y>0.31002</Y>
+									<Z>-34</Z>
+									<R00>1</R00>
+									<R01>-4.48739401e-09</R01>
+									<R02>-2.32828479e-10</R02>
+									<R10>4.48739357e-09</R10>
+									<R11>1</R11>
+									<R12>-1.04308548e-07</R12>
+									<R20>2.32828923e-10</R20>
+									<R21>1.0430854e-07</R21>
+									<R22>1</R22>
+								</CoordinateFrame>
+								<bool name="CanCollide">false</bool>
+								<bool name="CanQuery">true</bool>
+								<bool name="CanTouch">true</bool>
+								<bool name="CastShadow">true</bool>
+								<int name="CollisionGroupId">0</int>
+								<Color3uint8 name="Color3uint8">4293040960</Color3uint8>
+								<PhysicalProperties name="CustomPhysicalProperties">
+									<CustomPhysics>false</CustomPhysics>
+								</PhysicalProperties>
+								<bool name="DoubleSided">false</bool>
+								<float name="FrontParamA">-0.5</float>
+								<float name="FrontParamB">0.5</float>
+								<token name="FrontSurface">0</token>
+								<token name="FrontSurfaceInput">0</token>
+								<bool name="HasJointOffset">false</bool>
+								<bool name="HasSkinnedMesh">false</bool>
+								<Vector3 name="InitialSize">
+									<X>4.32000017</X>
+									<Y>27.7131863</Y>
+									<Z>4.32000017</Z>
+								</Vector3>
+								<Vector3 name="JointOffset">
+									<X>0</X>
+									<Y>0</Y>
+									<Z>0</Z>
+								</Vector3>
+								<BinaryString name="LODData"></BinaryString>
+								<float name="LeftParamA">-0.5</float>
+								<float name="LeftParamB">0.5</float>
+								<token name="LeftSurface">0</token>
+								<token name="LeftSurfaceInput">0</token>
+								<bool name="Locked">false</bool>
+								<bool name="Massless">false</bool>
+								<token name="Material">272</token>
+								<string name="MaterialVariantSerialized"></string>
+								<Content name="MeshID"><url>rbxassetid://5573347194</url></Content>
+								<Content name="MeshId"><url>rbxassetid://5573347194</url></Content>
+								<string name="Name">TeeObject</string>
+								<SharedString name="PhysicalConfigData">SDoAh+PYBvJH8j465dXqFA==</SharedString>
+								<BinaryString name="PhysicsData"></BinaryString>
+								<CoordinateFrame name="PivotOffset">
+									<X>0</X>
+									<Y>0</Y>
+									<Z>0</Z>
+									<R00>1</R00>
+									<R01>0</R01>
+									<R02>0</R02>
+									<R10>0</R10>
+									<R11>1</R11>
+									<R12>0</R12>
+									<R20>0</R20>
+									<R21>0</R21>
+									<R22>1</R22>
+								</CoordinateFrame>
+								<float name="Reflectance">0</float>
+								<token name="RenderFidelity">1</token>
+								<float name="RightParamA">-0.5</float>
+								<float name="RightParamB">0.5</float>
+								<token name="RightSurface">0</token>
+								<token name="RightSurfaceInput">0</token>
+								<int name="RootPriority">0</int>
+								<Vector3 name="RotVelocity">
+									<X>0</X>
+									<Y>0</Y>
+									<Z>0</Z>
+								</Vector3>
+								<int64 name="SourceAssetId">-1</int64>
+								<BinaryString name="Tags"></BinaryString>
+								<Content name="TextureID"><null></null></Content>
+								<float name="TopParamA">-0.5</float>
+								<float name="TopParamB">0.5</float>
+								<token name="TopSurface">0</token>
+								<token name="TopSurfaceInput">0</token>
+								<float name="Transparency">0</float>
+								<UniqueId name="UniqueId">060f4a583af3069a02786ade000a8079</UniqueId>
+								<Vector3 name="Velocity">
+									<X>0</X>
+									<Y>0</Y>
+									<Z>0</Z>
+								</Vector3>
+								<Vector3 name="size">
+									<X>0.150000006</X>
+									<Y>0.600000024</Y>
+									<Z>0.150000006</Z>
+								</Vector3>
+							</Properties>
+						</Item>
+						<Item class="UnionOperation" referent="RBX4454CB23A280411E98C2A011CC814BE9">
+							<Properties>
+								<bool name="Anchored">false</bool>
+								<Content name="AssetId"><url>https://www.roblox.com//asset/?id=1221280050</url></Content>
+								<BinaryString name="AttributesSerialize"></BinaryString>
+								<float name="BackParamA">-0.5</float>
+								<float name="BackParamB">0.5</float>
+								<token name="BackSurface">0</token>
+								<token name="BackSurfaceInput">0</token>
+								<float name="BottomParamA">-0.5</float>
+								<float name="BottomParamB">0.5</float>
+								<token name="BottomSurface">0</token>
+								<token name="BottomSurfaceInput">0</token>
+								<CoordinateFrame name="CFrame">
+									<X>6.75</X>
+									<Y>0.149999976</Y>
+									<Z>12</Z>
+									<R00>0</R00>
+									<R01>0</R01>
+									<R02>-1</R02>
+									<R10>0</R10>
+									<R11>1</R11>
+									<R12>0</R12>
+									<R20>1</R20>
+									<R21>0</R21>
+									<R22>0</R22>
+								</CoordinateFrame>
+								<bool name="CanCollide">false</bool>
+								<bool name="CanQuery">true</bool>
+								<bool name="CanTouch">true</bool>
+								<bool name="CastShadow">true</bool>
+								<BinaryString name="ChildData"></BinaryString>
+								<SharedString name="ChildData2">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+								<int name="CollisionGroupId">0</int>
+								<Color3uint8 name="Color3uint8">4294506744</Color3uint8>
+								<PhysicalProperties name="CustomPhysicalProperties">
+									<CustomPhysics>false</CustomPhysics>
+								</PhysicalProperties>
+								<token name="FormFactor">3</token>
+								<float name="FrontParamA">-0.5</float>
+								<float name="FrontParamB">0.5</float>
+								<token name="FrontSurface">0</token>
+								<token name="FrontSurfaceInput">0</token>
+								<Vector3 name="InitialSize">
+									<X>4</X>
+									<Y>4</Y>
+									<Z>4</Z>
+								</Vector3>
+								<BinaryString name="LODData"></BinaryString>
+								<float name="LeftParamA">-0.5</float>
+								<float name="LeftParamB">0.5</float>
+								<token name="LeftSurface">0</token>
+								<token name="LeftSurfaceInput">0</token>
+								<bool name="Locked">false</bool>
+								<bool name="Massless">false</bool>
+								<token name="Material">272</token>
+								<string name="MaterialVariantSerialized"></string>
+								<BinaryString name="MeshData"></BinaryString>
+								<SharedString name="MeshData2">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+								<string name="Name">BallObject</string>
+								<SharedString name="PhysicalConfigData">UvaEMW0/aTdc8qGnSu4zMg==</SharedString>
+								<BinaryString name="PhysicsData"></BinaryString>
+								<CoordinateFrame name="PivotOffset">
+									<X>0</X>
+									<Y>0</Y>
+									<Z>0</Z>
+									<R00>1</R00>
+									<R01>0</R01>
+									<R02>0</R02>
+									<R10>0</R10>
+									<R11>1</R11>
+									<R12>0</R12>
+									<R20>0</R20>
+									<R21>0</R21>
+									<R22>1</R22>
+								</CoordinateFrame>
+								<float name="Reflectance">0</float>
+								<token name="RenderFidelity">1</token>
+								<float name="RightParamA">-0.5</float>
+								<float name="RightParamB">0.5</float>
+								<token name="RightSurface">0</token>
+								<token name="RightSurfaceInput">0</token>
+								<int name="RootPriority">0</int>
+								<Vector3 name="RotVelocity">
+									<X>0</X>
+									<Y>0</Y>
+									<Z>0</Z>
+								</Vector3>
+								<float name="SmoothingAngle">0</float>
+								<int64 name="SourceAssetId">-1</int64>
+								<BinaryString name="Tags"></BinaryString>
+								<float name="TopParamA">-0.5</float>
+								<float name="TopParamB">0.5</float>
+								<token name="TopSurface">0</token>
+								<token name="TopSurfaceInput">0</token>
+								<float name="Transparency">0</float>
+								<UniqueId name="UniqueId">060f4a583af3069a02786ade000a807a</UniqueId>
+								<bool name="UsePartColor">false</bool>
+								<Vector3 name="Velocity">
+									<X>0</X>
+									<Y>0</Y>
+									<Z>0</Z>
+								</Vector3>
+								<Vector3 name="size">
+									<X>0.300000012</X>
+									<Y>0.300000012</Y>
+									<Z>0.300000012</Z>
+								</Vector3>
+							</Properties>
+						</Item>
 					</Item>
 				</Item>
 				<Item class="Folder" referent="RBX2AACCA4222024A0EB0F1D68F99B5BAD8">
