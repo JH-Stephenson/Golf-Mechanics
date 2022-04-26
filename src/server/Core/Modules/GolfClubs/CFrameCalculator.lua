@@ -42,7 +42,7 @@ function CFrameCalculator.CalculatePart4CFrame(BezierPoint1, SwingStrength)
     return BezierPoint1.CFrame * CFrame.new(HalfWindSpeed - WindSpeed, 10, HalfWindSpeed - -15)
 end
 
-function CFrameCalculator.CalculatePart4Position(BezierPoint1, BezierPoint4, SwingStrength)
+function CFrameCalculator.CalculatePart4Position(BezierPoint4)
     local Raycast = Raycasting.FindPartGround(BezierPoint4)
     return Raycast.Position + Vector3.new(0, (BezierPoint4.Size.Y / 2), 0)
 end
