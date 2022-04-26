@@ -40,7 +40,7 @@ function CFrameCalculator.CalculatePart4(BezierPoint1, SwingStrength)
 end
 
 --EndModule
-
+return CFrameCalculator
 
 --[[
     Comments for Building Relevant Calculations
