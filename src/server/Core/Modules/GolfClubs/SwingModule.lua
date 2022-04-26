@@ -55,7 +55,7 @@ function SwingModule.HitBall(ServicePlayer, GolfSwingDistance)
                     BezierPoint4.Anchored = true
                     BezierPoint4.CanCollide = false
                     BezierPoint4.CFrame = GolfSwingCFrames.CalculatePart4CFrame(BezierPoint1, GolfSwingDistance)
-                    BezierPoint4.Position = GolfSwingCFrames.CalculatePart4Position(BezierPoint1, BezierPoint4, GolfSwingDistance)
+                    BezierPoint4.Position = GolfSwingCFrames.CalculatePart4Position(BezierPoint4)
                 end
             end
         end)
