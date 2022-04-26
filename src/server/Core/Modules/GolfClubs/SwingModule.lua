@@ -38,7 +38,7 @@ function SwingModule.HitBall(ServicePlayer, GolfSwingDistance)
                     BezierPoint2.Parent = game.Workspace
                     BezierPoint2.Anchored = true
                     BezierPoint2.CanCollide = false
-                    BezierPoint2.CFrame = GolfSwingCFrames.CalculatePart2()
+                    BezierPoint2.CFrame = GolfSwingCFrames.CalculatePart2(BezierPoint1, GolfSwingDistance)
 
                     local BezierPoint3 = Instance.new("Part")
                     BezierPoint3.Transparency = 1
