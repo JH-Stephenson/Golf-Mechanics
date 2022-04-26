@@ -4,7 +4,7 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 --Variables
-local WindSpeed = ReplicatedStorage.Common.Components.Objects.WindSpeed.WindSpeed
+local WindSpeed = ReplicatedStorage.Common.Components.Objects.WindSpeed.WindSpeed.Value
 
 --Module
 local CFrameCalculator = {}
