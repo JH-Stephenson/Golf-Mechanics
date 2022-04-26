@@ -57,7 +57,8 @@ return CFrameCalculator
 WillTakeThePartToTheLeft
 PartName.CFrame = PartName.CFrame * CFrame.new(0,0,1) -- Change this based on where you want to go, it's on an XYZ axis
 
-MidPart1.CFrame = StartPart.CFrame * CFrame.new((-SwingDistance / 4) -WindSpeedValue, 5 + (WindSpeedValue / 2), -5 - (WindSpeedValue / 2))
+--Things That Did Work
+MidPart1.CFrame= StartPart.CFrame * CFrame.new((-SwingDistance / 4) -WindSpeedValue, 5 + (WindSpeedValue / 2), -5 - (WindSpeedValue / 2))
 MidPart2.CFrame = StartPart.CFrame * CFrame.new((-SwingDistance / 2) -WindSpeedValue, 7 + (WindSpeedValue / 2), -10 - (WindSpeedValue / 2))
 EndPart.CFrame = StartPart.CFrame * CFrame.new(-SwingDistance / 2, 10, -15 - (WindSpeedValue / 2))
 
