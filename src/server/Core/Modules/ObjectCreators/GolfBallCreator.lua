@@ -6,7 +6,7 @@ function GolfBallCreator.CreateGolfBall(ServicePlayer, GolfBall, GolfTee)
             if not GolfBall then
                 local WorkspaceCharacter = ServicePlayer.Character
 
-                local CreatedGolfBall = game.ReplicatedStorage.Common.Components.Objects.BallObject:Clone()
+                local CreatedGolfBall = game.ReplicatedStorage.Common.Components.Objects.GolfObjects.BallObject:Clone()
                 CreatedGolfBall.Name = (ServicePlayer.UserId.."'s Golf Ball")
                 CreatedGolfBall.Parent = game.ReplicatedStorage.Common.Components.Objects
                 CreatedGolfBall.Size = Vector3.new(0.5, 0.5, 0.5)

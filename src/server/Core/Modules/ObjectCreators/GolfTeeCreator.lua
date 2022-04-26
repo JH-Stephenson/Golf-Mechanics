@@ -11,7 +11,7 @@ function GolfTeeCreator.CreateGolfTee(ServicePlayer, GolfTee)
                     local WorkspaceCharacter = ServicePlayer.Character
                     local HumanoidRootPart = WorkspaceCharacter:FindFirstChild("HumanoidRootPart")
         
-                    local CreatedGolfTee = game.ReplicatedStorage.Common.Components.Objects.TeeObject:Clone()
+                    local CreatedGolfTee = game.ReplicatedStorage.Common.Components.Objects.GolfObjects.TeeObject:Clone()
                     CreatedGolfTee.Name = (ServicePlayer.UserId.."'s Golf Tee")
                     CreatedGolfTee.Parent = game.ReplicatedStorage.Common.Components.Objects
                     CreatedGolfTee.Size = Vector3.new(0.3, 0.7, 0.3)
