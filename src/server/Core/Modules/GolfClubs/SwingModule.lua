@@ -28,6 +28,7 @@ function SwingModule.HitBall(ServicePlayer, GolfSwingDistance)
                     BezierPoint1.Transparency = 1
                     BezierPoint1.Name = (ServicePlayer.UserId.."'s Bezier Point 1")
                     BezierPoint1.Parent = game.Workspace
+                    BezierPoint1.Size = Vector3.new(0.3, 0.3, 0.3)
                     BezierPoint1.Anchored = true
                     BezierPoint1.CanCollide = false
                     BezierPoint1.CFrame = GolfBall.CFrame
@@ -36,6 +37,7 @@ function SwingModule.HitBall(ServicePlayer, GolfSwingDistance)
                     BezierPoint2.Transparency = 1
                     BezierPoint2.Name = (ServicePlayer.UserId.."'s Bezier Point 2")
                     BezierPoint2.Parent = game.Workspace
+                    BezierPoint2.Size = Vector3.new(0.3, 0.3, 0.3)
                     BezierPoint2.Anchored = true
                     BezierPoint2.CanCollide = false
                     BezierPoint2.CFrame = GolfSwingCFrames.CalculatePart2(BezierPoint1, GolfSwingDistance)
@@ -44,6 +46,7 @@ function SwingModule.HitBall(ServicePlayer, GolfSwingDistance)
                     BezierPoint3.Transparency = 1
                     BezierPoint3.Name = (ServicePlayer.UserId.."'s Bezier Point 3")
                     BezierPoint3.Parent = game.Workspace
+                    BezierPoint3.Size = Vector3.new(0.3, 0.3, 0.3)
                     BezierPoint3.Anchored = true
                     BezierPoint3.CanCollide = false
                     BezierPoint3.CFrame = GolfSwingCFrames.CalculatePart3(BezierPoint1, GolfSwingDistance)
@@ -52,6 +55,7 @@ function SwingModule.HitBall(ServicePlayer, GolfSwingDistance)
                     BezierPoint4.Transparency = 1
                     BezierPoint4.Name = (ServicePlayer.UserId.."'s Bezier Point 4")
                     BezierPoint4.Parent = game.Workspace
+                    BezierPoint4.Size = Vector3.new(0.3, 0.3, 0.3)
                     BezierPoint4.Anchored = true
                     BezierPoint4.CanCollide = false
                     BezierPoint4.CFrame = GolfSwingCFrames.CalculatePart4CFrame(BezierPoint1, GolfSwingDistance)
