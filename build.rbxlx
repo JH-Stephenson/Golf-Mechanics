@@ -481,7 +481,7 @@ gcLgc4RKxr21zq2UlJSM]]></BinaryString>
 			<Ref name="TerrainSnow">null</Ref>
 			<Ref name="TerrainWoodPlanks">null</Ref>
 			<UniqueId name="UniqueId">691863620fe85698027556c20001bee9</UniqueId>
-			<bool name="Use2022Materials">false</bool>
+			<bool name="Use2022MaterialsXml">false</bool>
 			<Ref name="Wood">null</Ref>
 			<string name="WoodName">Wood</string>
 			<Ref name="WoodPlanks">null</Ref>
@@ -1824,6 +1824,7 @@ end)]]></ProtectedString>
 					<token name="SelectionBehaviorUp">0</token>
 					<bool name="SelectionGroup">false</bool>
 					<Ref name="SelectionImageObject">null</Ref>
+					<int name="SelectionOrder">0</int>
 					<UDim2 name="Size">
 						<XS>0</XS>
 						<XO>330</XO>
@@ -1914,6 +1915,7 @@ end)]]></ProtectedString>
 						<token name="SelectionBehaviorUp">0</token>
 						<bool name="SelectionGroup">false</bool>
 						<Ref name="SelectionImageObject">null</Ref>
+						<int name="SelectionOrder">0</int>
 						<UDim2 name="Size">
 							<XS>0</XS>
 							<XO>320</XO>
@@ -2020,6 +2022,7 @@ end)]]></ProtectedString>
 							<token name="SelectionBehaviorUp">0</token>
 							<bool name="SelectionGroup">false</bool>
 							<Ref name="SelectionImageObject">null</Ref>
+							<int name="SelectionOrder">0</int>
 							<UDim2 name="Size">
 								<XS>0</XS>
 								<XO>2</XO>
@@ -2536,7 +2539,7 @@ function GolfBallCreator.CreateGolfBall(ServicePlayer, GolfBall, GolfTee)
             if not GolfBall then
                 local WorkspaceCharacter = ServicePlayer.Character
 
-                local CreatedGolfBall = game.ReplicatedStorage.Common.Components.Objects.BallObject:Clone()
+                local CreatedGolfBall = game.ReplicatedStorage.Common.Components.Objects.GolfObjects.BallObject:Clone()
                 CreatedGolfBall.Name = (ServicePlayer.UserId.."'s Golf Ball")
                 CreatedGolfBall.Parent = game.ReplicatedStorage.Common.Components.Objects
                 CreatedGolfBall.Size = Vector3.new(0.5, 0.5, 0.5)
@@ -2602,7 +2605,7 @@ function GolfTeeCreator.CreateGolfTee(ServicePlayer, GolfTee)
                     local WorkspaceCharacter = ServicePlayer.Character
                     local HumanoidRootPart = WorkspaceCharacter:FindFirstChild("HumanoidRootPart")
         
-                    local CreatedGolfTee = game.ReplicatedStorage.Common.Components.Objects.TeeObject:Clone()
+                    local CreatedGolfTee = game.ReplicatedStorage.Common.Components.Objects.GolfObjects.TeeObject:Clone()
                     CreatedGolfTee.Name = (ServicePlayer.UserId.."'s Golf Tee")
                     CreatedGolfTee.Parent = game.ReplicatedStorage.Common.Components.Objects
                     CreatedGolfTee.Size = Vector3.new(0.3, 0.7, 0.3)
@@ -2728,26 +2731,50 @@ return GolfClubModule]]></ProtectedString>
 --Services
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
+--Modules
+local Raycasting = require(game.ServerScriptService.Server.Core.Modules.Raycasting.RaycastingModule)
+
 --Variables
-local WindSpeed = ReplicatedStorage.Common.Components.Objects.WindSpeed.WindSpeed
+local WindSpeed = ReplicatedStorage.Common.Components.Objects.WindSpeed.WindSpeed.Value
 
 --Module
 local CFrameCalculator = {}
 
-function CFrameCalculator.CalculatePart2()
-
+function CFrameCalculator.CalculatePart2(BezierPoint1, SwingStrength)
+    return BezierPoint1.CFrame * CFrame.new((-SwingStrength / 4) -WindSpeed, 5 + (WindSpeed / 2), -5 - (WindSpeed / 2))
 end
 
-function CFrameCalculator.CalculatePart3(HumanoidRootPart, SwingStrength, StartPart)
-
+function CFrameCalculator.CalculatePart3(BezierPoint1, SwingStrength)
+    return BezierPoint1.CFrame * CFrame.new((-SwingStrength / 2) -WindSpeed, 7 + (WindSpeed / 2), -10 - (WindSpeed / 2))
 end
 
-function CFrameCalculator.CalculatePart4()
+function CFrameCalculator.CalculatePart4CFrame(BezierPoint1, SwingStrength)
+    return BezierPoint1.CFrame * CFrame.new(-SwingStrength / 2, 10, -15 - (WindSpeed / 2))
+end
 
+function CFrameCalculator.CalculatePart4Position(BezierPoint4)
+    local Raycast = Raycasting.FindPartGround(BezierPoint4)
+    return Raycast.Position + Vector3.new(0, (BezierPoint4.Size.Y / 2), 0)
 end
 
 --EndModule
-return CFrameCalculator]]></ProtectedString>
+return CFrameCalculator
+
+--[[
+Comments for Building Relevant Calculations
+return CFrameCalculator
+
+WillTakeThePartToTheLeft
+PartName.CFrame = PartName.CFrame * CFrame.new(0,0,1) -- Change this based on where you want to go, it's on an XYZ axis
+
+--Things That Did Work
+MidPart1.CFrame= StartPart.CFrame * CFrame.new((-SwingDistance / 4) -WindSpeedValue, 5 + (WindSpeedValue / 2), -5 - (WindSpeedValue / 2))
+MidPart2.CFrame = StartPart.CFrame * CFrame.new((-SwingDistance / 2) -WindSpeedValue, 7 + (WindSpeedValue / 2), -10 - (WindSpeedValue / 2))
+EndPart.CFrame = StartPart.CFrame * CFrame.new(-SwingDistance / 2, 10, -15 - (WindSpeedValue / 2))
+
+local BezierPoint4Raycast = Raycasting.FindPartGround(BezierPoint4)
+BezierPoint4.Position = BezierPoint4Raycast.Position + Vector3.new(0, (BezierPoint4.Size.Y / 2), 0)
+]]]]></ProtectedString>
 								<int64 name="SourceAssetId">-1</int64>
 								<BinaryString name="Tags"></BinaryString>
 								<UniqueId name="UniqueId">060f4a583af3069a02786ade00027475</UniqueId>
@@ -2856,6 +2883,7 @@ function SwingModule.HitBall(ServicePlayer, GolfSwingDistance)
                     BezierPoint1.Transparency = 1
                     BezierPoint1.Name = (ServicePlayer.UserId.."'s Bezier Point 1")
                     BezierPoint1.Parent = game.Workspace
+                    BezierPoint1.Size = Vector3.new(0.3, 0.3, 0.3)
                     BezierPoint1.Anchored = true
                     BezierPoint1.CanCollide = false
                     BezierPoint1.CFrame = GolfBall.CFrame
@@ -2864,28 +2892,46 @@ function SwingModule.HitBall(ServicePlayer, GolfSwingDistance)
                     BezierPoint2.Transparency = 1
                     BezierPoint2.Name = (ServicePlayer.UserId.."'s Bezier Point 2")
                     BezierPoint2.Parent = game.Workspace
+                    BezierPoint2.Size = Vector3.new(0.3, 0.3, 0.3)
                     BezierPoint2.Anchored = true
                     BezierPoint2.CanCollide = false
-                    BezierPoint2.CFrame = GolfSwingCFrames.CalculatePart2(CharacterRoot, GolfSwingDistance, BezierPoint1)
+                    BezierPoint2.CFrame = GolfSwingCFrames.CalculatePart2(BezierPoint1, GolfSwingDistance)
 
                     local BezierPoint3 = Instance.new("Part")
                     BezierPoint3.Transparency = 1
                     BezierPoint3.Name = (ServicePlayer.UserId.."'s Bezier Point 3")
                     BezierPoint3.Parent = game.Workspace
+                    BezierPoint3.Size = Vector3.new(0.3, 0.3, 0.3)
                     BezierPoint3.Anchored = true
                     BezierPoint3.CanCollide = false
-                    BezierPoint3.CFrame = GolfSwingCFrames.CalculatePart3(CharacterRoot, GolfSwingDistance, BezierPoint1)
+                    BezierPoint3.CFrame = GolfSwingCFrames.CalculatePart3(BezierPoint1, GolfSwingDistance)
 
                     local BezierPoint4 = Instance.new("Part")
                     BezierPoint4.Transparency = 1
                     BezierPoint4.Name = (ServicePlayer.UserId.."'s Bezier Point 4")
                     BezierPoint4.Parent = game.Workspace
+                    BezierPoint4.Size = Vector3.new(0.3, 0.3, 0.3)
                     BezierPoint4.Anchored = true
                     BezierPoint4.CanCollide = false
-                    BezierPoint4.CFrame = GolfSwingCFrames.CalculatePart4(CharacterRoot, GolfSwingDistance, BezierPoint1)
+                    BezierPoint4.CFrame = GolfSwingCFrames.CalculatePart4CFrame(BezierPoint1, GolfSwingDistance)
+                    BezierPoint4.Position = GolfSwingCFrames.CalculatePart4Position(BezierPoint4)
 
-                    local BezierPoint4Raycast = Raycasting.FindPartGround(BezierPoint4)
-                    BezierPoint4.Position = BezierPoint4Raycast.Position + Vector3.new(0, (BezierPoint4.Size.Y / 2), 0)
+                    local GolfAttachment0 = Instance.new("Attachment")
+                    GolfAttachment0.Name = ("Attachment0")
+                    GolfAttachment0.Parent = GolfBall
+                    GolfAttachment0.Position = Vector3.new(1.6, 0, 1)
+
+                    local GolfAttachment1 = Instance.new("Attachment")
+                    GolfAttachment1.Name = ("Attachment1")
+                    GolfAttachment1.Parent = GolfBall
+                    GolfAttachment1.Position = Vector3.new(-1.6, 0, 1)
+
+                    local GolfTrail = ReplicatedStorage.Common.Components.Particles.GolfBallTrail
+                    GolfTrail.Parent =  GolfBall
+                    GolfTrail.Attachment0 = GolfAttachment0
+                    GolfTrail.Attachment1 = GolfAttachment1
+
+                    Bezier.CubicBezier(ServicePlayer, game.Workspace:FindFirstChild(ServicePlayer.UserId.."'s Golf Tee"), BezierPoint1, BezierPoint2, BezierPoint3, BezierPoint4, GolfBall)
                 end
             end
         end)
@@ -3358,7 +3404,7 @@ return SharedInitialisation]]></ProtectedString>
 							<BinaryString name="Tags"></BinaryString>
 							<UniqueId name="UniqueId">060f4a583af3069a02786ade000a8061</UniqueId>
 						</Properties>
-						<Item class="MeshPart" referent="RBX797505D40CA14968A5816D89867C7C09">
+						<Item class="MeshPart" referent="RBXF1537CB64B934A2BADBB31AA69C2B48A">
 							<Properties>
 								<bool name="Anchored">false</bool>
 								<BinaryString name="AttributesSerialize"></BinaryString>
@@ -3458,7 +3504,7 @@ return SharedInitialisation]]></ProtectedString>
 								<token name="TopSurface">0</token>
 								<token name="TopSurfaceInput">0</token>
 								<float name="Transparency">0</float>
-								<UniqueId name="UniqueId">060f4a583af3069a02786ade000a8079</UniqueId>
+								<UniqueId name="UniqueId">7d72d3a70fdcd54f027ea1ee0002972c</UniqueId>
 								<Vector3 name="Velocity">
 									<X>0</X>
 									<Y>0</Y>
@@ -3471,7 +3517,7 @@ return SharedInitialisation]]></ProtectedString>
 								</Vector3>
 							</Properties>
 						</Item>
-						<Item class="UnionOperation" referent="RBX4454CB23A280411E98C2A011CC814BE9">
+						<Item class="UnionOperation" referent="RBX47B29885B3994EB09097F64029C5C08D">
 							<Properties>
 								<bool name="Anchored">false</bool>
 								<Content name="AssetId"><url>https://www.roblox.com//asset/?id=1221280050</url></Content>
@@ -3567,7 +3613,7 @@ return SharedInitialisation]]></ProtectedString>
 								<token name="TopSurface">0</token>
 								<token name="TopSurfaceInput">0</token>
 								<float name="Transparency">0</float>
-								<UniqueId name="UniqueId">060f4a583af3069a02786ade000a807a</UniqueId>
+								<UniqueId name="UniqueId">7d72d3a70fdcd54f027ea1ee0002972d</UniqueId>
 								<bool name="UsePartColor">false</bool>
 								<Vector3 name="Velocity">
 									<X>0</X>
@@ -3591,6 +3637,31 @@ return SharedInitialisation]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 						<UniqueId name="UniqueId">27629d78d4d03b440275aa2300027235</UniqueId>
 					</Properties>
+					<Item class="Trail" referent="RBX4A78AA1A6E7148069CC07E42D63FB8D9">
+						<Properties>
+							<Ref name="Attachment0">null</Ref>
+							<Ref name="Attachment1">null</Ref>
+							<BinaryString name="AttributesSerialize"></BinaryString>
+							<float name="Brightness">1</float>
+							<ColorSequence name="Color">0 1 1 1 0 1 1 1 1 0 </ColorSequence>
+							<bool name="Enabled">true</bool>
+							<bool name="FaceCamera">false</bool>
+							<float name="Lifetime">2</float>
+							<float name="LightEmission">0</float>
+							<float name="LightInfluence">1</float>
+							<float name="MaxLength">0</float>
+							<float name="MinLength">0.100000001</float>
+							<string name="Name">GolfBallTrail</string>
+							<int64 name="SourceAssetId">-1</int64>
+							<BinaryString name="Tags"></BinaryString>
+							<Content name="Texture"><null></null></Content>
+							<float name="TextureLength">1</float>
+							<token name="TextureMode">0</token>
+							<NumberSequence name="Transparency">0 0.5 0 1 0.5 0 </NumberSequence>
+							<UniqueId name="UniqueId">7d72d3a70fdcd54f027ea1ee0004b825</UniqueId>
+							<NumberSequence name="WidthScale">0 0.4 0 1 0.4 0 </NumberSequence>
+						</Properties>
+					</Item>
 				</Item>
 				<Item class="Folder" referent="RBX27AC9F82A8C541F9947D4399323DED0B">
 					<Properties>
