@@ -14,20 +14,14 @@ local CFrameCalculator = {}
 
 function CFrameCalculator.CalculatePart2(BezierPoint1, SwingStrength)
     return BezierPoint1.CFrame * CFrame.new((-SwingStrength / 4) -WindSpeed, 5 + (WindSpeed / 2), -5 - (WindSpeed / 2))
-    --return BezierPoint1.CFrame * CFrame.new(QuarterSwingStrength - WindSpeed, HalfWindSpeed + 5, HalfWindSpeed -5)
-    --MidPart1.CFrame= StartPart.CFrame * CFrame.new((-SwingDistance / 4) -WindSpeedValue, 5 + (WindSpeedValue / 2), -5 - (WindSpeedValue / 2))
 end
 
 function CFrameCalculator.CalculatePart3(BezierPoint1, SwingStrength)
     return BezierPoint1.CFrame * CFrame.new((-SwingStrength / 2) -WindSpeed, 7 + (WindSpeed / 2), -10 - (WindSpeed / 2))
-    --return BezierPoint1.CFrame * CFrame.new(HalfWindSpeed - WindSpeed, HalfWindSpeed + 7, HalfWindSpeed -10)
-    --MidPart2.CFrame = StartPart.CFrame * CFrame.new((-SwingDistance / 2) -WindSpeedValue, 7 + (WindSpeedValue / 2), -10 - (WindSpeedValue / 2))
 end
 
 function CFrameCalculator.CalculatePart4CFrame(BezierPoint1, SwingStrength)
     return BezierPoint1.CFrame * CFrame.new(-SwingStrength / 2, 10, -15 - (WindSpeed / 2))
-    --return BezierPoint1.CFrame * CFrame.new(HalfWindSpeed - WindSpeed, 10, HalfWindSpeed - -15)
-    --EndPart.CFrame = StartPart.CFrame * CFrame.new(-SwingDistance / 2, 10, -15 - (WindSpeedValue / 2))
 end
 
 function CFrameCalculator.CalculatePart4Position(BezierPoint4)
