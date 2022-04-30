@@ -56,6 +56,23 @@ function SwingModule.HitBall(ServicePlayer, GolfSwingDistance)
                     BezierPoint4.CanCollide = false
                     BezierPoint4.CFrame = GolfSwingCFrames.CalculatePart4CFrame(BezierPoint1, GolfSwingDistance)
                     BezierPoint4.Position = GolfSwingCFrames.CalculatePart4Position(BezierPoint4)
+
+                    local GolfAttachment0 = Instance.new("Attachment")
+                    GolfAttachment0.Name = ("Attachment0")
+                    GolfAttachment0.Parent = GolfBall
+                    GolfAttachment0.Position = Vector3.new(1.6, 0, 1)
+
+                    local GolfAttachment1 = Instance.new("Attachment")
+                    GolfAttachment1.Name = ("Attachment1")
+                    GolfAttachment1.Parent = GolfBall
+                    GolfAttachment1.Position = Vector3.new(-1.6, 0, 1)
+
+                    local GolfTrail = ReplicatedStorage.Common.Components.Particles.GolfBallTrail
+                    GolfTrail.Parent =  GolfBall
+                    GolfTrail.Attachment0 = GolfAttachment0
+                    GolfTrail.Attachment1 = GolfAttachment1
+
+                    Bezier.CubicBezier(ServicePlayer, game.Workspace:FindFirstChild(ServicePlayer.UserId.."'s Golf Tee"), BezierPoint1, BezierPoint2, BezierPoint3, BezierPoint4, GolfBall)
                 end
             end
         end)
